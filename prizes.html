@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>Prizes - DeedDraw Real Estate Rewards</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="prizes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="prizes-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.png" alt="DeedDraw Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="prizes.html" class="nav-link active">Prizes</a>
+                <a href="register.html" class="nav-link">Register</a>
+                                <a href="winners.html" class="nav-link">Winners</a>
+                                <a href="contact.html" class="nav-link">Contact</a>
+                
+                <!-- Mobile-only nav links (hidden on desktop, shown instead of dropdown on mobile) -->
+                <a href="leaderboard.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-trophy"></i>
+                    Points Leaderboard
+                </a>
+                <a href="rules.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-gavel"></i>
+                    Rules & Regulations
+                </a>
+                <a href="faqs.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-question-circle"></i>
+                    FAQs
+                </a>
+                
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-chevron-down"></i> More
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="leaderboard.html" class="dropdown-item">
+                            <i class="fas fa-trophy"></i>
+                            Points Leaderboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="rules.html" class="dropdown-item">
+                            <i class="fas fa-gavel"></i>
+                            Rules & Regulations
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="faqs.html" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i>
+                            FAQs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-auth">
+                <a href="login.html" class="nav-link login-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+                <a href="dashboard.html" class="nav-link dashboard-btn" style="display: none;" id="dashboard-btn">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                
+                <!-- User Profile Circle (Hidden by default) -->
+                <div style="position: relative; display: none;" id="profile-circle">
+                    <div class="user-avatar" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        width: 60px; 
+                        height: 60px; 
+                        background: rgba(51, 65, 85, 0.8); 
+                        border-radius: 50%; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        cursor: pointer;
+                        border: 3px solid #F59E0B;
+                        transition: all 0.3s ease;
+                    ">
+                        <span style="color: #F59E0B; font-weight: 800; font-size: 1rem; font-family: 'Josefin Sans', sans-serif;" id="user-initials-prizes">JD</span>
+                    </div>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown-prizes" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        position: absolute;
+                        top: 100%;
+                        right: 0;
+                        margin-top: 8px;
+                        background: #1E2A38;
+                        border-radius: 8px;
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                        min-width: 180px;
+                        display: none;
+                        z-index: 1001;
+                    ">
+                        <!-- User Info Header -->
+                        <div style="padding: 16px 20px; border-radius: 8px 8px 0 0;">
+                            <div style="font-weight: 600; color: #F59E0B; font-size: 1rem;" id="dropdown-user-name-prizes">John Doe</div>
+                            <div style="font-size: 0.8rem; color: #b8c5d6; margin-top: 2px;" id="dropdown-user-category-prizes">Real Estate Agent</div>
+                        </div>
+                        
+                        <!-- Divider -->
+                        <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0 auto; width: 85%;"></div>
+                        
+                        <!-- Dashboard Link -->
+                        <a href="dashboard.html" class="dropdown-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-tachometer-alt" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Dashboard
+                        </a>
+                        
+                        <!-- Logout -->
+                        <a href="#" onclick="logout(); return false;" class="dropdown-item logout-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-sign-out-alt" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Win Life-Changing
+                    <span class="hero-highlight">$500,000</span>
+                    <span class="hero-subtitle-text">in Prizes</span>
+                </h1>
+                <p class="hero-subtitle">
+                    <span class="hero-accent">15 Winners Every Drawing</span> • Fair & Transparent • Canadian Real Estate Professionals
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Total Winners</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number">$500K</div>
+                        <div class="stat-label">Total Prize Pool</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number">$300K</div>
+                        <div class="stat-label">Largest Prize</div>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <button class="btn btn-primary-hero" onclick="scrollToRegistration()">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Register to Win</span>
+                    </button>
+                    <button class="btn btn-secondary-hero" onclick="scrollToSection('prize-breakdown')">
+                        <i class="fas fa-trophy"></i>
+                        <span>View Prize Details</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prize Breakdown Section -->
+        <section class="prizes-breakdown-section" id="prize-breakdown">
+        <div class="prizes-breakdown-container">
+            <div class="prizes-section-header">
+                <h2 class="prizes-section-title">Prize Distribution</h2>
+                <p class="prizes-section-subtitle">Fifteen life-changing prizes totaling $500,000</p>
+                <div class="golden-line"></div>
+            </div>
+            
+            <div class="prizes-grid">
+                <!-- Grand Prize -->
+                <div class="prize-card prize-card-grand">
+                    <div class="prize-rank">Grand Prize</div>
+                    <div class="prize-amount">$300,000</div>
+                    <div class="prize-quantity">1 Winner</div>
+                    <div class="prize-description">The ultimate reward for your real estate success</div>
+                    <div class="prize-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                </div>
+                
+                <!-- Second Prizes -->
+                <div class="prize-card prize-card-second">
+                    <div class="prize-rank">Second Prize</div>
+                    <div class="prize-amount">$50,000</div>
+                    <div class="prize-quantity">2 Winners</div>
+                    <div class="prize-description">Substantial rewards for outstanding performance</div>
+                    <div class="prize-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                </div>
+                
+                <!-- Third Prizes -->
+                <div class="prize-card prize-card-third">
+                    <div class="prize-rank">Third Prize</div>
+                    <div class="prize-amount">$25,000</div>
+                    <div class="prize-quantity">2 Winners</div>
+                    <div class="prize-description">Excellent returns for dedicated professionals</div>
+                    <div class="prize-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                </div>
+                
+                <!-- Fourth Prizes -->
+                <div class="prize-card prize-card-fourth">
+                    <div class="prize-rank">Fourth Prize</div>
+                    <div class="prize-amount">$5,000</div>
+                    <div class="prize-quantity">10 Winners</div>
+                    <div class="prize-description">Rewarding more real estate professionals</div>
+                    <div class="prize-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="prizes-stats">
+                <div class="prizes-stat-item">
+                    <div class="prizes-stat-number">15</div>
+                    <div class="prizes-stat-label">Total Winners</div>
+                </div>
+                <div class="prizes-stat-item">
+                    <div class="prizes-stat-number">$33,333</div>
+                    <div class="prizes-stat-label">Average Prize</div>
+                </div>
+                <div class="prizes-stat-item">
+                    <div class="prizes-stat-number">16.7×</div>
+                    <div class="prizes-stat-label">Potential ROI</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Drawing Status Section -->
+    <section class="current-status-section" id="drawing-status">
+        <div class="current-status-container">
+            <div class="status-section-header">
+                <h2 class="status-section-title">Current Drawing Status</h2>
+                <p class="status-section-subtitle">Track the progress toward our next $500,000 drawing</p>
+                <div class="golden-line"></div>
+            </div>
+            
+            <div class="status-content">
+                <!-- Progress Section -->
+                <div class="progress-section">
+                    <div class="progress-info">
+                        <div class="progress-numbers">
+                            <div class="current-points">
+                                <span class="points-number" id="prizes-current-points">0</span>
+                                <span class="points-label">Points Registered</span>
+                            </div>
+                            <div class="target-points">
+                                <span class="target-number">400</span>
+                                <span class="target-label">Points to Draw</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="prizes-progress-fill" data-target-width="0"></div>
+                                <div class="progress-glow"></div>
+                            </div>
+                            <div class="progress-percentage" id="prizes-progress-percentage" data-target-percentage="0">0%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status Cards -->
+                <div class="status-cards">
+                    <div class="status-card">
+                        <div class="status-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="status-info">
+                            <div class="status-number" id="prizes-participants">0</div>
+                            <div class="status-label">Participants</div>
+                            <div class="status-description">Real estate professionals entered</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="status-info">
+                            <div class="status-number">Drawing #1</div>
+                            <div class="status-label">Current Round</div>
+                            <div class="status-description">In progress until 400 points reached</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="status-info">
+                            <div class="status-number" id="prizes-points-needed">400</div>
+                            <div class="status-label">Points Needed</div>
+                            <div class="status-description">To trigger the next drawing</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Call to Action -->
+                <div class="status-cta">
+                    <div class="cta-content">
+                        <h3 class="cta-title">Ready to Join the Drawing?</h3>
+                        <p class="cta-description">Register your real estate points and enter for a chance to win up to $300,000</p>
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary-dark" onclick="window.location.href='register.html'">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Register Points</span>
+                            </button>
+                            <button class="btn btn-secondary-dark" onclick="window.location.href='dashboard.html'">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>View Dashboard</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Prizes Are Awarded Section -->
+    <section class="prizes-awarded-section" id="how-awards">
+        <div class="prizes-awarded-container">
+            <div class="awarded-section-header">
+                <h2 class="awarded-section-title">How Prizes Are Awarded</h2>
+                <p class="awarded-section-subtitle">Transparent process ensuring fair and secure prize distribution</p>
+                <div class="golden-line"></div>
+            </div>
+            
+            <div class="awards-process">
+                <!-- Drawing Process Steps -->
+                <div class="process-steps">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Drawing Trigger</h3>
+                            <p class="step-description">When 400 points are registered, the drawing is automatically triggered and entry closes for that round.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Random Selection</h3>
+                            <p class="step-description">Independent third-party verification ensures completely random and fair winner selection using certified algorithms.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-random"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Winner Verification</h3>
+                            <p class="step-description">Winners are contacted within 24 hours and must verify their identity and transaction records within 7 days.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Prize Distribution</h3>
+                            <p class="step-description">Verified winners receive their prizes via wire transfer within 10 business days of verification completion.</p>
+                        </div>
+                        <div class="step-icon">
+                            <i class="fas fa-money-check-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Important Information -->
+                <div class="important-info">
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4 class="info-title">Security & Compliance</h4>
+                                <p class="info-text">All transactions are audited and comply with Canadian gaming regulations and tax requirements.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4 class="info-title">Tax Considerations</h4>
+                                <p class="info-text">Winners are responsible for all applicable taxes. T4A slips will be issued for prizes over $500.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4 class="info-title">Timeline</h4>
+                                <p class="info-text">From drawing to prize receipt: Winner notification (24hrs) + Verification (7 days) + Payment (10 business days).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Final CTA -->
+                <div class="awards-cta">
+                    <div class="cta-content">
+                        <h3 class="cta-title">Ready to Enter the Next Drawing?</h3>
+                        <p class="cta-description">Join other real estate professionals and register your qualifying transactions today</p>
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary-light" onclick="scrollToRegistration()">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Start Registration</span>
+                            </button>
+                            <button class="btn btn-secondary-light" onclick="window.location.href='how-it-works.html'">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Learn More</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- Company Info -->
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <img src="assets/images/logo.png" alt="DeedDraw Logo">
+                            <p>Turning real estate success into life-changing opportunities through transparent, fair rewards.</p>
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/deeddraw" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="how-it-works.html">How It Works</a></li>
+                            <li><a href="index.html#calculator">Point Calculator</a></li>
+                            <li><a href="leaderboard.html">Participants</a></li>
+                            <li><a href="register.html" id="footer-register-link">Register Now</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Support -->
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="faqs.html">FAQs</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="rules.html">Rules & Regulations</a></li>
+                            <li><a href="leaderboard.html">View Leaderboard</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Legal -->
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="rules.html#terms-of-service">Terms of Service</a></li>
+                            <li><a href="rules.html#privacy-policy">Privacy Policy</a></li>
+                            <li><a href="rules.html#drawing-rules">Drawing Rules</a></li>
+                            <li><a href="rules.html#disclaimer">Disclaimer</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="footer-section">
+                        <h4>Get In Touch</h4>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>support@deeddraw.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>1 - (604) 670-8080</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>808 Marine Drive<br>West Vancouver, BC<br>Canada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 DeedDraw. All rights reserved. | <span class="trust-text">SSL Secured</span> | <span class="trust-text">Bank-Grade Security</span> | <span class="trust-text">Verified Platform</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Profile dropdown functions - Make them global
+        let hideTimeout;
+
+        window.showMenu = function() {
+            clearTimeout(hideTimeout);
+            const dropdown = document.getElementById('user-dropdown-prizes');
+            if (dropdown) {
+                dropdown.style.display = 'block';
+            }
+        };
+
+        window.hideMenuDelayed = function() {
+            hideTimeout = setTimeout(function() {
+                const dropdown = document.getElementById('user-dropdown-prizes');
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            }, 200); // Small delay to prevent flickering when moving between avatar and dropdown
+        };
+
+        window.logout = function() {
+            // Clear user session
+            localStorage.removeItem('userSession');
+            sessionStorage.removeItem('userSession');
+            
+            // Show logout message
+            alert('You have been logged out successfully.');
+            
+            // Redirect to home page
+            window.location.href = 'index.html';
+        };
+
+        // Consolidated DOMContentLoaded - All initialization in one place
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Check authentication session
+            checkUserSession();
+            
+            // 2. Initialize hamburger menu
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            console.log('Hamburger menu initialization:', { hamburger, navMenu });
+            
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Hamburger clicked!');
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu when clicking on a link
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+                
+                console.log('Hamburger menu event listeners added successfully');
+            } else {
+                console.error('Hamburger menu elements not found:', { hamburger, navMenu });
+            }
+        });        // Check session when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserSession();
+        });
+
+        // Profile dropdown functions - Make them global
+        window.showMenu = function() {
+            clearTimeout(hideTimeout);
+            const dropdown = document.getElementById('user-dropdown-prizes');
+            if (dropdown) {
+                dropdown.style.display = 'block';
+            }
+        };
+
+        window.hideMenuDelayed = function() {
+            hideTimeout = setTimeout(function() {
+                const dropdown = document.getElementById('user-dropdown-prizes');
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            }, 200); // Small delay to prevent flickering when moving between avatar and dropdown
+        };
+
+        window.logout = function() {
+            // Clear user session
+            localStorage.removeItem('userSession');
+            sessionStorage.removeItem('userSession');
+            
+            // Show logout message
+            alert('You have been logged out successfully.');
+            
+            // Redirect to home page
+            window.location.href = 'index.html';
+        };
+
+                // Consolidated DOMContentLoaded - All initialization in one place
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Prizes page initializing...');
+            
+            // 1. Check authentication session
+            checkUserSession();
+            
+            // 2. Initialize hamburger menu
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            console.log('Hamburger menu initialization:', { hamburger, navMenu });
+            
+            if (hamburger && navMenu) {
+                console.log('Adding hamburger click event...');
+                hamburger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Hamburger clicked!');
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    console.log('Menu toggled - hamburger active:', hamburger.classList.contains('active'));
+                    console.log('Menu toggled - navMenu active:', navMenu.classList.contains('active'));
+                });
+
+                // Close menu when clicking on a link
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+                
+                console.log('Hamburger menu event listeners added successfully');
+            } else {
+                console.error('Hamburger menu elements not found:', { hamburger, navMenu });
+            }
+        });
+
+        // Check user session and update navbar - PRIZES PAGE VERSION
+        function checkUserSession() {
+            console.log('Checking user session on prizes page...');
+            const sessionData = localStorage.getItem('userSession') || sessionStorage.getItem('userSession');
+            console.log('Session data found:', sessionData);
+            
+            if (sessionData) {
+                try {
+                    const session = JSON.parse(sessionData);
+                    console.log('Parsed session:', session);
+                    const userData = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+                    console.log('User data in storage:', userData);
+                    const user = userData ? JSON.parse(userData) : null;
+                    console.log('Found user:', user);
+                    
+                    if (user && session.userId && session.email) {
+                        console.log('User authenticated successfully:', user);
+                        // User is logged in - show profile circle, hide login button
+                        const loginBtn = document.getElementById('login-btn');
+                        const profileCircle = document.getElementById('profile-circle');
+                        
+                        console.log('Auth elements found:', { loginBtn, profileCircle });
+                        
+                        loginBtn.style.setProperty('display', 'none', 'important');
+                        loginBtn.style.setProperty('visibility', 'hidden', 'important');
+                        loginBtn.style.setProperty('opacity', '0', 'important');
+                        loginBtn.style.setProperty('position', 'absolute', 'important');
+                        loginBtn.style.setProperty('pointer-events', 'none', 'important');
+                        
+                        profileCircle.style.setProperty('display', 'block', 'important');
+                        profileCircle.style.setProperty('visibility', 'visible', 'important');
+                        profileCircle.style.setProperty('opacity', '1', 'important');
+                        profileCircle.style.setProperty('position', 'relative', 'important');
+                        profileCircle.style.setProperty('pointer-events', 'auto', 'important');
+                        
+                        // Update user info in profile circle - PRIZES PAGE IDs
+                        const initials = (user.firstName[0] + user.lastName[0]).toUpperCase();
+                        document.getElementById('user-initials-prizes').textContent = initials;
+                        document.getElementById('dropdown-user-name-prizes').textContent = user.firstName + ' ' + user.lastName;
+                        
+                        // Map category codes to readable names
+                        const categoryMap = {
+                            'agent-broker': 'Real Estate Agent',
+                            'developer': 'Developer', 
+                            'sales-marketing': 'Sales & Marketing',
+                            'mortgage-broker': 'Mortgage Broker',
+                            'individual': 'Individual'
+                        };
+                        
+                        const categoryDisplay = categoryMap[user.category] || user.category;
+                        document.getElementById('dropdown-user-category-prizes').textContent = categoryDisplay;
+                        
+                        console.log('Profile circle updated with user info');
+                        return;
+                    } else {
+                        console.log('Session invalid, clearing...');
+                        localStorage.removeItem('userSession');
+                        sessionStorage.removeItem('userSession');
+                    }
+                } catch (error) {
+                    console.error('Error parsing session data:', error);
+                    localStorage.removeItem('userSession');
+                    sessionStorage.removeItem('userSession');
+                }
+            }
+            
+            // User is not logged in - show login button, hide profile circle
+            console.log('No valid session - showing login button');
+            const loginBtn = document.getElementById('login-btn');
+            const profileCircle = document.getElementById('profile-circle');
+            
+            if (loginBtn && profileCircle) {
+                loginBtn.style.setProperty('display', 'flex', 'important');
+                loginBtn.style.setProperty('visibility', 'visible', 'important');
+                loginBtn.style.setProperty('opacity', '1', 'important');
+                loginBtn.style.setProperty('position', 'relative', 'important');
+                loginBtn.style.setProperty('pointer-events', 'auto', 'important');
+                
+                profileCircle.style.setProperty('display', 'none', 'important');
+                profileCircle.style.setProperty('visibility', 'hidden', 'important');
+                profileCircle.style.setProperty('opacity', '0', 'important');
+                profileCircle.style.setProperty('position', 'absolute', 'important');
+                profileCircle.style.setProperty('pointer-events', 'none', 'important');
+            }
+        }
+
+    </script>
+
+    <!-- Prize Distribution Animation Script -->
+    <script>
+        console.log('🏆 Prize Distribution Animation Script Loaded');
+        
+        let prizeAnimationTriggered = false;
+        
+        function initPrizeDistributionAnimation() {
+            console.log('🎯 Initializing prize distribution animation...');
+            
+            const prizeCards = document.querySelectorAll('.prize-card');
+            const prizeStats = document.querySelectorAll('.prizes-stat-item');
+            
+            if (prizeCards.length === 0) {
+                console.log('❌ Prize cards not found!');
+                return;
+            }
+            
+            if (prizeStats.length === 0) {
+                console.log('❌ Prize stats not found!');
+                return;
+            }
+            
+            console.log('🏆 Found', prizeCards.length, 'prize cards');
+            console.log('📊 Found', prizeStats.length, 'prize stats');
+            
+            // Initialize all elements as hidden
+            prizeCards.forEach((card, i) => {
+                card.classList.add('prize-hidden');
+                console.log('💤 Prize card', i + 1, 'initialized as hidden');
+            });
+            
+            prizeStats.forEach((stat, i) => {
+                stat.classList.add('stat-hidden');
+                console.log('💤 Prize stat', i + 1, 'initialized as hidden');
+            });
+            
+            // Setup scroll trigger
+            const section = document.querySelector('#prize-breakdown');
+            if (!section) {
+                console.log('❌ Prize breakdown section not found!');
+                return;
+            }
+            
+            // Scroll detection function
+            function checkPrizeScroll() {
+                if (prizeAnimationTriggered) return;
+                
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Trigger when section is 60% visible
+                if (rect.top < windowHeight * 0.6 && rect.bottom > 0) {
+                    console.log('🚀 TRIGGERING PRIZE DISTRIBUTION ANIMATION!');
+                    prizeAnimationTriggered = true;
+                    
+                    // Animate prize cards first with staggered timing
+                    prizeCards.forEach((card, i) => {
+                        setTimeout(() => {
+                            console.log('✨ Animating prize card', i + 1);
+                            card.classList.remove('prize-hidden');
+                            card.classList.add('prize-visible');
+                        }, i * 200); // 200ms delay between each card
+                    });
+                    
+                    // Animate prize stats after cards complete (with some overlap)
+                    setTimeout(() => {
+                        prizeStats.forEach((stat, i) => {
+                            setTimeout(() => {
+                                console.log('✨ Animating prize stat', i + 1);
+                                stat.classList.remove('stat-hidden');
+                                stat.classList.add('stat-visible');
+                            }, i * 150); // 150ms delay between each stat
+                        });
+                    }, 600); // Start stats 600ms after first card
+                    
+                    // Remove scroll listener
+                    window.removeEventListener('scroll', checkPrizeScroll);
+                }
+            }
+            
+            // Add scroll listener
+            console.log('📌 Adding prize scroll listener...');
+            window.addEventListener('scroll', checkPrizeScroll);
+            
+            // Initial check (in case already scrolled)
+            checkPrizeScroll();
+            
+            // Fallback: Force animation after 8 seconds if not triggered
+            setTimeout(() => {
+                if (!prizeAnimationTriggered) {
+                    console.log('⏰ Fallback: Force triggering prize animation');
+                    prizeAnimationTriggered = true;
+                    
+                    // Force animate all elements
+                    prizeCards.forEach((card, i) => {
+                        setTimeout(() => {
+                            console.log('✨ Force animating prize card', i + 1);
+                            card.classList.remove('prize-hidden');
+                            card.classList.add('prize-visible');
+                        }, i * 200);
+                    });
+                    
+                    setTimeout(() => {
+                        prizeStats.forEach((stat, i) => {
+                            setTimeout(() => {
+                                console.log('✨ Force animating prize stat', i + 1);
+                                stat.classList.remove('stat-hidden');
+                                stat.classList.add('stat-visible');
+                            }, i * 150);
+                        });
+                    }, 600);
+                }
+            }, 8000);
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPrizeDistributionAnimation);
+        } else {
+            initPrizeDistributionAnimation();
+        }
+    </script>
+
+    <!-- Progress Bar Animation Script -->
+    <script>
+        console.log('📊 Progress Bar Animation Script Loaded');
+        
+        let progressAnimationTriggered = false;
+        
+        function initProgressBarAnimation() {
+            console.log('🎯 Initializing progress bar and status cards animation...');
+            
+            const progressFill = document.querySelector('.progress-fill');
+            const progressPercentage = document.querySelector('.progress-percentage');
+            const statusCards = document.querySelectorAll('.status-card');
+            
+            if (!progressFill || !progressPercentage) {
+                console.log('❌ Progress bar elements not found!');
+                return;
+            }
+            
+            if (statusCards.length === 0) {
+                console.log('❌ Status cards not found!');
+                return;
+            }
+            
+            const targetWidth = progressFill.dataset.targetWidth;
+            const targetPercentage = progressPercentage.dataset.targetPercentage;
+            
+            console.log('🎯 Target:', targetWidth + '%');
+            console.log('📊 Found', statusCards.length, 'status cards');
+            
+            // Initialize status cards as hidden
+            statusCards.forEach((card, i) => {
+                card.classList.add('card-hidden');
+                console.log('💤 Status card', i + 1, 'initialized as hidden');
+            });
+            
+            // Setup scroll trigger
+            const section = document.querySelector('#drawing-status');
+            if (!section) {
+                console.log('❌ Drawing status section not found!');
+                return;
+            }
+            
+            // Scroll detection function
+            function checkProgressScroll() {
+                if (progressAnimationTriggered) return;
+                
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Trigger when section is 50% visible
+                if (rect.top < windowHeight * 0.7 && rect.bottom > 0) {
+                    console.log('🚀 TRIGGERING PROGRESS BAR AND CARDS ANIMATION!');
+                    progressAnimationTriggered = true;
+                    
+                    // Start progress bar animation
+                    progressFill.classList.add('animate');
+                    progressFill.style.width = targetWidth + '%';
+                    
+                    // Animate percentage counter
+                    animatePercentage(0, parseFloat(targetPercentage), progressPercentage);
+                    
+                    // Animate status cards with staggered timing
+                    setTimeout(() => {
+                        statusCards.forEach((card, i) => {
+                            setTimeout(() => {
+                                console.log('✨ Animating status card', i + 1);
+                                card.classList.remove('card-hidden');
+                                card.classList.add('card-visible');
+                            }, i * 200); // 200ms delay between each card
+                        });
+                    }, 800); // Start cards animation 800ms after progress bar
+                    
+                    // Remove scroll listener
+                    window.removeEventListener('scroll', checkProgressScroll);
+                }
+            }
+            
+            // Animate percentage counter
+            function animatePercentage(start, end, element) {
+                const duration = 2500; // Match CSS transition duration
+                const startTime = performance.now();
+                
+                function updatePercentage(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Use easing function to match CSS cubic-bezier
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const currentValue = start + (end - start) * easeOutQuart;
+                    
+                    element.textContent = currentValue.toFixed(2) + '%';
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updatePercentage);
+                    } else {
+                        element.textContent = end + '%';
+                        console.log('✅ Progress animation complete!');
+                    }
+                }
+                
+                requestAnimationFrame(updatePercentage);
+            }
+            
+            // Add scroll listener
+            console.log('📌 Adding progress scroll listener...');
+            window.addEventListener('scroll', checkProgressScroll);
+            
+            // Initial check (in case already scrolled)
+            checkProgressScroll();
+            
+            // Fallback: Force animation after 10 seconds if not triggered
+            setTimeout(() => {
+                if (!progressAnimationTriggered) {
+                    console.log('⏰ Fallback: Force triggering progress and cards animation');
+                    progressAnimationTriggered = true;
+                    
+                    // Force progress bar animation
+                    progressFill.classList.add('animate');
+                    progressFill.style.width = targetWidth + '%';
+                    animatePercentage(0, parseFloat(targetPercentage), progressPercentage);
+                    
+                    // Force cards animation
+                    setTimeout(() => {
+                        statusCards.forEach((card, i) => {
+                            setTimeout(() => {
+                                console.log('✨ Force animating status card', i + 1);
+                                card.classList.remove('card-hidden');
+                                card.classList.add('card-visible');
+                            }, i * 200);
+                        });
+                    }, 800);
+                }
+            }, 10000);
+        }
+        
+        // Initialize when DOM is ready
+        // DISABLED: Now using real-time data from API in script.js
+        // if (document.readyState === 'loading') {
+        //     document.addEventListener('DOMContentLoaded', initProgressBarAnimation);
+        // } else {
+        //     initProgressBarAnimation();
+        // }
+    </script>
+</body>
+</html>

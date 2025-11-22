@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Real Estate Rewards Program</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>RealtorRewards</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="prizes.html" class="nav-link">Prizes</a>
+                <a href="register.html" class="nav-link">Register</a>
+                <a href="winners.html" class="nav-link">Winners</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-chevron-down"></i> More
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="leaderboard.html" class="dropdown-item">
+                            <i class="fas fa-trophy"></i>
+                            Points Leaderboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="rules.html" class="dropdown-item">
+                            <i class="fas fa-gavel"></i>
+                            Rules & Regulations
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="faqs.html" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i>
+                            FAQs
+                        </a>
+                    </div>
+                            Points Leaderboard
+                        </a>
+                        <a href="rules.html" class="dropdown-item">
+                            <i class="fas fa-gavel"></i>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                            Rules & Regulations
+                        </a>
+                        <a href="faqs.html" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i>
+                            FAQs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-auth">
+                <a href="login.html" class="nav-link login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <main class="main-content">
+            <!-- Page Header -->
+            <section class="page-header">
+                <div class="container">
+                    <h1>RealtorRewards Blog</h1>
+                    <p>Stay updated with the latest news, success stories, and industry insights</p>
+                </div>
+            </section>
+
+            <!-- Blog Categories -->
+            <section class="section blog-categories">
+                <div class="container">
+                    <div class="category-filters">
+                        <button class="category-btn active" data-category="all">All Posts</button>
+                        <button class="category-btn" data-category="announcements">Announcements</button>
+                        <button class="category-btn" data-category="success-stories">Success Stories</button>
+                        <button class="category-btn" data-category="industry-news">Industry News</button>
+                        <button class="category-btn" data-category="tips">Tips & Guides</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Post -->
+            <section class="section featured-post">
+                <div class="container">
+                    <div class="featured-article">
+                        <div class="featured-image">
+                            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Featured post">
+                            <div class="featured-badge">Featured</div>
+                        </div>
+                        <div class="featured-content">
+                            <div class="post-meta">
+                                <span class="category">Announcements</span>
+                                <span class="date">January 30, 2025</span>
+                            </div>
+                            <h2>Record-Breaking Q1 2025: Over $50 Million in Qualifying Transactions</h2>
+                            <p>We're thrilled to announce that our participants have achieved over $50 million in qualifying real estate transactions in just the first month of 2025. This milestone represents the growing confidence and success of real estate professionals nationwide...</p>
+                            <div class="post-actions">
+                                <a href="#" class="btn btn-primary">Read Full Article</a>
+                                <div class="social-share">
+                                    <button class="share-btn"><i class="fab fa-facebook"></i></button>
+                                    <button class="share-btn"><i class="fab fa-twitter"></i></button>
+                                    <button class="share-btn"><i class="fab fa-linkedin"></i></button>
+                                    <button class="share-btn"><i class="fas fa-link"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blog Posts -->
+            <section class="section blog-posts">
+                <div class="container">
+                    <div class="blog-grid">
+                        <!-- Success Story Post -->
+                        <article class="blog-post" data-category="success-stories">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Success story">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="category">Success Stories</span>
+                                    <span class="date">January 28, 2025</span>
+                                </div>
+                                <h3>From First-Time Agent to $300,000 Winner: Sarah's Journey</h3>
+                                <p>Meet Sarah Johnson, a first-year real estate agent from Los Angeles who turned her rookie year into a life-changing win. Discover how she earned 3 qualifying points and won the grand prize...</p>
+                                <div class="post-footer">
+                                    <a href="#" class="read-more">Read More</a>
+                                    <div class="post-stats">
+                                        <span><i class="fas fa-eye"></i> 1.2k</span>
+                                        <span><i class="fas fa-heart"></i> 89</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Industry News Post -->
+                        <article class="blog-post" data-category="industry-news">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Industry news">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="category">Industry News</span>
+                                    <span class="date">January 25, 2025</span>
+                                </div>
+                                <h3>2025 Real Estate Market Outlook: What It Means for Rewards Participants</h3>
+                                <p>Analyzing the latest market trends and how they create opportunities for real estate professionals to earn more qualifying transactions in the rewards program...</p>
+                                <div class="post-footer">
+                                    <a href="#" class="read-more">Read More</a>
+                                    <div class="post-stats">
+                                        <span><i class="fas fa-eye"></i> 856</span>
+                                        <span><i class="fas fa-heart"></i> 34</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Tips & Guides Post -->
+                        <article class="blog-post" data-category="tips">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tips and guides">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="category">Tips & Guides</span>
+                                    <span class="date">January 22, 2025</span>
+                                </div>
+                                <h3>Maximizing Your Points: 5 Strategies for High-Value Transactions</h3>
+                                <p>Learn proven strategies from top-performing real estate professionals on how to identify and close high-value transactions that qualify for maximum points...</p>
+                                <div class="post-footer">
+                                    <a href="#" class="read-more">Read More</a>
+                                    <div class="post-stats">
+                                        <span><i class="fas fa-eye"></i> 2.1k</span>
+                                        <span><i class="fas fa-heart"></i> 156</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Announcement Post -->
+                        <article class="blog-post" data-category="announcements">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Announcement">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="category">Announcements</span>
+                                    <span class="date">January 20, 2025</span>
+                                </div>
+                                <h3>Enhanced Security Measures: Your Trust is Our Priority</h3>
+                                <p>We've implemented additional security protocols to ensure your personal and financial information remains protected throughout your participation in our program...</p>
+                                <div class="post-footer">
+                                    <a href="#" class="read-more">Read More</a>
+                                    <div class="post-stats">
+                                        <span><i class="fas fa-eye"></i> 654</span>
+                                        <span><i class="fas fa-heart"></i> 42</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Success Story Post -->
+                        <article class="blog-post" data-category="success-stories">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Success story">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="category">Success Stories</span>
+                                    <span class="date">January 18, 2025</span>
+                                </div>
+                                <h3>Developer's Dream: Michael Chen's $50,000 Win</h3>
+                                <p>Commercial developer Michael Chen shares how his Austin project led to 5 qualifying points and a substantial prize win. Get insights into his successful development strategy...</p>
+                                <div class="post-footer">
+                                    <a href="#" class="read-more">Read More</a>
+                                    <div class="post-stats">
+                                        <span><i class="fas fa-eye"></i> 987</span>
+                                        <span><i class="fas fa-heart"></i> 73</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Tips & Guides Post -->
+                        <article class="blog-post" data-category="tips">
+                            <div class="post-image">
+                                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tips and guides">
+                            </div>
+                            <div class="post-content">
+                                <div class="post-meta">
+                                    <span class="category">Tips & Guides</span>
+                                    <span class="date">January 15, 2025</span>
+                                </div>
+                                <h3>Documentation Made Simple: Certificate Verification Guide</h3>
+                                <p>A step-by-step guide to ensuring your transaction documentation meets all requirements for quick verification and smooth point registration...</p>
+                                <div class="post-footer">
+                                    <a href="#" class="read-more">Read More</a>
+                                    <div class="post-stats">
+                                        <span><i class="fas fa-eye"></i> 1.5k</span>
+                                        <span><i class="fas fa-heart"></i> 112</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="load-more-section">
+                        <button class="btn btn-secondary load-more-btn">Load More Posts</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newsletter Signup -->
+            <section class="section newsletter-section">
+                <div class="container">
+                    <div class="newsletter-signup">
+                        <div class="newsletter-content">
+                            <h2>Stay Updated</h2>
+                            <p>Subscribe to our newsletter for the latest updates, success stories, and industry insights delivered to your inbox.</p>
+                        </div>
+                        <form class="newsletter-form">
+                            <div class="form-group">
+                                <input type="email" placeholder="Enter your email address" required>
+                                <button type="submit" class="btn btn-primary">Subscribe</button>
+                            </div>
+                            <small>We respect your privacy. Unsubscribe at any time.</small>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Posts Sidebar -->
+            <aside class="section sidebar-section">
+                <div class="container">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <h3>Popular Posts</h3>
+                            <div class="popular-posts">
+                                <div class="popular-post">
+                                    <div class="popular-post-image">
+                                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Popular post">
+                                    </div>
+                                    <div class="popular-post-content">
+                                        <h4>How to Calculate Your Points Correctly</h4>
+                                        <span class="post-date">January 10, 2025</span>
+                                    </div>
+                                </div>
+                                <div class="popular-post">
+                                    <div class="popular-post-image">
+                                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Popular post">
+                                    </div>
+                                    <div class="popular-post-content">
+                                        <h4>Understanding the Drawing Process</h4>
+                                        <span class="post-date">January 5, 2025</span>
+                                    </div>
+                                </div>
+                                <div class="popular-post">
+                                    <div class="popular-post-image">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Popular post">
+                                    </div>
+                                    <div class="popular-post-content">
+                                        <h4>First Winner Announced: Complete Story</h4>
+                                        <span class="post-date">December 28, 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3>Categories</h3>
+                            <div class="category-list">
+                                <a href="#" class="category-link">
+                                    <span>Announcements</span>
+                                    <span class="count">12</span>
+                                </a>
+                                <a href="#" class="category-link">
+                                    <span>Success Stories</span>
+                                    <span class="count">8</span>
+                                </a>
+                                <a href="#" class="category-link">
+                                    <span>Industry News</span>
+                                    <span class="count">15</span>
+                                </a>
+                                <a href="#" class="category-link">
+                                    <span>Tips & Guides</span>
+                                    <span class="count">10</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3>Quick Links</h3>
+                            <div class="quick-links">
+                                <a href="register.html" class="quick-link">Register Points</a>
+                                <a href="participants.html" class="quick-link">View Participants</a>
+                                <a href="prizes.html" class="quick-link">Prize Structure</a>
+                                <a href="faqs.html" class="quick-link">FAQ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 RealtorRewards. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Blog functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category filter functionality
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const blogPosts = document.querySelectorAll('.blog-post');
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const selectedCategory = this.dataset.category;
+                    
+                    blogPosts.forEach(post => {
+                        const postCategory = post.dataset.category;
+                        if (selectedCategory === 'all' || postCategory === selectedCategory) {
+                            post.style.display = 'block';
+                        } else {
+                            post.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Newsletter form
+            const newsletterForm = document.querySelector('.newsletter-form');
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                alert('Thank you for subscribing! You will receive our latest updates at ' + email);
+                this.reset();
+            });
+
+            // Load more functionality
+            const loadMoreBtn = document.querySelector('.load-more-btn');
+            loadMoreBtn.addEventListener('click', function() {
+                // This would typically load more posts from the server
+                alert('Loading more posts... (This would connect to your blog database)');
+            });
+
+            // Social share functionality
+            const shareButtons = document.querySelectorAll('.share-btn');
+            shareButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('fa-facebook')) {
+                        window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank');
+                    } else if (icon.classList.contains('fa-twitter')) {
+                        window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href), '_blank');
+                    } else if (icon.classList.contains('fa-linkedin')) {
+                        window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), '_blank');
+                    } else if (icon.classList.contains('fa-link')) {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert('Link copied to clipboard!');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,3293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - DeedDraw</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Hide number input arrows */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Prevent text selection on clickable elements */
+        button, [onclick] {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        /* Quick Action button default state */
+        button[id*="-action-btn"] {
+            background: #fff !important;
+            color: #64748b !important;
+            border: 2px solid #e2e8f0 !important;
+            box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2) !important;
+            transform: translateY(0) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        /* Prevent text selection and highlighting on ALL button text */
+        button[id*="-action-btn"] div,
+        button[id*="-action-btn"] i,
+        button[id*="-action-btn"] * {
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
+        
+        /* Quick Action button hover effects */
+        button[id*="-action-btn"]:hover:not(.active) {
+            border-color: rgba(30, 41, 59, 0.3) !important;
+            color: #1e293b !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.15) !important;
+        }
+        
+        /* Active state should override hover */
+        button[id*="-action-btn"].active {
+            background: #1E2A38 !important;
+            backdrop-filter: blur(10px) !important;
+            border: 2px solid #1E2A38 !important;
+            color: white !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 20px rgba(30, 42, 56, 0.4) !important;
+        }
+        
+        /* Ensure button text stays white and has no gradients when active */
+        button[id*="-action-btn"].active div,
+        button[id*="-action-btn"].active i,
+        button[id*="-action-btn"].active * {
+            color: white !important;
+            background: none !important;
+            background-clip: unset !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: white !important;
+        }
+        
+        /* Special styling for Register Entry buttons - light gold/grey combination */
+        button[onclick="switchTab('points')"] {
+            background: linear-gradient(145deg, #fefbf3 0%, #f9f7f1 50%, #f4f1eb 100%) !important;
+            color: #8b7355 !important;
+            border: 2px solid #e6d7b7 !important;
+            box-shadow: 0 2px 12px rgba(139, 115, 85, 0.15) !important;
+        }
+        
+        /* Hover effect for Register Entry buttons */
+        button[onclick="switchTab('points')"]:hover:not(.active) {
+            background: linear-gradient(145deg, #f9f6ed 0%, #f1ede3 50%, #ebe6da 100%) !important;
+            color: #f59e0b !important;
+            border-color: #f59e0b !important;
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.25) !important;
+            transform: translateY(-2px) !important;
+        }
+        
+        /* Also target the text and icons inside Register Entry buttons on hover */
+        button[onclick="switchTab('points')"]:hover:not(.active) div,
+        button[onclick="switchTab('points')"]:hover:not(.active) i {
+            color: #f59e0b !important;
+        }
+        
+        /* Active state for Register Entry buttons */
+        button[onclick="switchTab('points')"].active {
+            background: linear-gradient(145deg, #f59e0b 0%, #f59e0b 100%) !important;
+            color: white !important;
+            border: 2px solid #f59e0b !important;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4) !important;
+        }
+        
+        /* Mobile responsive layout for transaction fields */
+        @media (max-width: 768px) {
+            /* Make dashboard content full width on mobile */
+            .dashboard-content {
+                padding: 1rem !important;
+                margin-top: 5rem !important;
+            }
+            
+            /* Make transaction registration box full width */
+            .transaction-registration-box {
+                margin-left: -1rem !important;
+                margin-right: -1rem !important;
+                border-radius: 0 !important;
+                padding: 1.5rem 1rem !important;
+            }
+            
+            /* Stack payment methods vertically on mobile */
+            .payment-methods-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .transaction-layout {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                align-items: stretch !important;
+            }
+            
+            .arrow-separator {
+                margin-bottom: -1rem !important;
+                align-self: center !important;
+            }
+            
+            .desktop-arrow {
+                display: none !important;
+            }
+            
+            .mobile-arrow {
+                display: inline !important;
+            }
+            
+            /* Registration Details mobile layout */
+            .registration-layout {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+            }
+            
+            /* Hide dashboard title on mobile */
+            .dashboard-title {
+                display: none !important;
+            }
+        }
+        
+        /* Certificate download button mobile responsiveness */
+        @media (max-width: 768px) {
+            .certificate-item {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+            
+            .cert-download-btn {
+                width: 100% !important;
+                margin-top: 1rem !important;
+            }
+        }
+        
+        /* Ensure content sections don't exceed dashboard width */
+        .dashboard-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        
+        .content-section {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <!-- STEP 1: Clean Header Only -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="nav-logo">
+                <a href="index.html" style="display: block; cursor: pointer;">
+                    <img src="assets/images/logo.png" alt="DeedDraw Logo">
+                </a>
+            </div>
+            
+            <!-- Dashboard Title (Desktop Only) -->
+            <div class="dashboard-title" style="
+                flex: 1;
+                text-align: center;
+                color: #f8fafc;
+                font-size: 1.5rem;
+                font-weight: 800;
+                letter-spacing: 8px;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            ">
+                User Dashboard
+            </div>
+            
+            <!-- User Avatar -->
+                        <!-- User Avatar -->
+            <div class="nav-auth">
+                <div style="position: relative;">
+                    <div class="user-avatar" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        width: 60px; 
+                        height: 60px; 
+                        background: rgba(51, 65, 85, 0.8); 
+                        border-radius: 50%; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        cursor: pointer;
+                        border: 3px solid #F59E0B;
+                        transition: all 0.3s ease;
+                    ">
+                        <span style="color: #F59E0B; font-weight: 800; font-size: 1rem; font-family: 'Josefin Sans', sans-serif;" id="user-initials">JD</span>
+                    </div>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        position: absolute;
+                        top: 100%;
+                        right: 0;
+                        margin-top: 8px;
+                        background: #1E2A38;
+                        border-radius: 8px;
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                        min-width: 180px;
+                        display: none;
+                        z-index: 1001;
+                    ">
+                        <!-- User Info Header -->
+                        <div style="padding: 16px 20px; border-radius: 8px 8px 0 0;">
+                            <div style="font-weight: 600; color: #F59E0B; font-size: 1rem;" id="dropdown-user-name">John Doe</div>
+                            <div style="font-size: 0.8rem; color: #b8c5d6; margin-top: 2px;" id="dropdown-user-category">Real Estate Agent</div>
+                        </div>
+                        
+                        <!-- Divider -->
+                        <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0 auto; width: 85%;"></div>
+                        
+                        <!-- Home Link -->
+                        <a href="index.html" class="dropdown-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-home" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Home
+                        </a>
+                        
+                        <!-- Logout -->
+                        <a href="#" onclick="logout(); return false;" class="dropdown-item logout-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-sign-out-alt" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-content" style="
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-top: 6rem;
+        padding: 2rem;
+    ">
+        <div id="overview-section" class="content-section">
+                <!-- Welcome Header -->
+                <div style="margin-bottom: 2rem;">
+                    <h1 id="welcome-user-name" style="color: #1e293b; margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Welcome back!</h1>
+                    <p style="color: #64748b; font-size: 1.1rem;">Here's your DeedDraw dashboard overview</p>
+            </div>
+
+            <!-- Quick Actions (Moved to Top) -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Quick Actions</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button onclick="switchTab('overview')" id="overview-overview-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-tachometer-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Dashboard</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">View overview & stats</div>
+                    </button>
+
+                    <button onclick="switchTab('points')" id="overview-points-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-plus-circle" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Register Entry</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Enter current drawing</div>
+                    </button>
+
+                    <button onclick="switchTab('referrals')" id="overview-referrals-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-share-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Refer Someone</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Invite colleagues</div>
+                    </button>
+
+                    <button onclick="switchTab('profile')" id="overview-profile-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-user-edit" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Update Profile</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Manage account</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Your Dashboard Stats</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    
+                    <!-- Registered Entries Card -->
+                    <div style="
+                        background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+                        backdrop-filter: blur(10px);
+                        color: #f8fafc;
+                        padding: 1.5rem;
+                        border-radius: 12px;
+                        border: 1px solid rgba(30, 41, 59, 0.2);
+                        box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);
+                        transition: all 0.3s ease;
+                    ">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9; color: #e2e8f0;">Registered Entries</h3>
+                            <i class="fas fa-ticket-alt" style="font-size: 1.5rem; opacity: 0.8; color: #e2e8f0;"></i>
+                        </div>
+                        <div id="stat-entries" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">0</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; color: #e2e8f0;">Total verified entries</div>
+                    </div>
+
+                    <!-- Referral Earnings Card -->
+                    <div style="
+                        background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+                        backdrop-filter: blur(10px);
+                        color: #f8fafc;
+                        padding: 1.5rem;
+                        border-radius: 12px;
+                        border: 1px solid rgba(30, 41, 59, 0.2);
+                        box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);
+                        transition: all 0.3s ease;
+                    ">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9; color: #e2e8f0;">Referral Earnings</h3>
+                            <i class="fas fa-dollar-sign" style="font-size: 1.5rem; opacity: 0.8; color: #e2e8f0;"></i>
+                        </div>
+                        <div id="stat-referral-earnings" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">$0</div>
+                        <div id="stat-referral-count" style="font-size: 0.9rem; opacity: 0.8; color: #e2e8f0;">From 0 successful referrals</div>
+                    </div>
+
+                    <!-- Drawing Progress Card -->
+                    <div style="
+                        background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+                        backdrop-filter: blur(10px);
+                        color: #f8fafc;
+                        padding: 1.5rem;
+                        border-radius: 12px;
+                        border: 1px solid rgba(30, 41, 59, 0.2);
+                        box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);
+                        transition: all 0.3s ease;
+                    ">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9; color: #e2e8f0;">Drawing Progress</h3>
+                            <i class="fas fa-trophy" style="font-size: 1.5rem; opacity: 0.8; color: #e2e8f0;"></i>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div id="stat-points" style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">0/400</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8; color: #e2e8f0;">points registered globally</div>
+                        </div>
+                        <div style="background: rgba(226, 232, 240, 0.2); height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div id="stat-progress-bar" style="background: rgba(226, 232, 240, 0.8); height: 100%; width: 0%; border-radius: 4px; transition: width 0.5s ease;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Prize Pool Card -->
+                    <div style="
+                        background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+                        backdrop-filter: blur(10px);
+                        color: #f8fafc;
+                        padding: 1.5rem;
+                        border-radius: 12px;
+                        border: 1px solid rgba(30, 41, 59, 0.2);
+                        box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);
+                        transition: all 0.3s ease;
+                    ">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <h3 style="margin: 0; font-size: 1rem; opacity: 0.9; color: #e2e8f0;">Current Prize Pool</h3>
+                            <i class="fas fa-gem" style="font-size: 1.5rem; opacity: 0.8; color: #e2e8f0;"></i>
+                        </div>
+                        <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">$500K</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; color: #e2e8f0;">1×$300k, 2×$50k, 2×$25k, 10×$5k</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificates Section -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Your Certificates
+                </h2>
+                <div id="certificates-container" style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(30, 41, 59, 0.2); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);">
+                    <!-- Will be dynamically populated -->
+                    <div style="padding: 2rem; text-align: center; color: #cbd5e1;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <div>Loading certificates...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div>
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Recent Activity</h2>
+                <div id="recent-activity-container" style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(30, 41, 59, 0.2); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);">
+                    <!-- Will be dynamically populated -->
+                    <div style="padding: 2rem; text-align: center; color: #cbd5e1;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <div>Loading activity...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="points-section" class="content-section" style="display: none;">
+            <!-- Welcome Header -->
+            <div style="margin-bottom: 2rem;">
+                <h1 class="welcome-user-name" style="color: #1e293b; margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Welcome back!</h1>
+                <p style="color: #64748b; font-size: 1.1rem;">Here's your DeedDraw dashboard overview</p>
+            </div>
+
+            <!-- Quick Actions (Tab Navigation) -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Quick Actions</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button onclick="switchTab('overview')" id="points-overview-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-tachometer-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Dashboard</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">View overview & stats</div>
+                    </button>
+
+                    <button onclick="switchTab('points')" id="points-points-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-plus-circle" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Register Entry</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Enter current drawing</div>
+                    </button>
+
+                    <button onclick="switchTab('referrals')" id="points-referrals-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-share-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Refer Someone</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Invite colleagues</div>
+                    </button>
+
+                    <button onclick="switchTab('profile')" id="points-profile-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-user-edit" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Update Profile</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Manage account</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transaction & Registration -->
+            <div id="register" style="margin-bottom: 2rem;">
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Transaction Registration
+                </h2>
+                <div class="transaction-registration-box" style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(30, 41, 59, 0.2); border-radius: 12px; padding: 2rem; box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden;">
+                    
+                    <!-- Top border accent -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%); box-shadow: 0 0 20px rgba(30, 41, 59, 0.3);"></div>
+                    
+                    <!-- Step 1: Transaction Details -->
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); backdrop-filter: blur(5px); border: 1px solid rgba(226, 232, 240, 0.2); border-radius: 12px;">
+                        <h3 style="color: #f8fafc; margin-bottom: 1rem; font-size: 1.2rem; text-shadow: none;">
+                            <span style="background: linear-gradient(135deg, rgba(248, 250, 252, 0.2), rgba(226, 232, 240, 0.1)); color: #f8fafc; width: 28px; height: 28px; border-radius: 50%; margin-right: 0.5rem; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(226, 232, 240, 0.3);">1</span>
+                            Enter Transaction Amount
+                        </h3>
+                        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: end;" class="transaction-layout">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e2e8f0;">Transaction Amount ($)</label>
+                                <input type="text" id="transactionAmount" placeholder="1,000,000" style="
+                                    width: 100%;
+                                    padding: 1rem;
+                                    border: 1px solid rgba(226, 232, 240, 0.3);
+                                    border-radius: 8px;
+                                    font-size: 1.1rem;
+                                    transition: all 0.3s ease;
+                                    height: 56px;
+                                    box-sizing: border-box;
+                                    background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5));
+                                    color: #f8fafc;
+                                    backdrop-filter: blur(5px);
+                                " oninput="calculatePoints()" onfocus="this.style.borderColor='rgba(226, 232, 240, 0.5)'; this.style.boxShadow='0 0 20px rgba(226, 232, 240, 0.2)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                            </div>
+                            <div style="text-align: center; color: #cbd5e1; font-size: 1.5rem; margin-bottom: 10px;" class="arrow-separator">
+                                <i class="fas fa-arrow-right desktop-arrow"></i>
+                                <i class="fas fa-arrow-down mobile-arrow" style="display: none;"></i>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e2e8f0;">Points Earned</label>
+                                <div id="pointsEarned" style="
+                                    padding: 1rem;
+                                    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.6));
+                                    color: #f8fafc;
+                                    border-radius: 8px;
+                                    font-size: 1.1rem;
+                                    font-weight: 700;
+                                    text-align: center;
+                                    height: 56px;
+                                    box-sizing: border-box;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border: 1px solid rgba(226, 232, 240, 0.2);
+                                    backdrop-filter: blur(8px);
+                                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                                ">0 points</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 1rem; color: #cbd5e1; font-size: 0.9rem;">
+                            💡 1 point = $500,000 in real estate transactions
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Legal Agreement -->
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); backdrop-filter: blur(5px); border: 1px solid rgba(226, 232, 240, 0.2); border-radius: 12px;">
+                        <h3 style="color: #f8fafc; margin-bottom: 1.5rem; font-size: 1.2rem; text-shadow: none;">
+                            <span style="background: linear-gradient(135deg, rgba(248, 250, 252, 0.2), rgba(226, 232, 240, 0.1)); color: #f8fafc; width: 28px; height: 28px; border-radius: 50%; margin-right: 0.5rem; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(226, 232, 240, 0.3);">2</span>
+                            Terms & Agreement
+                        </h3>
+                        
+                        <!-- Important Notice -->
+                        <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.4)); backdrop-filter: blur(5px); padding: 1rem; margin-bottom: 1.5rem; border-radius: 6px; border: 1px solid rgba(226, 232, 240, 0.15);">
+                            <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <i class="fas fa-info-circle" style="color: #e2e8f0; margin-top: 0.25rem; font-size: 1.1rem;"></i>
+                                <div>
+                                    <p style="margin: 0 0 0.75rem 0; color: #f8fafc; font-weight: 600; line-height: 1.5;">
+                                        <strong>Important:</strong> Winners must provide valid documentation (contracts, closing statements, or other proof) to verify the claimed transaction amount upon request.
+                                    </p>
+                                    <p style="margin: 0; color: #e2e8f0; font-weight: 500; line-height: 1.5;">
+                                        Please ensure you carefully read and understand the <a href="#" onclick="openRulesPage()" style="color: #f8fafc; text-decoration: underline; font-weight: 700; transition: all 0.3s ease;">Terms & Conditions</a> before proceeding with your registration.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="termsContainer" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem; background: transparent; border: 2px solid transparent; border-radius: 8px; transition: all 0.3s ease;">
+                            <input type="checkbox" id="agreeTerms" style="
+                                width: 24px;
+                                height: 24px;
+                                accent-color: #64748b;
+                                cursor: pointer;
+                                flex-shrink: 0;
+                            " onchange="toggleRegistrationFields()">
+                            <label for="agreeTerms" style="cursor: pointer; font-weight: 600; color: #f8fafc; line-height: 1.5; margin: 0;">
+                                I have read and agree to the Rules and Regulations of this drawing program. <span id="requiredStar" style="color: #f4d03f; display: none;">*</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Registration Details -->
+                    <div id="registrationSection" style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); backdrop-filter: blur(5px); border: 1px solid rgba(226, 232, 240, 0.2); border-radius: 12px;">
+                        <h3 style="color: #f8fafc; margin-bottom: 1.5rem; font-size: 1.2rem; text-shadow: none;">
+                            <span style="background: linear-gradient(135deg, rgba(248, 250, 252, 0.2), rgba(226, 232, 240, 0.1)); color: #f8fafc; width: 28px; height: 28px; border-radius: 50%; margin-right: 0.5rem; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(226, 232, 240, 0.3);">3</span>
+                            Registration Details
+                        </h3>
+                        
+                        <!-- Main Layout: Points/Total + Referral Code -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;" class="registration-layout">
+                            <!-- Left: Points and Total Amount -->
+                            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                                <!-- Points to Register -->
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #e2e8f0;">
+                                        Points to Register
+                                    </label>
+                                    <select id="pointsToRegister" style="
+                                        width: 100%;
+                                        height: 50px;
+                                        min-height: 50px;
+                                        padding: 1rem;
+                                        border: 1px solid rgba(226, 232, 240, 0.3);
+                                        border-radius: 8px;
+                                        font-size: 1rem;
+                                        line-height: 1.5;
+                                        background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5));
+                                        color: #f8fafc;
+                                        backdrop-filter: blur(5px);
+                                    " onchange="calculateCost()">
+                                        <option value="">Enter transaction amount first</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Total Amount -->
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 700; color: #f8fafc; font-size: 1.1rem;">
+                                        Total Amount
+                                    </label>
+                                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                        <!-- Discount display -->
+                                        <div id="discountSection" style="display: none;">
+                                            <div id="discountAmount" style="
+                                                padding: 0.8rem;
+                                                background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.15));
+                                                color: #f4d03f;
+                                                border-radius: 8px;
+                                                font-size: 1rem;
+                                                font-weight: 600;
+                                                text-align: center;
+                                                border: 1px solid rgba(212, 175, 55, 0.4);
+                                                backdrop-filter: blur(5px);
+                                                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                                            ">-$0</div>
+                                        </div>
+                                        <!-- Final total -->
+                                        <div id="finalTotal" style="
+                                            padding: 1.5rem;
+                                            background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.6));
+                                            color: #f8fafc;
+                                            border-radius: 8px;
+                                            font-size: 1.5rem;
+                                            font-weight: 700;
+                                            text-align: center;
+                                            border: 1px solid rgba(226, 232, 240, 0.2);
+                                            backdrop-filter: blur(8px);
+                                            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                                        ">$0</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right: Referral Code Section -->
+                            <div>
+                                <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.4)); backdrop-filter: blur(5px); border: 1px solid rgba(226, 232, 240, 0.15); border-radius: 12px; padding: 1.5rem; height: 100%;">
+                                    <h5 style="color: #f8fafc; margin-bottom: 1.5rem; display: flex; align-items: center; font-size: 1.1rem;">
+                                        <i class="fas fa-gift" style="margin-right: 0.5rem; color: #cbd5e1;"></i>
+                                        Referral Code (Optional)
+                                    </h5>
+                                    <div style="margin-bottom: 1.5rem;">
+                                        <input type="text" id="referralCode" placeholder="Enter referral code" style="
+                                            width: 100%;
+                                            padding: 1rem;
+                                            border: 1px solid rgba(226, 232, 240, 0.3);
+                                            border-radius: 8px;
+                                            font-size: 1rem;
+                                            text-transform: uppercase;
+                                            margin-bottom: 1rem;
+                                            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5));
+                                            color: #f8fafc;
+                                            backdrop-filter: blur(5px);
+                                        " onkeyup="this.value = this.value.toUpperCase()">
+                                        <button onclick="applyReferralCode()" style="
+                                            background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                                            color: #f8fafc;
+                                            border: 1px solid rgba(226, 232, 240, 0.3);
+                                            padding: 1rem 2rem;
+                                            border-radius: 8px;
+                                            font-weight: 600;
+                                            cursor: pointer;
+                                            font-size: 1rem;
+                                            width: 100%;
+                                            transition: all 0.3s ease;
+                                            backdrop-filter: blur(5px);
+                                        ">Apply Referral Code</button>
+                                    </div>
+                                    <div id="referralMessage" style="
+                                        display: none;
+                                        padding: 1rem;
+                                        border-radius: 8px;
+                                        font-size: 0.9rem;
+                                        margin-bottom: 1rem;
+                                    "></div>
+                                    <div style="color: #cbd5e1; font-size: 0.9rem; text-align: center;">
+                                        💡 Save $100 per point with a valid referral code
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="color: #f8fafc; margin-bottom: 1rem; text-shadow: none;">Payment Method</h3>
+                        <div class="payment-methods-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <label style="
+                                display: flex;
+                                align-items: center;
+                                padding: 1rem;
+                                border: 1px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.4));
+                                backdrop-filter: blur(5px);
+                                color: #e2e8f0;
+                            ">
+                                <input type="radio" name="paymentMethod" value="card" style="margin-right: 0.5rem; accent-color: #64748b;">
+                                <i class="fas fa-credit-card" style="margin-right: 0.5rem; color: #e2e8f0;"></i>
+                                Credit Card
+                            </label>
+                            <label style="
+                                display: flex;
+                                align-items: center;
+                                padding: 1rem;
+                                border: 1px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.4));
+                                backdrop-filter: blur(5px);
+                                color: #e2e8f0;
+                            ">
+                                <input type="radio" name="paymentMethod" value="bank" style="margin-right: 0.5rem; accent-color: #64748b;">
+                                <i class="fas fa-paper-plane" style="margin-right: 0.5rem; color: #e2e8f0;"></i>
+                                e-Transfer
+                            </label>
+                        </div>
+
+                        <!-- Credit Card Fee Notice (Hidden by default) -->
+                        <div id="creditCardFeeNotice" style="
+                            display: none;
+                            background: linear-gradient(135deg, rgba(51, 65, 85, 0.3), rgba(71, 85, 105, 0.2));
+                            border: 1px solid rgba(71, 85, 105, 0.4);
+                            border-radius: 8px;
+                            padding: 1rem;
+                            margin-bottom: 1.5rem;
+                            backdrop-filter: blur(5px);
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-info-circle" style="color: #94a3b8;"></i>
+                                <span style="color: #e2e8f0; font-weight: 600; font-size: 0.9rem;">Processing Fee Notice</span>
+                            </div>
+                            <p style="
+                                color: #cbd5e1; 
+                                font-size: 0.85rem; 
+                                margin: 0; 
+                                line-height: 1.4;
+                                text-shadow: none;
+                            ">
+                                Credit card payments incur a processing fee of <strong style="color: #e2e8f0;">2.0% - 3.5%</strong> which will be added to your total. 
+                                Consider using e-Transfer to avoid additional charges.
+                            </p>
+                        </div>
+
+                        <!-- E-Transfer Instructions Box (Hidden by default) -->
+                        <div id="eTransferInstructions" style="
+                            display: none;
+                            background: linear-gradient(135deg, rgba(51, 65, 85, 0.3), rgba(71, 85, 105, 0.2));
+                            border: 1px solid rgba(71, 85, 105, 0.4);
+                            border-radius: 8px;
+                            padding: 1.5rem;
+                            margin-bottom: 1.5rem;
+                            backdrop-filter: blur(5px);
+                        ">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                                <i class="fas fa-info-circle" style="color: #94a3b8;"></i>
+                                <span style="color: #e2e8f0; font-weight: 600; font-size: 1rem;">E-Transfer Payment Instructions</span>
+                            </div>
+                            
+                            <div style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+                                <p style="margin: 0 0 1rem 0;">
+                                    After clicking <strong style="color: #e2e8f0;">"Register Entry - Pay Now"</strong>, your entry will be registered with a <strong>pending</strong> status. To activate your entry:
+                                </p>
+                                
+                                <div style="background: rgba(15, 23, 42, 0.4); padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 3px solid #64748b;">
+                                    <div style="margin-bottom: 0.75rem;">
+                                        <strong style="color: #94a3b8;">1️⃣ Send e-Transfer to:</strong><br>
+                                        <code style="color: #e2e8f0; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 4px; font-size: 0.95rem;">payment@deeddraw.com</code>
+                                    </div>
+                                    <div style="margin-bottom: 0.75rem;">
+                                        <strong style="color: #94a3b8;">2️⃣ Security Question:</strong><br>
+                                        <span style="color: #e2e8f0;">"Certificate Number?"</span>
+                                    </div>
+                                    <div style="margin-bottom: 0.75rem;">
+                                        <strong style="color: #94a3b8;">3️⃣ Security Answer:</strong><br>
+                                        <span style="color: #e2e8f0;">Your certificate number (will be shown after registration)</span>
+                                    </div>
+                                    <div>
+                                        <strong style="color: #94a3b8;">4️⃣ Amount:</strong><br>
+                                        <span style="color: #e2e8f0;">The total amount for your entry</span>
+                                    </div>
+                                </div>
+
+                                <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">
+                                    <i class="fas fa-envelope" style="margin-right: 4px;"></i>
+                                    <strong>Note:</strong> Detailed instructions with your certificate number will be sent to your email and displayed on your dashboard after registration.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Payment Form (Mock) -->
+                        <div id="paymentForm" style="display: none; background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.4)); backdrop-filter: blur(5px); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(226, 232, 240, 0.15);">
+                            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <input type="text" placeholder="Card Number" style="padding: 0.75rem; border: 1px solid rgba(226, 232, 240, 0.3); border-radius: 6px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); color: #f8fafc; backdrop-filter: blur(5px);">
+                                <input type="text" placeholder="CVC" style="padding: 0.75rem; border: 1px solid rgba(226, 232, 240, 0.3); border-radius: 6px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); color: #f8fafc; backdrop-filter: blur(5px);">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <input type="text" placeholder="MM/YY" style="padding: 0.75rem; border: 1px solid rgba(226, 232, 240, 0.3); border-radius: 6px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); color: #f8fafc; backdrop-filter: blur(5px);">
+                                <input type="text" placeholder="ZIP Code" style="padding: 0.75rem; border: 1px solid rgba(226, 232, 240, 0.3); border-radius: 6px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); color: #f8fafc; backdrop-filter: blur(5px);">
+                            </div>
+                            <input type="text" placeholder="Cardholder Name" style="width: 100%; padding: 0.75rem; border: 1px solid rgba(226, 232, 240, 0.3); border-radius: 6px; margin-bottom: 1rem; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); color: #f8fafc; backdrop-filter: blur(5px);">
+                        </div>
+                    </div>
+
+                    <button onclick="processPayment()" style="
+                        background: linear-gradient(135deg, rgba(100, 116, 139, 0.9), rgba(71, 85, 105, 1));
+                        color: #f8fafc;
+                        border: 1px solid rgba(226, 232, 240, 0.3);
+                        padding: 1rem 2rem;
+                        border-radius: 8px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        width: 100%;
+                        backdrop-filter: blur(5px);
+                        box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);
+                    ">
+                        <i class="fas fa-ticket-alt" style="margin-right: 0.5rem; color: #e2e8f0;"></i>
+                        Register Entry - Pay Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Status -->
+            <div>
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Your Status</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%); backdrop-filter: blur(10px); color: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(30, 41, 59, 0.2); box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);">
+                        <div id="registeredEntries" style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">0</div>
+                        <div style="opacity: 0.9; color: #e2e8f0;">Registered Entries</div>
+                    </div>
+                    <div style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%); backdrop-filter: blur(10px); color: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(30, 41, 59, 0.2); box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);">
+                        <div id="availablePoints" style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">0</div>
+                        <div style="opacity: 0.9; color: #e2e8f0;">Available Points</div>
+                    </div>
+                    <div style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%); backdrop-filter: blur(10px); color: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(30, 41, 59, 0.2); box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3);">
+                        <div id="totalInvested" style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">$0</div>
+                        <div style="opacity: 0.9; color: #e2e8f0;">Total Invested</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="referrals-section" class="content-section" style="display: none;">
+            <!-- Welcome Header -->
+            <div style="margin-bottom: 2rem;">
+                <h1 class="welcome-user-name" style="color: #1e293b; margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Welcome back!</h1>
+                <p style="color: #64748b; font-size: 1.1rem;">Here's your DeedDraw dashboard overview</p>
+            </div>
+
+            <!-- Quick Actions (Tab Navigation) -->
+            <div style="margin-bottom: 2rem;">
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Quick Actions</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button onclick="switchTab('overview')" id="referrals-overview-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-tachometer-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Dashboard</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">View overview & stats</div>
+                    </button>
+
+                    <button onclick="switchTab('points')" id="referrals-points-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-plus-circle" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Register Entry</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Enter current drawing</div>
+                    </button>
+
+                    <button onclick="switchTab('referrals')" id="referrals-referrals-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-share-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Refer Someone</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Invite colleagues</div>
+                    </button>
+
+                    <button onclick="switchTab('profile')" id="referrals-profile-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-user-edit" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Update Profile</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Manage account</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Referral Section Header -->
+            <div style="margin-bottom: 3rem; text-align: center;">
+                <h2 style="color: #1e293b; margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Refer & Earn</h2>
+                <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto;">Share DeedDraw with colleagues and earn $100 per point for each successful referral</p>
+            </div>
+
+            <!-- Main Referral Card -->
+            <div style="max-width: 600px; margin: 0 auto; background: linear-gradient(145deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%); backdrop-filter: blur(10px); border-radius: 20px; padding: 3rem; text-align: center; box-shadow: 0 8px 32px rgba(30, 41, 59, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); border: 1px solid rgba(30, 41, 59, 0.2); position: relative; overflow: hidden;">
+                
+                <!-- Top border accent -->
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #1e293b 0%, #334155 50%, #1e293b 100%); box-shadow: 0 0 20px rgba(30, 41, 59, 0.3);"></div>
+                
+                <!-- Referral Code Section -->
+                <div style="margin-bottom: 3rem;">
+                    <h3 style="color: #f8fafc; margin-bottom: 1rem; font-size: 1.3rem; font-weight: 600; text-shadow: none;">Your Referral Code</h3>
+                    <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); backdrop-filter: blur(5px); border: 1px solid rgba(226, 232, 240, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                        <div style="color: #e2e8f0; font-size: 2rem; font-weight: 800; letter-spacing: 3px; font-family: 'Courier New', monospace;" id="userReferralCode">JOHN2024</div>
+                    </div>
+                    <button onclick="copyReferralCode()" style="
+                        background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                        color: #f8fafc;
+                        border: 1px solid rgba(226, 232, 240, 0.3);
+                        padding: 0.8rem 2rem;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        font-size: 1rem;
+                        backdrop-filter: blur(5px);
+                    ">
+                        <i class="fas fa-copy" style="margin-right: 0.5rem; color: #e2e8f0;"></i>
+                        Copy Code
+                    </button>
+                </div>
+
+                <!-- Earnings Info -->
+                <div style="margin-bottom: 3rem;">
+                    <h3 style="color: #f8fafc; margin-bottom: 1rem; font-size: 1.3rem; font-weight: 600; text-shadow: none;">Total Earned</h3>
+                    <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.5)); backdrop-filter: blur(5px); border: 1px solid rgba(226, 232, 240, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                        <div id="referral-total-earned" style="color: #e2e8f0; font-size: 2rem; font-weight: 800; letter-spacing: 3px; font-family: 'Courier New', monospace;">$0</div>
+                    </div>
+                    <button id="redeem-btn" onclick="redeemEarnings()" style="
+                        background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                        color: #94a3b8;
+                        border: 1px solid rgba(226, 232, 240, 0.3);
+                        padding: 0.8rem 2rem;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        cursor: not-allowed;
+                        transition: all 0.3s ease;
+                        font-size: 1rem;
+                        backdrop-filter: blur(5px);
+                        opacity: 0.6;
+                    ">
+                        <i class="fas fa-wallet" style="margin-right: 0.5rem;"></i>
+                        Redeem Earnings
+                    </button>
+                </div>
+
+                <!-- Share Section -->
+                <div>
+                    <h4 style="color: #f8fafc; margin-bottom: 1.5rem; font-size: 1.1rem; font-weight: 600;">Share on Social Media</h4>
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        
+                        <!-- Twitter -->
+                        <button onclick="shareOnTwitter()" style="
+                            background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                            color: #f8fafc;
+                            border: 1px solid rgba(226, 232, 240, 0.3);
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 12px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            backdrop-filter: blur(5px);
+                        " onmouseover="this.style.transform='translateY(-5px) scale(1.1)'; this.style.boxShadow='0 8px 20px rgba(100, 116, 139, 0.4)'; this.style.borderColor='rgba(226, 232, 240, 0.5)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none'; this.style.borderColor='rgba(226, 232, 240, 0.3)'">
+                            <i class="fab fa-twitter" style="font-size: 1.3rem; color: #e2e8f0;"></i>
+                        </button>
+
+                        <!-- LinkedIn -->
+                        <button onclick="shareOnLinkedIn()" style="
+                            background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                            color: #f8fafc;
+                            border: 1px solid rgba(226, 232, 240, 0.3);
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 12px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            backdrop-filter: blur(5px);
+                        " onmouseover="this.style.transform='translateY(-5px) scale(1.1)'; this.style.boxShadow='0 8px 20px rgba(100, 116, 139, 0.4)'; this.style.borderColor='rgba(226, 232, 240, 0.5)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none'; this.style.borderColor='rgba(226, 232, 240, 0.3)'">
+                            <i class="fab fa-linkedin" style="font-size: 1.3rem; color: #e2e8f0;"></i>
+                        </button>
+
+                        <!-- WhatsApp -->
+                        <button onclick="shareOnWhatsApp()" style="
+                            background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                            color: #f8fafc;
+                            border: 1px solid rgba(226, 232, 240, 0.3);
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 12px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            backdrop-filter: blur(5px);
+                        " onmouseover="this.style.transform='translateY(-5px) scale(1.1)'; this.style.boxShadow='0 8px 20px rgba(100, 116, 139, 0.4)'; this.style.borderColor='rgba(226, 232, 240, 0.5)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none'; this.style.borderColor='rgba(226, 232, 240, 0.3)'">
+                            <i class="fab fa-whatsapp" style="font-size: 1.3rem; color: #e2e8f0;"></i>
+                        </button>
+
+                        <!-- Email -->
+                        <button onclick="shareViaEmail()" style="
+                            background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                            color: #f8fafc;
+                            border: 1px solid rgba(226, 232, 240, 0.3);
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 12px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            backdrop-filter: blur(5px);
+                        " onmouseover="this.style.transform='translateY(-5px) scale(1.1)'; this.style.boxShadow='0 8px 20px rgba(100, 116, 139, 0.4)'; this.style.borderColor='rgba(226, 232, 240, 0.5)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none'; this.style.borderColor='rgba(226, 232, 240, 0.3)'">
+                            <i class="fas fa-envelope" style="font-size: 1.3rem; color: #e2e8f0;"></i>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profile-section" class="content-section" style="display: none;">
+            <!-- Welcome Header -->
+            <div style="margin-bottom: 2rem;">
+                <h1 class="welcome-user-name" style="color: #1e293b; margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Welcome back!</h1>
+                <p style="color: #64748b; font-size: 1.1rem;">Here's your DeedDraw dashboard overview</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="margin-bottom: 3rem;">
+                <h2 style="color: #1e293b; margin-bottom: 1rem; font-size: 1.5rem; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Quick Actions</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button onclick="switchTab('overview')" id="profile-overview-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-tachometer-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Dashboard</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">View overview & stats</div>
+                    </button>
+
+                    <button onclick="switchTab('points')" id="profile-points-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-plus-circle" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Register Entry</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Enter current drawing</div>
+                    </button>
+
+                    <button onclick="switchTab('referrals')" id="profile-referrals-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-share-alt" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Refer Someone</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Invite colleagues</div>
+                    </button>
+
+                    <button onclick="switchTab('profile')" id="profile-profile-action-btn" style="
+                        background: #fff;
+                        color: #64748b;
+                        border: 2px solid #e2e8f0;
+                        padding: 1rem;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
+                    ">
+                        <i class="fas fa-user-cog" style="font-size: 1.5rem; margin-bottom: 0.5rem; display: block;"></i>
+                        <div style="font-weight: 600;">Update Profile</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Manage account</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 800px; margin: 0 auto; width: 100%;"
+                
+                <!-- Personal Information -->
+                <div style="
+                    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+                    backdrop-filter: blur(15px);
+                    padding: 2rem;
+                    border-radius: 20px;
+                    border: 2px solid rgba(51, 65, 85, 0.4);
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                ">
+                    <h3 style="color: #f8fafc; font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
+                        <i class="fas fa-user" style="margin-right: 0.5rem; color: #cbd5e1;"></i>
+                        Personal Information
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Full Name</label>
+                            <input type="text" value="John Doe" id="profile-full-name" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">
+                                Email Address
+                                <span style="color: #94a3b8; font-size: 0.8rem; margin-left: 0.5rem;">(Already verified)</span>
+                            </label>
+                            <input type="email" value="john.doe@email.com" id="profile-email" readonly style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.2);
+                                border-radius: 8px;
+                                background: rgba(226, 232, 240, 0.1);
+                                color: #94a3b8;
+                                font-size: 1rem;
+                                cursor: not-allowed;
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+                                letter-spacing: normal;
+                            ">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Phone Number</label>
+                            <input type="tel" value="" id="profile-phone" placeholder="e.g., +1 (555) 123-4567" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Details -->
+                <div style="
+                    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+                    backdrop-filter: blur(15px);
+                    padding: 2rem;
+                    border-radius: 20px;
+                    border: 2px solid rgba(51, 65, 85, 0.4);
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                ">
+                    <h3 style="color: #f8fafc; font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
+                        <i class="fas fa-briefcase" style="margin-right: 0.5rem; color: #cbd5e1;"></i>
+                        Professional Details
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Role</label>
+                            <select id="profile-category" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                                <option value="agent">Real Estate Agent</option>
+                                <option value="broker">Broker</option>
+                                <option value="developer">Developer</option>
+                                <option value="marketing">Sales/Marketing</option>
+                                <option value="mortgage">Mortgage Broker</option>
+                                <option value="individual">Individual</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Province</label>
+                            <select id="profile-province" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                                <option value="">Select Province</option>
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NT">Northwest Territories</option>
+                                <option value="NU">Nunavut</option>
+                                <option value="YT">Yukon</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">City</label>
+                            <input type="text" value="" id="profile-city" placeholder="e.g., Toronto" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security -->
+                <div style="
+                    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+                    backdrop-filter: blur(15px);
+                    padding: 2rem;
+                    border-radius: 20px;
+                    border: 2px solid rgba(51, 65, 85, 0.4);
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                ">
+                    <h3 style="color: #f8fafc; font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
+                        <i class="fas fa-shield-alt" style="margin-right: 0.5rem; color: #cbd5e1;"></i>
+                        Security
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Current Password</label>
+                            <input type="password" id="current-password" placeholder="Enter current password" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">New Password</label>
+                            <input type="password" id="new-password" placeholder="Enter new password" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;">Confirm New Password</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm new password" style="
+                                width: 100%;
+                                padding: 0.75rem;
+                                border: 2px solid rgba(226, 232, 240, 0.3);
+                                border-radius: 8px;
+                                background: #ffffff;
+                                color: #1e293b;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                            " onfocus="this.style.borderColor='#334155'; this.style.boxShadow='0 0 10px rgba(51, 65, 85, 0.3)'" onblur="this.style.borderColor='rgba(226, 232, 240, 0.3)'; this.style.boxShadow='none'">
+                        </div>
+                        
+                        <!-- Change Password Button -->
+                        <div style="text-align: center; margin-top: 0.5rem;">
+                            <button onclick="changePassword()" style="
+                                background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9));
+                                color: #f8fafc;
+                                border: 1px solid rgba(226, 232, 240, 0.3);
+                                padding: 0.75rem 2rem;
+                                border-radius: 8px;
+                                font-size: 1rem;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                backdrop-filter: blur(5px);
+                            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(100, 116, 139, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                                <i class="fas fa-lock" style="margin-right: 0.5rem;"></i>
+                                Change Password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Profile Button -->
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button onclick="saveProfile()" style="
+                        background: linear-gradient(135deg, #1E2A38 0%, #334155 100%);
+                        color: #f8fafc;
+                        border: none;
+                        padding: 1rem 3rem;
+                        border-radius: 12px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 4px 15px rgba(30, 42, 56, 0.3);
+                        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(30, 42, 56, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(30, 42, 56, 0.3)'">
+                        <i class="fas fa-save" style="margin-right: 0.5rem;"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .dropdown-item:hover {
+            color: #F59E0B !important;
+        }
+        
+        .dropdown-item:hover i {
+            color: #F59E0B !important;
+        }
+        
+        .logout-item:hover {
+            color: #F59E0B !important;
+        }
+        
+        .logout-item:hover i {
+            color: #F59E0B !important;
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(30, 60, 114, 0.1) !important;
+            color: #1e3c72 !important;
+        }
+    </style>
+
+    <script>
+        // API_URL is already declared in auth.js
+        let hideTimeout;
+
+        function showMenu() {
+            clearTimeout(hideTimeout);
+            document.getElementById('user-dropdown').style.display = 'block';
+        }
+
+        function hideMenuDelayed() {
+            hideTimeout = setTimeout(function() {
+                document.getElementById('user-dropdown').style.display = 'none';
+            }, 200); // Small delay to prevent flickering when moving between avatar and dropdown
+        }
+
+        function closeMenu() {
+            document.getElementById('user-dropdown').style.display = 'none';
+        }
+
+        function toggleMenu(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('user-dropdown');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        }
+
+        // Add hover effects to dropdown items
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handler for mobile to user avatar
+            const userAvatar = document.querySelector('.user-avatar');
+            if (userAvatar) {
+                userAvatar.addEventListener('click', toggleMenu);
+                userAvatar.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    toggleMenu(e);
+                });
+            }
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                const dropdown = document.getElementById('user-dropdown');
+                const avatar = document.querySelector('.user-avatar');
+                if (dropdown && avatar && 
+                    !dropdown.contains(event.target) && 
+                    !avatar.contains(event.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#2B394A';
+                    this.style.color = '#F59E0B';
+                    
+                    // Also change icon color to gold
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.color = '#F59E0B';
+                    }
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = '#fff';
+                    
+                    // Reset icon color to white
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.color = '#fff';
+                    }
+                });
+            });
+        });
+
+        function switchTab(tabName) {
+            // Clear any text selections more thoroughly to prevent random highlighting
+            if (window.getSelection) {
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.empty && selection.empty(); // IE compatibility
+            }
+            
+            // Also clear any document selections
+            if (document.selection) {
+                document.selection.empty(); // IE compatibility
+            }
+            
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.style.display = 'none');
+            
+            // Show selected section
+            document.getElementById(tabName + '-section').style.display = 'block';
+            
+            // Update tab styling
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.style.background = 'transparent';
+                tab.style.color = '#6c757d';
+                tab.style.boxShadow = 'none';
+                tab.classList.remove('active');
+            });
+            
+            // Style active tab - but first ensure we have the right target (only nav-tabs, not action buttons)
+            const targetElement = event && event.target && event.target.classList.contains('nav-tab') ? event.target : document.querySelector(`.nav-tab[onclick*="${tabName}"]`);
+            if (targetElement && targetElement.classList.contains('nav-tab')) {
+                targetElement.style.background = '#1E2A38';
+                targetElement.style.color = '#fff';
+                targetElement.style.boxShadow = '0 2px 8px rgba(30, 42, 56, 0.3)';
+                targetElement.classList.add('active');
+                
+                // Remove focus to prevent text selection
+                if (targetElement.blur) {
+                    targetElement.blur();
+                }
+            }
+            
+            // Update action button styling
+            updateActionButtons(tabName);
+        }
+        
+        function updateActionButtons(activeTab) {
+            // Reset all action buttons to default style - now handling multiple ID patterns
+            const allActionButtons = document.querySelectorAll('[id$="-action-btn"]');
+            
+            allActionButtons.forEach(button => {
+                if (button) {
+                    // Remove active class from all buttons
+                    button.classList.remove('active');
+                    // Clear any inline styles to let CSS take control
+                    button.style.background = '';
+                    button.style.color = '';
+                    button.style.border = '';
+                    button.style.boxShadow = '';
+                    button.style.backdropFilter = '';
+                    button.style.transform = '';
+                }
+            });
+            
+            // Add active class to ALL active action buttons for the current tab (all sections)
+            const activeButtons = document.querySelectorAll(`[id*="${activeTab}-action-btn"], [id$="${activeTab}-action-btn"]`);
+            activeButtons.forEach(activeButton => {
+                if (activeButton) {
+                    // Add active class - let CSS handle the styling with !important
+                    activeButton.classList.add('active');
+                }
+            });
+        }
+
+        async function saveProfile() {
+            // Show loading state
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Saving...';
+            button.disabled = true;
+            
+            try {
+                // Get form values
+                const fullName = document.getElementById('profile-full-name').value.trim();
+                const phoneNumber = document.getElementById('profile-phone').value.trim();
+                const province = document.getElementById('profile-province').value.trim();
+                const city = document.getElementById('profile-city').value.trim();
+                const category = document.getElementById('profile-category').value;
+                
+                // Split full name into first and last name
+                const nameParts = fullName.split(' ');
+                const firstName = nameParts[0] || '';
+                const lastName = nameParts.slice(1).join(' ') || '';
+                
+                if (!firstName) {
+                    alert('Please enter your full name');
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    return;
+                }
+                
+                // Get auth token
+                const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                if (!authToken) {
+                    alert('Session expired. Please login again.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                // Send update request to backend
+                const response = await fetch(`${API_URL}/users/profile`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        phoneNumber: phoneNumber || null,
+                        province: province || null,
+                        city: city || null,
+                        category
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to update profile');
+                }
+                
+                // Update local storage with new user data
+                const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData'));
+                if (userData) {
+                    Object.assign(userData, data.user);
+                    if (localStorage.getItem('userData')) {
+                        localStorage.setItem('userData', JSON.stringify(userData));
+                    } else {
+                        sessionStorage.setItem('userData', JSON.stringify(userData));
+                    }
+                }
+                
+                // Success state
+                button.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Saved!';
+                button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                
+                // Update display name in header
+                const dropdownName = document.getElementById('dropdown-user-name');
+                if (dropdownName) {
+                    dropdownName.textContent = `${firstName} ${lastName}`;
+                }
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = 'linear-gradient(135deg, #1E2A38 0%, #334155 100%)';
+                    button.disabled = false;
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Save profile error:', error);
+                alert(error.message || 'Failed to save profile. Please try again.');
+                button.innerHTML = originalText;
+                button.style.background = 'linear-gradient(135deg, #1E2A38 0%, #334155 100%)';
+                button.disabled = false;
+            }
+        }
+
+        async function changePassword() {
+            // Get button reference
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            // Get password values
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Validate inputs
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Please fill in all password fields');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                alert('Password must be at least 8 characters long');
+                return;
+            }
+            
+            // Show loading state
+            button.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Changing...';
+            button.disabled = true;
+            
+            try {
+                // Get auth token
+                const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                if (!authToken) {
+                    alert('Session expired. Please login again.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                // Send password change request
+                const response = await fetch(`${API_URL}/users/change-password`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword,
+                        confirmPassword
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to change password');
+                }
+                
+                // Success state
+                button.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Changed!';
+                button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                
+                // Clear password fields
+                document.getElementById('current-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-password').value = '';
+                
+                // Show success message
+                alert('Password changed successfully!');
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = 'linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9))';
+                    button.disabled = false;
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Change password error:', error);
+                alert(error.message || 'Failed to change password. Please try again.');
+                button.innerHTML = originalText;
+                button.style.background = 'linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9))';
+                button.disabled = false;
+            }
+        }
+
+        function showSection(section) {
+            switchTab(section);
+        }
+
+        window.logout = function() {
+            // Clear user session
+            localStorage.removeItem('userSession');
+            sessionStorage.removeItem('userSession');
+            
+            // Show logout message
+            alert('You have been logged out successfully.');
+            
+            // Redirect to home page
+            window.location.href = 'index.html';
+        };
+
+        // Helper function to calculate time ago
+        function getTimeAgo(timestamp) {
+            const now = new Date();
+            const past = new Date(timestamp);
+            const diffMs = now - past;
+            const diffSeconds = Math.floor(diffMs / 1000);
+            const diffMinutes = Math.floor(diffSeconds / 60);
+            const diffHours = Math.floor(diffMinutes / 60);
+            const diffDays = Math.floor(diffHours / 24);
+            const diffMonths = Math.floor(diffDays / 30);
+            const diffYears = Math.floor(diffDays / 365);
+
+            if (diffSeconds < 60) {
+                return diffSeconds === 1 ? '1 second ago' : `${diffSeconds} seconds ago`;
+            } else if (diffMinutes < 60) {
+                return diffMinutes === 1 ? '1 minute ago' : `${diffMinutes} minutes ago`;
+            } else if (diffHours < 24) {
+                return diffHours === 1 ? '1 hour ago' : `${diffHours} hours ago`;
+            } else if (diffDays < 30) {
+                return diffDays === 1 ? '1 day ago' : `${diffDays} days ago`;
+            } else if (diffMonths < 12) {
+                return diffMonths === 1 ? '1 month ago' : `${diffMonths} months ago`;
+            } else {
+                return diffYears === 1 ? '1 year ago' : `${diffYears} years ago`;
+            }
+        }
+
+        // Fetch and update dashboard statistics
+        async function loadDashboardStats() {
+            try {
+                const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                if (!authToken) return;
+
+                const response = await fetch(`${API_URL}/users/stats`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch stats');
+                
+                const data = await response.json();
+                const stats = data.stats;
+
+                // Update stat cards
+                document.getElementById('stat-entries').textContent = stats.totalEntries || '0';
+                document.getElementById('stat-referral-earnings').textContent = `$${stats.referralRewardsEarned.toFixed(0) || '0'}`;
+                document.getElementById('stat-referral-count').textContent = `From ${stats.completedReferrals || 0} successful referrals`;
+                
+                // Update referrals section total earned
+                document.getElementById('referral-total-earned').textContent = `$${stats.referralRewardsEarned.toFixed(0) || '0'}`;
+                
+                // Update redeem button style based on earnings
+                const redeemBtn = document.getElementById('redeem-btn');
+                if (stats.referralRewardsEarned > 0) {
+                    // Enable button with gold styling
+                    redeemBtn.style.background = 'linear-gradient(135deg, #F59E0B, #D97706)';
+                    redeemBtn.style.color = '#ffffff';
+                    redeemBtn.style.cursor = 'pointer';
+                    redeemBtn.style.opacity = '1';
+                } else {
+                    // Keep disabled grey styling
+                    redeemBtn.style.background = 'linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9))';
+                    redeemBtn.style.color = '#94a3b8';
+                    redeemBtn.style.cursor = 'not-allowed';
+                    redeemBtn.style.opacity = '0.6';
+                }
+                
+                // Fetch global stats for drawing progress
+                const globalResponse = await fetch(`${API_URL}/public/stats`);
+                if (globalResponse.ok) {
+                    const globalData = await globalResponse.json();
+                    const globalPoints = globalData.data.totalPoints || 0;
+                    const drawingGoal = 400;
+                    const progress = Math.min((globalPoints / drawingGoal) * 100, 100);
+                    document.getElementById('stat-points').textContent = `${globalPoints}/400`;
+                    document.getElementById('stat-progress-bar').style.width = `${progress}%`;
+                }
+
+                // Update registration status boxes
+                document.getElementById('registeredEntries').textContent = stats.totalEntries || '0';
+                document.getElementById('availablePoints').textContent = stats.totalPoints || '0';
+                
+                // Calculate total invested (entries * $2000 per point, minus referral discounts if any)
+                const totalInvested = (stats.totalPoints || 0) * 2000;
+                document.getElementById('totalInvested').textContent = `$${totalInvested.toLocaleString()}`;
+
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+            }
+        }
+
+        // Fetch and display recent activity
+        async function loadRecentActivity() {
+            try {
+                const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                if (!authToken) return;
+
+                const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData'));
+                
+                // Fetch transactions
+                const response = await fetch(`${API_URL}/transactions/my-transactions`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch transactions');
+                
+                const data = await response.json();
+                const transactions = data.transactions || [];
+                
+                // Fetch withdrawal requests
+                let withdrawals = [];
+                try {
+                    const withdrawalResponse = await fetch(`${API_URL}/withdrawals`, {
+                        headers: {
+                            'Authorization': `Bearer ${authToken}`
+                        }
+                    });
+                    if (withdrawalResponse.ok) {
+                        const withdrawalData = await withdrawalResponse.json();
+                        console.log('📥 Withdrawal response:', withdrawalData);
+                        // Backend returns { success: true, data: [...] }
+                        if (withdrawalData.success && Array.isArray(withdrawalData.data)) {
+                            withdrawals = withdrawalData.data;
+                        }
+                        console.log('📋 Parsed withdrawals:', withdrawals);
+                    }
+                } catch (err) {
+                    console.log('❌ Error fetching withdrawals:', err);
+                }
+                
+                console.log('🔄 Combining activities - Transactions:', transactions.length, 'Withdrawals:', withdrawals.length);
+                
+                // Combine transactions and withdrawals
+                const allActivities = [
+                    ...transactions.map(tx => ({...tx, type: 'transaction'})),
+                    ...withdrawals.map(w => ({...w, type: 'withdrawal', created_at: w.createdAt}))
+                ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                
+                console.log('📊 Total activities:', allActivities.length);
+                
+                const container = document.getElementById('recent-activity-container');
+                
+                if (allActivities.length === 0 && userData) {
+                    // Show only account created
+                    container.innerHTML = `
+                        <div style="padding: 1rem; display: flex; align-items: center;">
+                            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9)); backdrop-filter: blur(5px); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; border: 1px solid rgba(226, 232, 240, 0.3);">
+                                <i class="fas fa-user-plus" style="color: #e2e8f0;"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: #f8fafc;">Account Created</div>
+                                <div style="font-size: 0.9rem; color: #e2e8f0;">Welcome to DeedDraw! Your account is ready.</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: #cbd5e1;">${getTimeAgo(userData.createdAt)}</div>
+                        </div>
+                    `;
+                } else {
+                    let html = '';
+                    
+                    // Show latest 5 activities (transactions + withdrawals)
+                    allActivities.slice(0, 5).forEach((activity, index) => {
+                        const isLast = index === allActivities.length - 1 || index === 4;
+                        const borderStyle = isLast ? '' : 'border-bottom: 1px solid rgba(226, 232, 240, 0.1);';
+                        
+                        if (activity.type === 'withdrawal') {
+                            // Withdrawal activity
+                            const statusColors = {
+                                'pending': { bg: '#64748b', bgGradient: '#475569', text: '#94a3b8', icon: 'clock', shadow: 'rgba(100, 116, 139, 0.3)' },
+                                'approved': { bg: '#F59E0B', bgGradient: '#D97706', text: '#F59E0B', icon: 'check-circle', shadow: 'rgba(245, 158, 11, 0.3)' },
+                                'rejected': { bg: '#ef4444', bgGradient: '#dc2626', text: '#ef4444', icon: 'times-circle', shadow: 'rgba(239, 68, 68, 0.3)' }
+                            };
+                            const status = statusColors[activity.status] || statusColors.pending;
+                            
+                            html += `
+                                <div style="padding: 1rem; ${borderStyle} display: flex; align-items: center;">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, ${status.bg}, ${status.bgGradient}); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 4px 15px ${status.shadow};">
+                                        <i class="fas fa-${status.icon}" style="color: white;"></i>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: ${status.text};">Withdrawal ${activity.status.charAt(0).toUpperCase() + activity.status.slice(1)}</div>
+                                        <div style="font-size: 0.9rem; color: #e2e8f0;">$${parseFloat(activity.amount).toLocaleString()} requested</div>
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: #cbd5e1;">${getTimeAgo(activity.created_at)}</div>
+                                </div>
+                            `;
+                        } else if (activity.status === 'verified') {
+                            html += `
+                                <div style="padding: 1rem; ${borderStyle} display: flex; align-items: center;">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #F59E0B, #D97706); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);">
+                                        <i class="fas fa-check-circle" style="color: white;"></i>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: #F59E0B;">Entry Verified</div>
+                                        <div style="font-size: 0.9rem; color: #e2e8f0;">${activity.points} point${activity.points > 1 ? 's' : ''} verified • Cert #${activity.certificateNumber}</div>
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: #cbd5e1;">${getTimeAgo(activity.created_at)}</div>
+                                </div>
+                            `;
+                        } else if (activity.status === 'pending') {
+                            html += `
+                                <div style="padding: 1rem; ${borderStyle} display: flex; align-items: center;">
+                                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #64748b, #475569); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);">
+                                        <i class="fas fa-clock" style="color: white;"></i>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: #94a3b8;">Entry Pending</div>
+                                        <div style="font-size: 0.9rem; color: #e2e8f0;">${activity.points} point${activity.points > 1 ? 's' : ''} • $${parseFloat(activity.amount).toLocaleString()} • Awaiting verification</div>
+                                    </div>
+                                    <button onclick="showETransferDetails('${activity.certificateNumber}', ${activity.amount})" style="width: 32px; height: 32px; background: rgba(200, 161, 90, 0.2); border: 1px solid #c8a15a; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-right: 10px; transition: all 0.3s;" title="View e-Transfer Details">
+                                        <i class="fas fa-info" style="color: #c8a15a; font-size: 14px;"></i>
+                                    </button>
+                                    <div style="font-size: 0.8rem; color: #cbd5e1;">${getTimeAgo(activity.created_at)}</div>
+                                </div>
+                            `;
+                        }
+                    });
+                    
+                    // Add account created at the end
+                    if (userData) {
+                        html += `
+                            <div style="padding: 1rem; display: flex; align-items: center;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(100, 116, 139, 0.8), rgba(71, 85, 105, 0.9)); backdrop-filter: blur(5px); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; border: 1px solid rgba(226, 232, 240, 0.3);">
+                                    <i class="fas fa-user-plus" style="color: #e2e8f0;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; color: #f8fafc;">Account Created</div>
+                                    <div style="font-size: 0.9rem; color: #e2e8f0;">Welcome to DeedDraw! Your account is ready.</div>
+                                </div>
+                                <div style="font-size: 0.8rem; color: #cbd5e1;">${getTimeAgo(userData.createdAt)}</div>
+                            </div>
+                        `;
+                    }
+                    
+                    container.innerHTML = html;
+                }
+                
+            } catch (error) {
+                console.error('Error loading recent activity:', error);
+                document.getElementById('recent-activity-container').innerHTML = `
+                    <div style="padding: 2rem; text-align: center; color: #ef4444;">
+                        <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <div>Failed to load activity</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Fetch and display certificates for verified transactions
+        async function loadCertificates() {
+            try {
+                const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                if (!authToken) return;
+                
+                const response = await fetch(`${API_URL}/transactions/my-transactions`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch transactions');
+                
+                const data = await response.json();
+                const verifiedTransactions = (data.transactions || []).filter(tx => tx.status === 'verified');
+                
+                const container = document.getElementById('certificates-container');
+                
+                if (verifiedTransactions.length === 0) {
+                    // No verified transactions - show empty state
+                    container.innerHTML = `
+                        <div style="padding: 2rem; text-align: center; color: #cbd5e1;">
+                            <h3 style="color: #f8fafc; margin: 0 0 0.5rem 0; font-size: 1.2rem;">No Certificates Yet</h3>
+                            <p style="margin: 0; font-size: 0.95rem; opacity: 0.8;">
+                                Register your real estate transactions to receive certificates
+                            </p>
+                            <button onclick="switchTab('points')" style="
+                                margin-top: 1.5rem;
+                                background: linear-gradient(135deg, #F59E0B, #D97706);
+                                color: white;
+                                border: none;
+                                padding: 1rem 2rem;
+                                border-radius: 12px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                font-size: 1.1rem;
+                                box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(245, 158, 11, 0.4)'; this.style.background='linear-gradient(135deg, #D97706 0%, #F59E0B 100%)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(245, 158, 11, 0.3)'; this.style.background='linear-gradient(135deg, #F59E0B, #D97706)'">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Register Entry</span>
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    // Show verified transaction certificates
+                    let html = '';
+                    
+                    verifiedTransactions.forEach((tx, index) => {
+                        const isLast = index === verifiedTransactions.length - 1;
+                        const borderStyle = isLast ? '' : 'border-bottom: 1px solid rgba(226, 232, 240, 0.1);';
+                        
+                        html += `
+                            <div class="certificate-item" style="padding: 1.5rem; ${borderStyle} display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(51, 65, 85, 0.5)'" onmouseout="this.style.background='transparent'">
+                                <div style="display: flex; align-items: center; flex: 1; min-width: 280px;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #64748b, #475569); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1.5rem; flex-shrink: 0; box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);">
+                                        <i class="fas fa-certificate" style="color: #fff; font-size: 1.8rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 style="color: #f8fafc; margin: 0 0 0.5rem 0; font-size: 1.2rem; font-weight: 600;">Entry Certificate</h3>
+                                        <p style="color: #cbd5e1; margin: 0; font-size: 0.9rem;">
+                                            <i class="fas fa-hashtag" style="margin-right: 0.5rem;"></i>
+                                            ${tx.certificateNumber}
+                                        </p>
+                                        <p style="color: #cbd5e1; margin: 0.25rem 0 0 0; font-size: 0.9rem;">
+                                            <i class="fas fa-ticket-alt" style="margin-right: 0.5rem;"></i>
+                                            ${tx.points} Point${tx.points > 1 ? 's' : ''} • $${tx.transactionAmount.toLocaleString()}
+                                        </p>
+                                        <p style="color: #cbd5e1; margin: 0.25rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">
+                                            <i class="fas fa-calendar-alt" style="margin-right: 0.5rem;"></i>
+                                            Verified ${new Date(tx.verifiedAt || tx.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button onclick="downloadEntryCertificate('${tx.id}')" class="cert-download-btn" style="
+                                    background: linear-gradient(135deg, #F59E0B, #D97706);
+                                    color: white;
+                                    border: none;
+                                    padding: 0.8rem 1.5rem;
+                                    border-radius: 8px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    transition: all 0.3s ease;
+                                    font-size: 1rem;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 0.5rem;
+                                    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+                                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(245, 158, 11, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(245, 158, 11, 0.3)'">
+                                    <i class="fas fa-download"></i>
+                                    Download PDF
+                                </button>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                }
+                
+            } catch (error) {
+                console.error('Error loading certificates:', error);
+                document.getElementById('certificates-container').innerHTML = `
+                    <div style="padding: 2rem; text-align: center; color: #ef4444;">
+                        <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <div>Failed to load certificates</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Check user session and update profile info
+        function checkUserSession() {
+            console.log('🔍 Checking user session...');
+            
+            const sessionData = localStorage.getItem('userSession') || sessionStorage.getItem('userSession');
+            const userData = localStorage.getItem('userData') || sessionStorage.getItem('userData'); // Check both storages
+            
+            console.log('📊 Session Data:', sessionData);
+            console.log('👤 User Data:', userData);
+            
+            if (sessionData && userData) {
+                try {
+                    const session = JSON.parse(sessionData);
+                    const user = JSON.parse(userData);
+                    
+                    console.log('✅ Session parsed:', session);
+                    console.log('✅ User parsed:', user);
+                    
+                    if (user && session.userId && session.email) {
+                        console.log('✅ Valid session and user data found!');
+                        
+                        // Update user info in profile elements
+                        const initials = (user.firstName[0] + user.lastName[0]).toUpperCase();
+                        document.getElementById('user-initials').textContent = initials;
+                        document.getElementById('dropdown-user-name').textContent = user.firstName + ' ' + user.lastName;
+                        
+                        // Update welcome message with user's first name
+                        const welcomeElements = document.querySelectorAll('#welcome-user-name, .welcome-user-name');
+                        welcomeElements.forEach(element => {
+                            element.textContent = `Welcome back, ${user.firstName}!`;
+                        });
+                        
+                        // Map category codes to readable names
+                        const categoryMap = {
+                            'agent-broker': 'Real Estate Agent',
+                            'developer': 'Developer',
+                            'sales-marketing': 'Sales & Marketing',
+                            'mortgage-broker': 'Mortgage Broker',
+                            'individual': 'Individual'
+                        };
+                        
+                        const categoryDisplay = categoryMap[user.category] || user.category;
+                        document.getElementById('dropdown-user-category').textContent = categoryDisplay;
+                        
+                        // Update profile form fields
+                        const profileNameField = document.getElementById('profile-full-name');
+                        const profileEmailField = document.getElementById('profile-email');
+                        const profileCategoryField = document.getElementById('profile-category');
+                        const profilePhoneField = document.getElementById('profile-phone');
+                        const profileProvinceField = document.getElementById('profile-province');
+                        const profileCityField = document.getElementById('profile-city');
+                        
+                        if (profileNameField) profileNameField.value = user.firstName + ' ' + user.lastName;
+                        if (profileEmailField) profileEmailField.value = user.email;
+                        if (profileCategoryField) profileCategoryField.value = user.category;
+                        if (profilePhoneField) profilePhoneField.value = user.phone || user.phoneNumber || '';
+                        if (profileProvinceField) profileProvinceField.value = user.province || '';
+                        if (profileCityField) profileCityField.value = user.city || '';
+                        
+                        // Update referral code display
+                        const referralCodeElement = document.getElementById('userReferralCode');
+                        if (referralCodeElement && user.referralCode) {
+                            referralCodeElement.textContent = user.referralCode;
+                        }
+                        
+                        // Update certificate registration date
+                        if (user.createdAt) {
+                            const regDate = new Date(user.createdAt);
+                            const formattedDate = regDate.toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                            });
+                            const certDateElement = document.getElementById('cert-reg-date');
+                            if (certDateElement) {
+                                certDateElement.textContent = `Issued ${formattedDate}`;
+                            }
+                            
+                            // Update account creation time in Recent Activity
+                            const accountCreatedElement = document.getElementById('account-created-time');
+                            if (accountCreatedElement) {
+                                accountCreatedElement.textContent = getTimeAgo(user.createdAt);
+                            }
+                        }
+                        
+                        return user; // Return user data for further use
+                    } else {
+                        // Invalid session, redirect to login
+                        localStorage.removeItem('userSession');
+                        sessionStorage.removeItem('userSession');
+                        localStorage.removeItem('userData');
+                        window.location.href = 'login.html';
+                    }
+                } catch (error) {
+                    console.error('Error parsing session data:', error);
+                    localStorage.removeItem('userSession');
+                    sessionStorage.removeItem('userSession');
+                    localStorage.removeItem('userData');
+                    window.location.href = 'login.html';
+                }
+            } else {
+                // No session, redirect to login
+                console.log('No session found, redirecting to login');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Refresh user profile data from API
+        async function refreshUserProfile() {
+            try {
+                const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                if (!authToken) return;
+                
+                const response = await fetch(`${API_URL}/users/profile`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success && data.user) {
+                        // Update localStorage/sessionStorage with fresh data
+                        if (localStorage.getItem('userData')) {
+                            localStorage.setItem('userData', JSON.stringify(data.user));
+                        } else {
+                            sessionStorage.setItem('userData', JSON.stringify(data.user));
+                        }
+                        
+                        // Update profile fields with fresh data including province and city
+                        const profileProvinceField = document.getElementById('profile-province');
+                        const profileCityField = document.getElementById('profile-city');
+                        if (profileProvinceField) profileProvinceField.value = data.user.province || '';
+                        if (profileCityField) profileCityField.value = data.user.city || '';
+                        
+                        console.log('✅ User profile refreshed from server:', data.user);
+                    }
+                }
+            } catch (error) {
+                console.error('Error refreshing user profile:', error);
+            }
+        }
+
+        // Check session when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserSession();
+            refreshUserProfile(); // Fetch latest user data from server
+            // Load dynamic dashboard data
+            loadDashboardStats();
+            loadRecentActivity();
+            loadCertificates();
+        });
+
+        // Helper function to add commas to numbers
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Points Calculator Functions
+        function calculatePoints() {
+            const amountInput = document.getElementById('transactionAmount');
+            
+            // Remove any non-numeric characters except commas, then remove commas for calculation
+            let cleanValue = amountInput.value.replace(/[^\d,]/g, '');
+            const rawValue = cleanValue.replace(/,/g, '');
+            const amount = parseFloat(rawValue);
+            
+            // Format the input with commas as user types
+            if (!isNaN(amount) && rawValue !== '') {
+                const formattedValue = numberWithCommas(amount);
+                // Only update if the formatted value is different to avoid cursor jumping
+                if (amountInput.value !== formattedValue) {
+                    const cursorPosition = amountInput.selectionStart;
+                    const oldLength = amountInput.value.length;
+                    amountInput.value = formattedValue;
+                    const newLength = amountInput.value.length;
+                    // Adjust cursor position based on the length difference
+                    const newCursorPosition = cursorPosition + (newLength - oldLength);
+                    amountInput.setSelectionRange(newCursorPosition, newCursorPosition);
+                }
+            } else if (rawValue === '') {
+                // Clear the input if it's empty
+                amountInput.value = '';
+            }
+            
+            // Calculate points using the correct logic
+            let points = 0;
+            if (!isNaN(amount) && amount >= 500000) {
+                // Calculate points based on 500k ranges: 500-749=1, 750-1249=2, 1250-1749=3, etc.
+                if (amount < 750000) {
+                    points = 1;
+                } else {
+                    points = Math.floor((amount - 250000) / 500000) + 1;
+                }
+            }
+            
+            // Update the points display
+            document.getElementById('pointsEarned').textContent = points + ' points';
+            
+            // Update the Points to Register dropdown based on earned points
+            updatePointsToRegisterOptions(points);
+        }
+        
+        function updatePointsToRegisterOptions(maxPoints) {
+            const select = document.getElementById('pointsToRegister');
+            const currentValue = select.value;
+            
+            // Clear existing options
+            select.innerHTML = '<option value="">Select points</option>';
+            
+            // Add options from 1 to maxPoints
+            for (let i = 1; i <= maxPoints; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + (i === 1 ? ' point' : ' points');
+                select.appendChild(option);
+            }
+            
+            // If no points earned, show disabled message
+            if (maxPoints === 0) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Enter transaction amount first';
+                option.disabled = true;
+                select.appendChild(option);
+            }
+            
+            // Restore previous value if still valid
+            if (currentValue && currentValue <= maxPoints) {
+                select.value = currentValue;
+            }
+        }
+
+        function calculateCost() {
+            const points = document.getElementById('pointsToRegister').value;
+            const baseCost = points * 2000;
+            
+            // If referral code is already applied, recalculate discount based on new points
+            if (validReferralCode) {
+                appliedDiscount = points * 100;
+                const discountDiv = document.getElementById('discountAmount');
+                discountDiv.textContent = '-$' + appliedDiscount.toLocaleString();
+            }
+            
+            // Calculate final total with discount
+            updateFinalTotal();
+            
+            // Don't auto-show payment form - only show when credit card is selected
+            // The payment form visibility is controlled by the payment method radio buttons
+        }
+
+        let appliedDiscount = 0;
+        let validReferralCode = null; // Store validated referral code
+
+        async function applyReferralCode() {
+            const codeInput = document.getElementById('referralCode');
+            const code = codeInput.value.trim().toUpperCase();
+            const messageDiv = document.getElementById('referralMessage');
+            const discountDiv = document.getElementById('discountAmount');
+            const applyButton = event.target;
+            
+            if (!code) {
+                showReferralMessage('Please enter a referral code', 'error');
+                return;
+            }
+            
+            // Show loading state
+            applyButton.disabled = true;
+            applyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Validating...';
+            
+            try {
+                const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                
+                // Validate referral code via API
+                const response = await fetch(`${API_URL}/users/validate-referral/${code}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    // Valid referral code - calculate discount based on number of points ($100 per point)
+                    validReferralCode = code;
+                    const points = parseInt(document.getElementById('pointsToRegister').value) || 0;
+                    appliedDiscount = points * 100;
+                    const totalSavings = appliedDiscount;
+                    showReferralMessage(`✅ Code applied successfully! You saved $${totalSavings.toLocaleString()} ($100 per point) (Referred by: ${data.referrer.firstName} ${data.referrer.lastName})`, 'success');
+                    
+                    // Show discount section
+                    document.getElementById('discountSection').style.display = 'block';
+                    discountDiv.style.display = 'block';
+                    discountDiv.textContent = '-$' + appliedDiscount.toLocaleString();
+                    
+                    codeInput.disabled = true;
+                    applyButton.style.display = 'none'; // Hide apply button once applied
+                    updateFinalTotal();
+                } else {
+                    // Invalid referral code
+                    showReferralMessage(`❌ ${data.message || 'Invalid referral code'}`, 'error');
+                    validReferralCode = null;
+                    appliedDiscount = 0;
+                    
+                    // Hide discount section
+                    document.getElementById('discountSection').style.display = 'none';
+                    discountDiv.style.display = 'none';
+                    
+                    updateFinalTotal();
+                }
+            } catch (error) {
+                console.error('Error validating referral code:', error);
+                showReferralMessage('❌ Error validating referral code. Please try again.', 'error');
+                validReferralCode = null;
+                appliedDiscount = 0;
+                
+                // Hide discount section
+                document.getElementById('discountSection').style.display = 'none';
+                discountDiv.style.display = 'none';
+                
+                updateFinalTotal();
+            } finally {
+                // Restore button
+                applyButton.disabled = false;
+                applyButton.innerHTML = 'Apply Referral Code';
+            }
+        }
+
+        function showReferralMessage(message, type) {
+            const messageDiv = document.getElementById('referralMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.display = 'block';
+            
+            if (type === 'success') {
+                // Gold success message matching the page theme
+                messageDiv.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.1))';
+                messageDiv.style.color = '#f4d03f';
+                messageDiv.style.border = '1px solid rgba(212, 175, 55, 0.4)';
+                messageDiv.style.backdropFilter = 'blur(5px)';
+                messageDiv.style.fontWeight = '500';
+            } else {
+                // Red error message with dark theme
+                messageDiv.style.background = 'linear-gradient(135deg, rgba(220, 53, 69, 0.15), rgba(176, 42, 55, 0.1))';
+                messageDiv.style.color = '#ff6b6b';
+                messageDiv.style.border = '1px solid rgba(220, 53, 69, 0.4)';
+                messageDiv.style.backdropFilter = 'blur(5px)';
+                messageDiv.style.fontWeight = '500';
+            }
+        }
+
+        function updateFinalTotal() {
+            const points = document.getElementById('pointsToRegister').value;
+            const baseCost = points * 2000;
+            const finalCost = Math.max(0, baseCost - appliedDiscount);
+            document.getElementById('finalTotal').textContent = finalCost > 0 ? '$' + finalCost.toLocaleString() : '$0';
+        }
+
+        function toggleRegistrationFields() {
+            const checkbox = document.getElementById('agreeTerms');
+            
+            if (checkbox.checked) {
+                // Remove highlight when checkbox is checked
+                removeTermsHighlight();
+            }
+        }
+
+        function highlightTermsRequired() {
+            const container = document.getElementById('termsContainer');
+            const star = document.getElementById('requiredStar');
+            
+            // Add gold highlight
+            container.style.background = 'linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.1))';
+            container.style.border = '2px solid rgba(212, 175, 55, 0.5)';
+            container.style.animation = 'pulse 0.5s ease-in-out 3';
+            
+            // Show required star
+            star.style.display = 'inline';
+            
+            // Add animation keyframes if not already added
+            if (!document.getElementById('pulseAnimation')) {
+                const style = document.createElement('style');
+                style.id = 'pulseAnimation';
+                style.textContent = `
+                    @keyframes pulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.02); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        function removeTermsHighlight() {
+            const container = document.getElementById('termsContainer');
+            const star = document.getElementById('requiredStar');
+            
+            // Remove gold highlight smoothly
+            container.style.background = 'transparent';
+            container.style.border = '2px solid transparent';
+            container.style.animation = 'none';
+            
+            // Hide required star
+            star.style.display = 'none';
+        }
+
+        function openRulesPage() {
+            // For now, show a placeholder - you can replace this with actual page navigation
+            alert('This will redirect to the Rules and Regulations page.\n\nIn production, this would open a separate page with complete terms, conditions, and legal requirements.');
+            
+            // Example of how to navigate to rules page:
+            // window.open('rules-and-regulations.html', '_blank'); // Opens in new tab
+            // OR
+            // window.location.href = 'rules-and-regulations.html'; // Same tab
+        }
+
+        async function processPayment() {
+            const points = document.getElementById('pointsToRegister').value;
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+            const transactionAmountInput = document.getElementById('transactionAmount').value;
+            const agreeTerms = document.getElementById('agreeTerms');
+            
+            // Check if terms are agreed
+            if (!agreeTerms.checked) {
+                // Highlight the terms checkbox
+                highlightTermsRequired();
+                alert('⚠️ Please read and agree to the Terms & Conditions before proceeding');
+                // Scroll to terms section
+                agreeTerms.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            
+            if (!points || points < 1) {
+                alert('⚠️ Please select at least 1 point to register');
+                return;
+            }
+
+            if (!paymentMethod) {
+                alert('⚠️ Please select a payment method');
+                return;
+            }
+
+            if (!transactionAmountInput) {
+                alert('⚠️ Please enter the real estate transaction amount');
+                return;
+            }
+            
+            // Parse transaction amount
+            const transactionAmount = parseFloat(transactionAmountInput.replace(/,/g, ''));
+            
+            // No validation needed here - the dropdown already restricts points
+            // based on the rounded transaction amount calculation
+            
+            // Calculate costs for confirmation
+            const baseCost = points * 2000;
+            const finalCost = baseCost - appliedDiscount;
+            const paymentMethodName = paymentMethod.value === 'card' ? 'Credit Card' : 'e-Transfer';
+            const discountText = appliedDiscount > 0 ? `\nDiscount: -$${appliedDiscount}` : '';
+            
+            // Show confirmation dialog
+            const confirmMessage = `🎫 CONFIRM ENTRY REGISTRATION\n` +
+                                 `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+                                 `📊 Transaction Details:\n` +
+                                 `Real Estate Amount: $${transactionAmount.toLocaleString()}\n` +
+                                 `Points to Register: ${points}\n\n` +
+                                 `💰 Payment Details:\n` +
+                                 `Registration Cost: $${baseCost.toLocaleString()}${discountText}\n` +
+                                 `Final Amount: $${finalCost.toLocaleString()}\n` +
+                                 `Payment Method: ${paymentMethodName}\n\n` +
+                                 `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+                                 `⚠️ Please confirm that all information is correct.\n\n` +
+                                 `Click OK to proceed with registration.`;
+            
+            // Ask for confirmation
+            if (!confirm(confirmMessage)) {
+                return; // User cancelled
+            }
+            
+            // Variables already declared above for confirmation, reuse them
+            // const baseCost and finalCost are already calculated
+            
+            // Check payment method
+            if (paymentMethod.value === 'card') {
+                alert('💳 Credit card payment coming soon! Please use e-Transfer for now.');
+                return;
+            }
+            
+            // e-Transfer workflow
+            if (paymentMethod.value === 'bank') {
+                // Show loading state
+                const button = event.target;
+                const originalHTML = button.innerHTML;
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Processing...';
+                
+                try {
+                    const authToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                    
+                    const transactionData = {
+                        points: parseInt(points),
+                        transactionAmount: transactionAmount,
+                        transactionDate: new Date().toISOString().split('T')[0],
+                        eTransferReference: 'PENDING', // Will be updated by user
+                        eTransferEmail: 'User will send', // Placeholder
+                        eTransferDate: new Date().toISOString().split('T')[0]
+                    };
+                    
+                    // Add referral code if validated
+                    if (validReferralCode) {
+                        transactionData.referralCodeUsed = validReferralCode;
+                    }
+                    
+                    const response = await fetch(`${API_URL}/transactions`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${authToken}`
+                        },
+                        body: JSON.stringify(transactionData)
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok && data.success) {
+                        // Show detailed e-Transfer instructions
+                        const discountText = appliedDiscount > 0 ? `\n💰 Referral Discount Applied: -$${appliedDiscount}` : '';
+                        
+                        alert(`✅ Entry Registered Successfully!\n` +
+                              `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+                              `📋 ENTRY DETAILS:\n` +
+                              `Points: ${points}\n` +
+                              `Base Cost: $${baseCost.toLocaleString()}${discountText}\n` +
+                              `Final Amount: $${finalCost.toLocaleString()}\n` +
+                              `Certificate #: ${data.transaction.certificateNumber}\n` +
+                              `Status: ⏳ Pending Payment\n\n` +
+                              `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                              `📧 E-TRANSFER INSTRUCTIONS:\n` +
+                              `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+                              `1️⃣ Open your online banking\n` +
+                              `2️⃣ Send e-Transfer to: payment@deeddraw.com\n` +
+                              `3️⃣ Amount: $${finalCost.toLocaleString()}\n` +
+                              `4️⃣ Security Question: "Certificate Number?"\n` +
+                              `5️⃣ Security Answer: ${data.transaction.certificateNumber}\n\n` +
+                              `⏰ Your entry will be verified within 24-48 hours\n` +
+                              `📧 You'll receive an email confirmation once approved\n\n` +
+                              `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                              `⚠️ IMPORTANT: Save your certificate number!`);
+                        
+                        // Reset form
+                        document.getElementById('transactionAmount').value = '';
+                        document.getElementById('pointsToRegister').value = '';
+                        document.getElementById('referralCode').value = '';
+                        document.getElementById('referralCode').disabled = false;
+                        document.getElementById('finalTotal').textContent = '$0';
+                        document.getElementById('pointsEarned').textContent = '0 points';
+                        if (paymentMethod) paymentMethod.checked = false;
+                        
+                        // Reset referral
+                        validReferralCode = null;
+                        appliedDiscount = 0;
+                        document.getElementById('discountSection').style.display = 'none';
+                        document.getElementById('referralMessage').style.display = 'none';
+                        
+                        // Show apply button again
+                        const applyBtn = document.querySelector('button[onclick="applyReferralCode()"]');
+                        if (applyBtn) applyBtn.style.display = 'block';
+                        
+                        // Reload dashboard data
+                        loadDashboardStats();
+                        loadRecentActivity();
+                        
+                    } else {
+                        throw new Error(data.message || 'Failed to register entry');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error registering entry:', error);
+                    alert(`❌ Registration Failed\n\n${error.message}\n\nPlease try again or contact support.`);
+                } finally {
+                    // Restore button
+                    button.disabled = false;
+                    button.innerHTML = originalHTML;
+                }
+            }
+        }
+
+        // Show payment form when payment method is selected
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+            const paymentForm = document.getElementById('paymentForm');
+            const creditCardFeeNotice = document.getElementById('creditCardFeeNotice');
+            const eTransferInstructions = document.getElementById('eTransferInstructions');
+            
+            paymentMethods.forEach(method => {
+                method.addEventListener('change', function() {
+                    
+                    // Show/hide credit card form and fee notice
+                    if (this.value === 'card') {
+                        // Show credit card form and fee notice
+                        paymentForm.style.display = 'block';
+                        creditCardFeeNotice.style.display = 'block';
+                        eTransferInstructions.style.display = 'none';
+                    } else {
+                        // Show e-Transfer instructions for e-Transfer
+                        paymentForm.style.display = 'none';
+                        creditCardFeeNotice.style.display = 'none';
+                        eTransferInstructions.style.display = 'block';
+                    }
+                });
+            });
+        });
+
+        // Handle hash navigation (e.g., dashboard.html#register)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for URL parameters to switch tabs
+            const urlParams = new URLSearchParams(window.location.search);
+            const tabParam = urlParams.get('tab');
+            
+            if (tabParam === 'register' || tabParam === 'points') {
+                // Switch to points/register entry tab
+                setTimeout(() => {
+                    switchTab('points');
+                }, 500);
+            }
+            
+            // Handle hash for scrolling
+            const hash = window.location.hash;
+            if (hash === '#register') {
+                // Scroll to the Transaction Registration section
+                setTimeout(() => {
+                    const registerSection = document.getElementById('register');
+                    if (registerSection) {
+                        registerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Add a slight offset to account for any fixed headers
+                        window.scrollBy(0, -20);
+                    }
+                }, 500); // Wait for page to fully load before scrolling
+            }
+        });
+
+        // Referral System Functions
+        function copyReferralCode() {
+            const referralCode = document.getElementById('userReferralCode').textContent;
+            navigator.clipboard.writeText(referralCode).then(() => {
+                // Show success feedback
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check" style="margin-right: 0.5rem;"></i>Copied!';
+                button.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '#3b82f6';
+                }, 2000);
+            }).catch(err => {
+                // Fallback for older browsers
+                alert('Referral Code: ' + referralCode + '\n\nPlease copy manually.');
+            });
+        }
+
+        function shareOnTwitter() {
+            const referralCode = document.getElementById('userReferralCode').textContent;
+            const message = `🎯 Join me on DeedDraw - the real estate rewards program! Use my referral code: ${referralCode} and save $100 on your first entry. #RealEstate #DeedDraw`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnLinkedIn() {
+            const referralCode = document.getElementById('userReferralCode').textContent;
+            const message = `I'm excited to share DeedDraw - an innovative real estate rewards program! Use my referral code "${referralCode}" to save $100 on your first entry. Perfect for real estate professionals looking to win big! #RealEstate #DeedDraw`;
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://deeddraw.com')}&summary=${encodeURIComponent(message)}`;
+            window.open(url, '_blank', 'width=600,height=500');
+        }
+
+        function shareOnWhatsApp() {
+            const referralCode = document.getElementById('userReferralCode').textContent;
+            const message = `🏆 Hey! I wanted to share DeedDraw with you - it's a real estate rewards program where you can win up to $300,000!\n\nUse my referral code: *${referralCode}* and save $100 on your first entry.\n\nCheck it out: https://deeddraw.com`;
+            const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareViaEmail() {
+            const referralCode = document.getElementById('userReferralCode').textContent;
+            const subject = 'Join me on DeedDraw - Save $100 with my referral code!';
+            const body = `Hi there!\n\nI wanted to share an exciting opportunity with you. I've joined DeedDraw, a real estate rewards program where professionals can win prizes up to $300,000!\n\nIf you're interested in joining, use my referral code: ${referralCode}\nThis will save you $100 on your first entry.\n\nYou can learn more and sign up at: https://deeddraw.com\n\nLet me know if you have any questions!\n\nBest regards`;
+            const url = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = url;
+        }
+
+        // Redeem Earnings Function
+        async function redeemEarnings() {
+            const redeemBtn = document.getElementById('redeem-btn');
+            const earningsText = document.getElementById('referral-total-earned').textContent;
+            const earnings = parseFloat(earningsText.replace('$', '').replace(',', ''));
+            
+            // Check if button is enabled
+            if (redeemBtn.style.cursor === 'not-allowed' || earnings === 0) {
+                alert('You need to have earnings available to redeem.');
+                return;
+            }
+
+            // Calculate available balance (earnings - pending/approved withdrawals)
+            try {
+                const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                const withdrawalsResponse = await fetch(`${API_URL}/withdrawals`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const withdrawalsData = await withdrawalsResponse.json();
+                
+                const pendingAmount = withdrawalsData.success 
+                    ? withdrawalsData.data
+                        .filter(w => w.status === 'pending' || w.status === 'approved')
+                        .reduce((sum, w) => sum + parseFloat(w.amount), 0)
+                    : 0;
+
+                const availableBalance = earnings - pendingAmount;
+
+                // Show modal
+                document.getElementById('withdrawal-available-balance').textContent = `$${availableBalance.toFixed(2)}`;
+                document.getElementById('withdrawal-amount').value = '';
+                document.getElementById('withdrawal-amount').max = availableBalance;
+                document.getElementById('withdrawal-email').value = '';
+                document.getElementById('withdrawal-error').style.display = 'none';
+                document.getElementById('withdrawal-modal').style.display = 'flex';
+            } catch (error) {
+                console.error('Error loading withdrawal data:', error);
+                alert('Unable to load withdrawal information. Please try again.');
+            }
+        }
+
+        function closeWithdrawalModal() {
+            document.getElementById('withdrawal-modal').style.display = 'none';
+            // Reset to form view
+            document.getElementById('withdrawal-form-view').style.display = 'block';
+            document.getElementById('withdrawal-confirmation-view').style.display = 'none';
+            // Clear error message
+            document.getElementById('withdrawal-error').style.display = 'none';
+        }
+
+        // E-Transfer Details Modal Functions
+        function showETransferDetails(certificateNumber, amount) {
+            document.getElementById('etransfer-cert-number').textContent = certificateNumber;
+            document.getElementById('etransfer-amount').textContent = `$${parseFloat(amount).toLocaleString()}`;
+            document.getElementById('etransfer-details-modal').style.display = 'flex';
+        }
+
+        function closeETransferDetailsModal() {
+            document.getElementById('etransfer-details-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('etransfer-details-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeETransferDetailsModal();
+            }
+        });
+
+        function validateAndShowConfirmation() {
+            const amount = parseFloat(document.getElementById('withdrawal-amount').value);
+            const email = document.getElementById('withdrawal-email').value.trim();
+            const errorDiv = document.getElementById('withdrawal-error');
+            const availableBalance = parseFloat(document.getElementById('withdrawal-available-balance').textContent.replace('$', '').replace(',', ''));
+
+            // Validation
+            if (!amount || amount < 100) {
+                errorDiv.textContent = 'Minimum withdrawal amount is $100';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            if (amount > availableBalance) {
+                errorDiv.textContent = `Amount exceeds available balance ($${availableBalance.toFixed(2)})`;
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                errorDiv.textContent = 'Please provide a valid email address';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            // Show confirmation step
+            errorDiv.style.display = 'none';
+            document.getElementById('withdrawal-form-view').style.display = 'none';
+            document.getElementById('withdrawal-confirmation-view').style.display = 'block';
+            
+            // Populate confirmation details
+            document.getElementById('confirm-amount').textContent = `$${amount.toFixed(2)}`;
+            document.getElementById('confirm-email').textContent = email;
+        }
+
+        function backToWithdrawalForm() {
+            document.getElementById('withdrawal-confirmation-view').style.display = 'none';
+            document.getElementById('withdrawal-form-view').style.display = 'block';
+        }
+
+        async function submitWithdrawalRequest() {
+            const amount = parseFloat(document.getElementById('withdrawal-amount').value);
+            const email = document.getElementById('withdrawal-email').value.trim();
+            const errorDiv = document.getElementById('withdrawal-error');
+
+            try {
+                const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+                const response = await fetch(`${API_URL}/withdrawals`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ amount, email })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    closeWithdrawalModal();
+                    alert(`✅ Withdrawal request submitted successfully!\n\nAmount: $${amount.toFixed(2)}\nEmail: ${email}\n\nYou will receive an e-transfer shortly.`);
+                    // Reload stats and recent activity to show new withdrawal
+                    loadDashboard();
+                    loadRecentActivity();
+                } else {
+                    // Go back to form to show error
+                    backToWithdrawalForm();
+                    errorDiv.textContent = data.message || 'Failed to submit withdrawal request';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error submitting withdrawal:', error);
+                backToWithdrawalForm();
+                errorDiv.textContent = 'Unable to submit withdrawal request. Please try again.';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('withdrawal-modal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWithdrawalModal();
+            }
+        });
+
+        // Certificate Download Function
+        async function downloadCertificate(type = 'registration') {
+            const userData = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+            
+            if (!userData) {
+                alert('User data not found. Please log in again.');
+                return;
+            }
+            
+            try {
+                const user = JSON.parse(userData);
+                const token = localStorage.getItem('authToken');
+                
+                // Show loading message
+                const btn = event.target.closest('button');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+                btn.disabled = true;
+                
+                // Call backend API to generate certificate
+                const response = await fetch(`${API_URL}/users/certificate/${type}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    // Get the blob
+                    const blob = await response.blob();
+                    
+                    // Create download link
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `DeedDraw_${type}_Certificate_${user.firstName}_${user.lastName}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    // Reset button
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                } else {
+                    throw new Error('Failed to generate certificate');
+                }
+            } catch (error) {
+                console.error('Certificate download error:', error);
+                alert('Unable to download certificate. Please try again later.');
+                
+                // Reset button on error
+                const btn = event.target.closest('button');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
+                    btn.disabled = false;
+                }
+            }
+        }
+
+        // Entry Certificate Download Function
+        async function downloadEntryCertificate(transactionId) {
+            const token = localStorage.getItem('authToken');
+            
+            if (!token) {
+                alert('Please log in to download certificate.');
+                return;
+            }
+            
+            try {
+                // Show loading message
+                const btn = event.target.closest('button');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+                btn.disabled = true;
+                
+                // Call backend API to generate certificate
+                const response = await fetch(`${API_URL}/transactions/${transactionId}/certificate`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    // Get the blob
+                    const blob = await response.blob();
+                    
+                    // Create download link
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `DeedDraw_Entry_Certificate.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    // Reset button
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                } else {
+                    const errorData = await response.json();
+                    console.error('Certificate download failed:', response.status, errorData);
+                    throw new Error(errorData.message || 'Failed to generate certificate');
+                }
+            } catch (error) {
+                console.error('Entry certificate download error:', error);
+                alert(`Unable to download certificate: ${error.message}`);
+                
+                // Reset button on error
+                const btn = event.target.closest('button');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
+                    btn.disabled = false;
+                }
+            }
+        }
+    </script>
+
+    <!-- Withdrawal Request Modal -->
+    <div id="withdrawal-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:40px; border-radius:12px; max-width:500px; width:90%; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+            
+            <!-- Form View (Step 1) -->
+            <div id="withdrawal-form-view">
+                <h2 style="margin:0 0 24px 0; color:#1a1a1a; font-size:24px;">Request Withdrawal</h2>
+                
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; margin-bottom:8px; color:#666; font-weight:500;">Available Balance</label>
+                    <div id="withdrawal-available-balance" style="font-size:32px; font-weight:bold; color:#c8a15a;">$0</div>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label for="withdrawal-amount" style="display:block; margin-bottom:8px; color:#666; font-weight:500;">Amount to Withdraw *</label>
+                    <input type="number" id="withdrawal-amount" placeholder="Enter amount" min="100" step="1" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:6px; font-size:16px;">
+                    <small style="color:#999; display:block; margin-top:4px;">Minimum: $100</small>
+                </div>
+
+                <div style="margin-bottom:24px;">
+                    <label for="withdrawal-email" style="display:block; margin-bottom:8px; color:#666; font-weight:500;">Email for e-Transfer *</label>
+                    <input type="email" id="withdrawal-email" placeholder="your.email@example.com" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:6px; font-size:16px;">
+                    <small style="color:#999; display:block; margin-top:4px;">We'll send your payment to this email via Interac e-Transfer</small>
+                </div>
+
+                <div id="withdrawal-error" style="display:none; padding:12px; background:#fee; color:#c00; border-radius:6px; margin-bottom:16px;"></div>
+
+                <div style="display:flex; gap:12px;">
+                    <button onclick="closeWithdrawalModal()" style="flex:1; padding:12px 24px; background:#f5f5f5; color:#666; border:none; border-radius:6px; font-size:16px; cursor:pointer; font-weight:500;">Cancel</button>
+                    <button onclick="validateAndShowConfirmation()" style="flex:1; padding:12px 24px; background:#c8a15a; color:white; border:none; border-radius:6px; font-size:16px; cursor:pointer; font-weight:500;">Continue</button>
+                </div>
+            </div>
+
+            <!-- Confirmation View (Step 2) -->
+            <div id="withdrawal-confirmation-view" style="display:none;">
+                <h2 style="margin:0 0 24px 0; color:#1a1a1a; font-size:24px;">Confirm Your Request</h2>
+                
+                <div style="background:#f8f9fa; padding:24px; border-radius:8px; margin-bottom:24px;">
+                    <div style="margin-bottom:20px;">
+                        <label style="display:block; margin-bottom:8px; color:#666; font-size:14px;">Amount</label>
+                        <div id="confirm-amount" style="font-size:28px; font-weight:bold; color:#c8a15a;">$0</div>
+                    </div>
+
+                    <div style="border-top:1px solid #dee2e6; padding-top:20px;">
+                        <label style="display:block; margin-bottom:8px; color:#666; font-size:14px;">Email for e-Transfer</label>
+                        <div id="confirm-email" style="font-size:18px; font-weight:600; color:#1a1a1a; word-break:break-all;"></div>
+                    </div>
+                </div>
+
+                <div style="background:#fff3cd; padding:16px; border-radius:6px; margin-bottom:24px; border-left:4px solid #c8a15a;">
+                    <p style="margin:0; color:#856404; font-size:14px; line-height:1.5;">
+                        <i class="fas fa-exclamation-triangle" style="margin-right:8px;"></i>
+                        <strong>Please verify your email address carefully.</strong> The e-Transfer will be sent to this email and cannot be changed after submission.
+                    </p>
+                </div>
+
+                <div style="display:flex; gap:12px;">
+                    <button onclick="backToWithdrawalForm()" style="flex:1; padding:12px 24px; background:#f5f5f5; color:#666; border:none; border-radius:6px; font-size:16px; cursor:pointer; font-weight:500;">
+                        <i class="fas fa-arrow-left" style="margin-right:8px;"></i>Go Back
+                    </button>
+                    <button onclick="submitWithdrawalRequest()" style="flex:1; padding:12px 24px; background:#c8a15a; color:white; border:none; border-radius:6px; font-size:16px; cursor:pointer; font-weight:500;">
+                        <i class="fas fa-check" style="margin-right:8px;"></i>Confirm & Submit
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- E-Transfer Details Modal -->
+    <div id="etransfer-details-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center;">
+        <div style="background:white; padding:40px; border-radius:12px; max-width:600px; width:90%; box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+            <h2 style="margin:0 0 24px 0; color:#1a1a1a; font-size:24px; text-align:center;">📧 E-Transfer Payment Instructions</h2>
+            
+            <div style="background:#fff3cd; border-left:4px solid #c8a15a; padding:16px; border-radius:6px; margin-bottom:24px;">
+                <p style="margin:0; color:#856404; font-size:14px; line-height:1.6;">
+                    <i class="fas fa-info-circle" style="margin-right:8px;"></i>
+                    <strong>Important:</strong> Complete your payment within 24 hours to activate your entry. An email with these details has been sent to your registered email address.
+                </p>
+            </div>
+
+            <div style="background:#f8f9fa; border-radius:8px; padding:24px; margin-bottom:24px;">
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; margin-bottom:8px; color:#666; font-size:14px; font-weight:500;">1️⃣ Send e-Transfer to:</label>
+                    <div style="background:white; padding:12px; border-radius:6px; border:2px solid #c8a15a;">
+                        <code style="color:#c8a15a; font-size:18px; font-weight:bold;">payment@deeddraw.com</code>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; margin-bottom:8px; color:#666; font-size:14px; font-weight:500;">2️⃣ Amount:</label>
+                    <div style="background:white; padding:12px; border-radius:6px; border:2px solid #c8a15a;">
+                        <code id="etransfer-amount" style="color:#c8a15a; font-size:18px; font-weight:bold;"></code>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; margin-bottom:8px; color:#666; font-size:14px; font-weight:500;">3️⃣ Security Question:</label>
+                    <div style="background:white; padding:12px; border-radius:6px; border:1px solid #dee2e6;">
+                        <code style="color:#333; font-size:16px;">Certificate Number?</code>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:0;">
+                    <label style="display:block; margin-bottom:8px; color:#666; font-size:14px; font-weight:500;">4️⃣ Security Answer:</label>
+                    <div style="background:white; padding:12px; border-radius:6px; border:2px solid #c8a15a;">
+                        <code id="etransfer-cert-number" style="color:#c8a15a; font-size:18px; font-weight:bold;"></code>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background:#e7f3ff; border-radius:8px; padding:16px; margin-bottom:24px;">
+                <p style="margin:0; color:#004085; font-size:14px; line-height:1.6;">
+                    <i class="fas fa-envelope" style="margin-right:8px;"></i>
+                    These instructions have been sent to your email. Check your inbox for the full details.
+                </p>
+            </div>
+
+            <button onclick="closeETransferDetailsModal()" style="width:100%; padding:12px 24px; background:#c8a15a; color:white; border:none; border-radius:6px; font-size:16px; cursor:pointer; font-weight:500;">
+                Got It!
+            </button>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

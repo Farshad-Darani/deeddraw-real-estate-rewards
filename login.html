@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Real Estate Rewards Program</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1><a href="index.html" class="brand-link" title="Return to Home Page">DeedDraw</a></h1>
+                <p>Sign in to your account</p>
+                <a href="index.html" class="home-link">← Back to Home</a>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="showLogin()">Login</button>
+                <button class="auth-tab" onclick="showRegister()">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="remember-me" style="display: none;">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+                <!-- reCAPTCHA -->
+                <div class="recaptcha-container">
+                    <div class="g-recaptcha" data-sitekey="6Ldcz_MrAAAAAIRuYGlewae6PB1T9rWPco2hqN3n" id="login-recaptcha"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large">Sign In</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form" style="display: none;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-first-name">First Name</label>
+                        <input type="text" id="reg-first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-last-name">Last Name</label>
+                        <input type="text" id="reg-last-name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-category">Professional Category</label>
+                    <select id="reg-category" required>
+                        <option value="">Select your category</option>
+                        <option value="agent-broker">Real Estate Agent/Broker</option>
+                        <option value="developer">Developer</option>
+                        <option value="sales-marketing">Sales & Marketing Professional</option>
+                        <option value="mortgage-broker">Mortgage Broker</option>
+                        <option value="individual">Individual/Other</option>
+                    </select>
+                    <small>Select the category that best describes your role</small>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" required minlength="8">
+                        <small>Must be at least 8 characters long</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm-password">Confirm Password</label>
+                        <input type="password" id="reg-confirm-password" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="agree-terms" required style="display: none;">
+                       <span class="checkmark"></span>
+                         I agree to the <a href="rules.html">Terms of Service</a> and <a href="rules.html">Privacy Policy</a>
+                    </label>
+                </div>
+                <!-- reCAPTCHA -->
+                <div class="recaptcha-container">
+                    <div class="g-recaptcha" data-sitekey="6Ldcz_MrAAAAAIRuYGlewae6PB1T9rWPco2hqN3n" id="register-recaptcha"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large">Create Account</button>
+            </form>
+
+            <!-- Forgot Password Form -->
+            <form id="forgot-form" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="forgot-email">Email Address</label>
+                    <input type="email" id="forgot-email" required>
+                    <small>We'll send you a link to reset your password</small>
+                </div>
+                
+                <!-- reCAPTCHA -->
+                <div class="recaptcha-container">
+                    <div class="g-recaptcha" data-sitekey="6Ldcz_MrAAAAAIRuYGlewae6PB1T9rWPco2hqN3n" id="forgot-recaptcha"></div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-large">Send Reset Link</button>
+                <button type="button" class="btn btn-secondary" onclick="showLogin()">Back to Login</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Secure login protected by industry-standard encryption</p>
+                <div class="security-badges">
+                    <i class="fas fa-shield-alt"></i>
+                    <i class="fas fa-lock"></i>
+                    <i class="fas fa-certificate"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

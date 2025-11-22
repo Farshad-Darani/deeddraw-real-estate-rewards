@@ -1,0 +1,644 @@
+/* Rules & Regulations Page - Accordion Style with Minimal Gold */
+
+/* Main Layout */
+.rules-main {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    padding: 100px 0 60px 0;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.4) 100%), 
+                url('assets/images/Rules%26Regulations-hero.jpg') center/cover no-repeat;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: white;
+    text-align: center;
+}
+
+/* Desktop-only: Left align hero content */
+@media (min-width: 1024px) {
+    .hero-section {
+        text-align: left;
+    }
+    
+    .hero-content {
+        margin: 0 0 0 5%;
+        max-width: 60%;
+    }
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #E2E8F0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: #CBD5E1;
+    font-weight: 400;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-info {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #E2E8F0;
+}
+
+.info-item i {
+    font-size: 1.2rem;
+    color: #94A3B8;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+/* Quick Reference Section - Light Background */
+.quick-reference-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 4.5rem 0 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Light background pattern overlay */
+.quick-reference-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 41, 59, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.quick-reference-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        linear-gradient(0deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        radial-gradient(circle at 30px 30px, rgba(30, 41, 59, 0.08) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 90px 90px, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
+    background-position: 0 0, 0 0, 0 0, 30px 30px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.quick-reference-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.quick-reference-section .section-title {
+    color: #1E293B;
+    margin-bottom: 3rem;
+}
+
+.reference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 180px));
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.reference-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    border: 2px solid rgba(148, 163, 184, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.reference-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(148, 163, 184, 0.4);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
+}
+
+.card-icon i {
+    font-size: 1.5rem;
+    color: #E2E8F0;
+}
+
+.reference-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    margin-bottom: 0.5rem;
+}
+
+.reference-card p {
+    color: #94A3B8;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Desktop-only: Constrain reference grid and accordion width */
+@media (min-width: 1024px) {
+    .reference-grid {
+        max-width: 80%;
+        margin: 2rem auto 0 auto;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .rules-section .accordion-container {
+        max-width: 80% !important;
+        margin: 0 auto;
+    }
+}
+
+/* Main Rules Section - Light Background */
+.rules-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 2rem 0 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Light background pattern overlay */
+.rules-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 41, 59, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.rules-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        linear-gradient(0deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        radial-gradient(circle at 30px 30px, rgba(30, 41, 59, 0.08) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 90px 90px, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
+    background-position: 0 0, 0 0, 0 0, 30px 30px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.rules-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.rules-section .section-title {
+    color: #1E293B;
+    margin-bottom: 3rem;
+}
+
+/* Detailed Rules Section */
+.detailed-rules {
+    margin-bottom: 0rem;
+}
+
+.accordion-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.accordion-item {
+    background: rgba(30, 42, 56, 0.8);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border: 2px solid rgba(148, 163, 184, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: rgba(148, 163, 184, 0.3);
+}
+
+.accordion-item.active {
+    border-color: rgba(148, 163, 184, 0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.accordion-header {
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.accordion-header:hover {
+    background: rgba(51, 65, 85, 0.3);
+}
+
+.accordion-item.active .accordion-header {
+    border-bottom-color: rgba(148, 163, 184, 0.2);
+    background: rgba(51, 65, 85, 0.2);
+}
+
+.accordion-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.accordion-header h3 i {
+    color: #94A3B8;
+    font-size: 1.1rem;
+}
+
+.accordion-icon {
+    color: #94A3B8;
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.content-inner {
+    padding: 1.5rem 2rem 2rem 2rem;
+}
+
+.accordion-content {
+    padding: 0;
+}
+
+.accordion-item.active .accordion-content {
+    padding: 1.5rem 2rem 2rem 2rem;
+}
+
+.content-inner h4,
+.accordion-content h4 {
+    color: #E2E8F0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.content-inner h4:first-child,
+.accordion-content h4:first-child {
+    margin-top: 0 !important;
+}
+
+body.rules-page .content-inner p,
+.rules-page .content-inner p,
+.content-inner p,
+body.rules-page .accordion-content p,
+.rules-page .accordion-content p,
+.accordion-content p {
+    color: #CBD5E1 !important;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+body.rules-page .content-inner ul,
+body.rules-page .content-inner ol,
+.rules-page .content-inner ul,
+.rules-page .content-inner ol,
+.content-inner ul,
+.content-inner ol,
+body.rules-page .accordion-content ul,
+body.rules-page .accordion-content ol,
+.rules-page .accordion-content ul,
+.rules-page .accordion-content ol,
+.accordion-content ul,
+.accordion-content ol {
+    color: #CBD5E1 !important;
+    margin-left: 0 !important;
+    padding-left: 1.5rem !important;
+    margin-bottom: 1rem;
+}
+
+html body.rules-page .accordion-item .content-inner li,
+html body.rules-page .content-inner li,
+body.rules-page .accordion-content .content-inner li,
+.rules-page .content-inner li,
+.accordion-content .content-inner li,
+.content-inner li,
+html body.rules-page .accordion-content li,
+body.rules-page .accordion-content li,
+.rules-page .accordion-content li,
+.accordion-content li {
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    margin-left: 1rem !important;
+    padding-left: 0 !important;
+    line-height: 1.5 !important;
+    color: #CBD5E1 !important;
+    font-size: 0.95rem !important;
+}
+
+/* Ensure first elements have top spacing */
+.content-inner > *:first-child,
+.content-inner > ul:first-child,
+.content-inner > ol:first-child,
+.content-inner > p:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Contact Section - Light Background */
+.contact-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 0.5rem 0 4.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Light background pattern overlay */
+.contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 41, 59, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.contact-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        linear-gradient(0deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        radial-gradient(circle at 30px 30px, rgba(30, 41, 59, 0.08) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 90px 90px, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
+    background-position: 0 0, 0 0, 0 0, 30px 30px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.contact-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+
+/* Inverse style for FAQ button */
+.action-buttons .section-action-btn[href*="faqs.html"] {
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: #1E293B !important;
+    border: 2px solid #1E293B !important;
+}
+
+.action-buttons .section-action-btn[href*="faqs.html"]::before {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.action-buttons .section-action-btn[href*="faqs.html"]::after {
+    display: none !important;
+    content: none !important;
+}
+
+.action-buttons .section-action-btn[href*="faqs.html"] span {
+    color: #1E293B !important;
+}
+
+.action-buttons .section-action-btn[href*="faqs.html"] i {
+    color: #1E293B !important;
+}
+
+/* Hover effect for FAQ button */
+.action-buttons .section-action-btn[href*="faqs.html"]:hover {
+    background: linear-gradient(135deg, #1E293B 0%, #334155 100%) !important;
+    color: #f0e8e2 !important;
+    border-color: #334155 !important;
+}
+
+.action-buttons .section-action-btn[href*="faqs.html"]:hover::before {
+    background: linear-gradient(135deg, #1E293B 0%, #334155 100%) !important;
+}
+
+.action-buttons .section-action-btn[href*="faqs.html"]:hover span {
+    color: #f0e5e2 !important;
+}
+
+.action-buttons .section-action-btn[href*="faqs.html"]:hover i {
+    color: #f0e7e2 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-info {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .reference-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .accordion-header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .accordion-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .content-inner {
+        padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    }
+    
+    .accordion-item.active .accordion-content {
+        padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .contact-section {
+        padding: 0.5rem 0 3rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .rules-main {
+        padding: 80px 0 40px 0;
+    }
+    
+    .accordion-header {
+        padding: 1rem;
+    }
+    
+    .content-inner {
+        padding: 1.5rem 1rem 1rem 1rem;
+    }
+    
+    .accordion-item.active .accordion-content {
+        padding: 1.5rem 1rem 1rem 1rem;
+    }
+    
+    .reference-card,
+    .contact-card {
+        padding: 1.5rem;
+    }
+    
+    .contact-section {
+        padding: 0.5rem 0 2.5rem 0;
+    }
+}
+
+/* ABSOLUTE OVERRIDE - Force light text colors */
+.rules-page li[style],
+.rules-page .content-inner li[style],
+.rules-page .accordion-content li[style],
+.accordion-item .content-inner li[style] {
+    color: #CBD5E1 !important;
+}
+
+/* Nuclear option - override any possible conflicting styles */
+*[class*="content-inner"] li,
+*[class*="accordion"] li,
+.rules-page * li {
+    color: #CBD5E1 !important;
+}
+
+
+

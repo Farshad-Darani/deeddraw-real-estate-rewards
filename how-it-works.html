@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>How It Works - DeedDraw Real Estate Rewards</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="how-it-works.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="how-it-works-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.png" alt="DeedDraw Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="how-it-works.html" class="nav-link active">How It Works</a>
+                <a href="prizes.html" class="nav-link">Prizes</a>
+                <a href="register.html" class="nav-link">Register</a>
+                <a href="winners.html" class="nav-link">Winners</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                
+                <!-- Mobile-only nav links (hidden on desktop, shown instead of dropdown on mobile) -->
+                <a href="leaderboard.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-trophy"></i>
+                    Points Leaderboard
+                </a>
+                <a href="rules.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-gavel"></i>
+                    Rules & Regulations
+                </a>
+                <a href="faqs.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-question-circle"></i>
+                    FAQs
+                </a>
+                
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-chevron-down"></i> More
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="leaderboard.html" class="dropdown-item">
+                            <i class="fas fa-trophy"></i>
+                            Points Leaderboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="rules.html" class="dropdown-item">
+                            <i class="fas fa-gavel"></i>
+                            Rules & Regulations
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="faqs.html" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i>
+                            FAQs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-auth">
+                <a href="login.html" class="nav-link login-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+                
+                <!-- User Profile Circle (Hidden by default) -->
+                <div style="position: relative; display: none;" id="profile-circle">
+                    <div class="user-avatar" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        width: 60px; 
+                        height: 60px; 
+                        background: rgba(51, 65, 85, 0.8); 
+                        border-radius: 50%; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        cursor: pointer;
+                        border: 3px solid #F59E0B;
+                        transition: all 0.3s ease;
+                    ">
+                        <span style="color: #F59E0B; font-weight: 800; font-size: 1rem; font-family: 'Josefin Sans', sans-serif;" id="user-initials-home">JD</span>
+                    </div>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown-home" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        position: absolute;
+                        top: 100%;
+                        right: 0;
+                        margin-top: 8px;
+                        background: #1E2A38;
+                        border-radius: 8px;
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                        min-width: 180px;
+                        display: none;
+                        z-index: 1001;
+                    ">
+                        <!-- User Info Header -->
+                        <div style="padding: 16px 20px; border-radius: 8px 8px 0 0;">
+                            <div style="font-weight: 600; color: #F59E0B; font-size: 1rem;" id="dropdown-user-name-home">John Doe</div>
+                            <div style="font-size: 0.8rem; color: #b8c5d6; margin-top: 2px;" id="dropdown-user-category-home">Real Estate Agent</div>
+                        </div>
+                        
+                        <!-- Divider -->
+                        <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0 auto; width: 85%;"></div>
+                        
+                        <!-- Dashboard Link -->
+                        <a href="dashboard.html" class="dropdown-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-tachometer-alt" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Dashboard
+                        </a>
+                        
+                        <!-- Logout -->
+                        <a href="#" onclick="logout(); return false;" class="dropdown-item logout-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-sign-out-alt" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                <h1 class="hero-title">
+                    How It Works
+                    <span class="hero-highlight">DeedDraw Rewards System</span>
+                </h1>
+                <p class="hero-subtitle">
+                    A guide to earning rewards from your real estate success. 
+                    <span class="hero-accent">No hidden fees. No complex rules. Just fair rewards.</span>
+                </p>
+                <div class="golden-line"></div>
+                <div class="hero-cta">
+                    <button class="btn btn-primary-hero" onclick="scrollToSection('overview-section')">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Explore the Process</span>
+                    </button>
+                    <button class="btn btn-secondary-hero" onclick="scrollToSection('hiw-getting-started')">
+                        <i class="fas fa-rocket"></i>
+                        <span>Getting Started Guide</span>
+                    </button>
+                </div>
+                
+                <div class="hero-trust-badge">
+                    <img src="assets/images/Trusted&Transparent.png" alt="Trusted & Transparent" class="trust-icon">
+                    <span>Built on Trust & Transparency</span>
+                </div>
+            </div>
+    </section>
+
+    <!-- What is DeedDraw Section -->
+    <section class="section light-bg" id="about-deeddraw">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What is DeedDraw?</h2>
+                <p class="section-subtitle">The first rewards system designed exclusively for real estate professionals</p>
+                <div class="golden-line"></div>
+            </div>
+
+            <div class="about-content-grid">
+                <!-- The Concept -->
+                <div class="about-content-block">
+                    <div class="about-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="about-block-title">The Concept</h3>
+                    <p class="about-block-description">
+                        DeedDraw transforms your real estate success into life-changing opportunities. Every transaction you complete earns points that enter you into our exclusive drawing system.
+                    </p>
+                </div>
+
+                <!-- Community Funded -->
+                <div class="about-content-block">
+                    <div class="about-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="about-block-title">Community Funded</h3>
+                    <p class="about-block-description">
+                        Our prize pool is funded by participants themselves. Everyone contributes, everyone has a chance to win, creating a fair and transparent system.
+                    </p>
+                </div>
+
+                <!-- Professional Focus -->
+                <div class="about-content-block">
+                    <div class="about-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="about-block-title">Built for Professionals</h3>
+                    <p class="about-block-description">
+                        Designed specifically for agents, brokers, developers, mortgage professionals, and individuals in the real estate industry.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="key-stats">
+                <div class="stats-unified-box">
+                    <div class="stat-item">
+                        <span class="stat-number">$500K</span>
+                        <span class="stat-label">Total Prize Pool</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">400</span>
+                        <span class="stat-label">Points to Trigger Drawing</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label">Total Winners</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started Guide Section -->
+    <section id="hiw-getting-started" class="section dark-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Getting Started Guide</h2>
+                <p class="section-subtitle">Follow these simple steps to join the DeedDraw community and start earning points towards your chance to win life-changing prizes.</p>
+                <div class="hiw-guide-golden-line"></div>
+            </div>
+
+            <div class="hiw-guide-grid">
+                <div class="hiw-guide-step">
+                    <div class="hiw-guide-number">1</div>
+                    <div class="hiw-guide-content">
+                        <div class="hiw-guide-step-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3 class="hiw-guide-step-title">Create Your Account</h3>
+                        <p class="hiw-guide-step-description">Sign up with your information as a Canadian real estate professional. Simply confirm your professional status and complete email verification to get started.</p>
+                        <ul class="hiw-guide-requirements">
+                            <li>Canadian real estate professional</li>
+                            <li>Email verification required</li>
+                            <li>Professional category selection</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hiw-guide-step">
+                    <div class="hiw-guide-number">2</div>
+                    <div class="hiw-guide-content">
+                        <div class="hiw-guide-step-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3 class="hiw-guide-step-title">Declare Your Transactions</h3>
+                        <p class="hiw-guide-step-description">Self-declare your completed real estate transactions to calculate your points. Each $500,000 in transaction value equals 1 point. Documentation only required if you win.</p>
+                        <ul class="hiw-guide-requirements">
+                            <li>Transaction value declaration</li>
+                            <li>Completion date confirmation</li>
+                            <li>Keep records for verification if selected</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hiw-guide-step">
+                    <div class="hiw-guide-number">3</div>
+                    <div class="hiw-guide-content">
+                        <div class="hiw-guide-step-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3 class="hiw-guide-step-title">Register for Drawing</h3>
+                        <p class="hiw-guide-step-description">Pay $2,000 per point to enter the official drawing. Secure payment processing and instant confirmation of your entry.</p>
+                        <ul class="hiw-guide-requirements">
+                            <li>Secure payment gateway</li>
+                            <li>Instant entry confirmation</li>
+                            <li>Official receipt provided</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hiw-guide-step">
+                    <div class="hiw-guide-number">4</div>
+                    <div class="hiw-guide-content">
+                        <div class="hiw-guide-step-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 class="hiw-guide-step-title">Receive Certificate</h3>
+                        <p class="hiw-guide-step-description">Get your official participation certificate delivered to your dashboard and email. Track your entries and drawing status in real-time.</p>
+                        <ul class="hiw-guide-requirements">
+                            <li>Digital certificate download</li>
+                            <li>Email delivery confirmation</li>
+                            <li>Dashboard tracking access</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hiw-guide-step">
+                    <div class="hiw-guide-number">5</div>
+                    <div class="hiw-guide-content">
+                        <div class="hiw-guide-step-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 class="hiw-guide-step-title">Drawing Day</h3>
+                        <p class="hiw-guide-step-description">When 400 points are reached, the drawing begins! Winners are selected transparently and notified immediately with prize distribution details.</p>
+                        <ul class="hiw-guide-requirements">
+                            <li>Live drawing broadcast</li>
+                            <li>Immediate winner notification</li>
+                            <li>Prize claim instructions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hiw-guide-step">
+                    <div class="hiw-guide-number">6</div>
+                    <div class="hiw-guide-content">
+                        <div class="hiw-guide-step-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3 class="hiw-guide-step-title">Ongoing Support</h3>
+                        <p class="hiw-guide-step-description">Access dedicated customer support throughout your journey. Get help with submissions, payments, and any questions about the process.</p>
+                        <ul class="hiw-guide-requirements">
+                            <li>24/7 customer support</li>
+                            <li>Live chat assistance</li>
+                            <li>Email and phone support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-cta">
+                <a href="login.html" id="start-journey-btn" class="btn btn-primary">
+                    Buy Your Entry <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security & Transparency Section -->
+    <section class="section" id="hiw-security-transparency">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Security & Transparency</h2>
+                <p class="section-subtitle">Your trust is our priority. Learn how we ensure fair, secure, and transparent operations for all Canadian participants.</p>
+                <div class="hiw-golden-line"></div>
+            </div>
+
+            <div class="hiw-security-grid">
+                <!-- Canadian Focus -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        🍁
+                    </div>
+                    <h3 class="hiw-security-title">Canadian Residents Only</h3>
+                    <p class="hiw-security-description">This exclusive drawing is available only to Canadian residents, ensuring compliance with local regulations and providing a trusted experience for our Canadian real estate community.</p>
+                </div>                <!-- Certificate System -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="hiw-security-title">Official Certificates</h3>
+                    <p class="hiw-security-description">
+                        Every registered participant receives official certificates delivered to both their dashboard and email, providing verifiable proof of participation and legitimacy.
+                    </p>
+                </div>
+
+                <!-- Drawing Transparency -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="hiw-security-title">Transparent Drawing</h3>
+                    <p class="hiw-security-description">
+                        Our drawing process is conducted transparently when 400 points are reached, with third-party verification and public announcement of all winners.
+                    </p>
+                </div>
+
+                <!-- Fund Security -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="hiw-security-title">Secure Fund Management</h3>
+                    <p class="hiw-security-description">
+                        The $500,000 prize pool is securely held and protected, ensuring all funds are available for distribution to winners as promised.
+                    </p>
+                </div>
+
+                <!-- Verification Process -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3 class="hiw-security-title">Professional Oversight</h3>
+                    <p class="hiw-security-description">
+                        Independent verification processes ensure fair play, legitimate transactions, and proper winner selection according to established guidelines.
+                    </p>
+                </div>
+
+                <!-- Contact Support -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="hiw-security-title">Dedicated Support</h3>
+                    <p class="hiw-security-description">
+                        Canadian-focused customer support team available to assist with questions, verify transactions, and ensure smooth participation experience.
+                    </p>
+                </div>
+
+                <!-- Data Privacy & Protection -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="hiw-security-title">Data Privacy & Protection</h3>
+                    <p class="hiw-security-description">
+                        Your personal and transaction data is encrypted, securely stored, and never shared with third parties. Full compliance with Canadian privacy regulations.
+                    </p>
+                </div>
+
+                <!-- Legal Compliance & Audit -->
+                <div class="hiw-security-block">
+                    <div class="hiw-security-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3 class="hiw-security-title">Legal Compliance & Audit</h3>
+                    <p class="hiw-security-description">
+                        Regular independent audits ensure full compliance with Canadian contest laws, real estate regulations, and financial transparency requirements.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="section-cta">
+                <a href="contact.html" class="btn btn-outline-primary">
+                    Have Questions? <i class="fas fa-comments"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+        </main>
+    </div>
+
+    <!-- Footer Register Link Handler -->
+    <script>
+        function handleFooterRegisterClick(e) {
+            const token = localStorage.getItem('token');
+            if (token) {
+                e.preventDefault();
+                window.location.href = 'dashboard.html#register';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerRegisterLink = document.getElementById('footer-register-link');
+            if (footerRegisterLink) {
+                footerRegisterLink.addEventListener('click', handleFooterRegisterClick);
+            }
+        });
+    </script>
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Animated Number Counter
+        function animateCountUp(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16); // 60fps
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = formatNumber(target);
+                    clearInterval(timer);
+                } else {
+                    element.textContent = formatNumber(Math.floor(current));
+                }
+            }, 16);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000) {
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+            return num.toString();
+        }
+
+        // Intersection Observer for triggering animations
+        function setupStatsAnimation() {
+            const statsBox = document.querySelector('.stats-unified-box');
+            if (!statsBox) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add the animate-in class to make the box visible
+                        entry.target.classList.add('animate-in');
+                        
+                        // Add animate-in class to each stat item to make them visible
+                        const statItems = entry.target.querySelectorAll('.stat-item');
+                        statItems.forEach(item => {
+                            item.classList.add('animate-in');
+                        });
+                        
+                        // Animate the numbers
+                        const statNumbers = entry.target.querySelectorAll('.stat-number');
+                        statNumbers.forEach((stat, index) => {
+                            let targetValue;
+                            const text = stat.textContent.trim();
+                            
+                            if (text.includes('$')) {
+                                targetValue = 500; // Will show as $500K
+                                setTimeout(() => {
+                                    animateCountUp(stat, targetValue, 2000);
+                                    setTimeout(() => {
+                                        stat.textContent = '$500K';
+                                    }, 2000);
+                                }, index * 300);
+                            } else if (text === '400') {
+                                targetValue = 400;
+                                setTimeout(() => {
+                                    animateCountUp(stat, targetValue, 1800);
+                                }, index * 300);
+                            } else if (text === '15') {
+                                targetValue = 15;
+                                setTimeout(() => {
+                                    animateCountUp(stat, targetValue, 1000);
+                                }, index * 300);
+                            }
+                        });
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(statsBox);
+        }
+
+        // Fix hover animations for content blocks
+        function fixHoverAnimations() {
+            // Wait for animations to complete, then enable hover
+            setTimeout(() => {
+                const contentBlocks = document.querySelectorAll('.about-content-block');
+                contentBlocks.forEach(block => {
+                    block.classList.add('animation-complete');
+                });
+                
+                const statsBox = document.querySelector('.stats-unified-box');
+                if (statsBox) {
+                    statsBox.classList.add('animation-complete');
+                }
+            }, 1500); // Wait for all animations to complete
+        }
+
+        // Setup guide steps scroll animation - Clean version
+        function setupGuideStepsAnimation() {
+            const guideSteps = document.querySelectorAll('.hiw-guide-step');
+            console.log('Found', guideSteps.length, 'guide steps');
+            
+            if (guideSteps.length === 0) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('Animating guide step');
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, {
+                threshold: 0.1, // Trigger when 10% of element is visible
+                rootMargin: '0px 0px -100px 0px' // Start animation earlier
+            });
+            
+            // Observe all guide steps
+            guideSteps.forEach(step => observer.observe(step));
+            
+            // Fallback: Force animation after 3 seconds if user is already scrolled
+            setTimeout(() => {
+                const section = document.querySelector('#hiw-getting-started');
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        console.log('Force triggering guide animation');
+                        guideSteps.forEach(step => step.classList.add('animate-in'));
+                    }
+                }
+            }, 3000);
+        }
+
+        // Setup security blocks scroll animation - Clean version
+        function setupSecurityBlocksAnimation() {
+            const securityBlocks = document.querySelectorAll('.hiw-security-block');
+            console.log('Found', securityBlocks.length, 'security blocks');
+            
+            if (securityBlocks.length === 0) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('Animating security block');
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, {
+                threshold: 0.1, // Trigger when 10% of element is visible
+                rootMargin: '0px 0px -50px 0px' // Start animation slightly earlier
+            });
+            
+            // Observe all security blocks
+            securityBlocks.forEach(block => observer.observe(block));
+        }
+
+        // Setup about content blocks scroll animation - Clean version
+        function setupAboutContentBlocksAnimation() {
+            const aboutBlocks = document.querySelectorAll('.about-content-block');
+            console.log('Found', aboutBlocks.length, 'about content blocks');
+            
+            if (aboutBlocks.length === 0) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('Animating about content block');
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, {
+                threshold: 0.2, // Trigger when 20% of element is visible
+                rootMargin: '0px 0px -80px 0px' // Start animation slightly earlier
+            });
+            
+            // Observe all about blocks
+            aboutBlocks.forEach(block => observer.observe(block));
+        }
+
+        // Setup CTA button scroll animation
+        function setupCTAButtonAnimation() {
+            const ctaButtons = document.querySelectorAll('.section-cta');
+            console.log('Found', ctaButtons.length, 'CTA buttons');
+            
+            if (ctaButtons.length === 0) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('Animating CTA button');
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, {
+                threshold: 0.3, // Trigger when 30% of element is visible
+                rootMargin: '0px 0px -100px 0px' // Start animation when close to viewport
+            });
+            
+            // Observe all CTA buttons
+            ctaButtons.forEach(button => observer.observe(button));
+        }
+
+        // Handle Buy Your Entry button redirect
+        function setupStartJourneyButton() {
+            const startJourneyBtn = document.getElementById('start-journey-btn');
+            if (!startJourneyBtn) return;
+
+            startJourneyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if user is logged in
+                const userSession = sessionStorage.getItem('userSession') || localStorage.getItem('userSession');
+                const userData = sessionStorage.getItem('userData') || localStorage.getItem('userData');
+                
+                if (userSession && userData) {
+                    // User is logged in - redirect to dashboard register entry tab
+                    window.location.href = 'dashboard.html?tab=register';
+                } else {
+                    // User is not logged in - redirect to login page
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setupStatsAnimation();
+            setupGuideStepsAnimation();
+            setupSecurityBlocksAnimation();
+            setupAboutContentBlocksAnimation();
+            setupCTAButtonAnimation();
+            setupStartJourneyButton();
+            fixHoverAnimations();
+        });
+
+        // Smooth scrolling function for hero buttons
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start' 
+                });
+            }
+        }
+
+        // Menu show/hide functions for user dropdown
+        let menuTimeout;
+        function showMenu() {
+            clearTimeout(menuTimeout);
+            const dropdown = document.getElementById('user-dropdown-home');
+            if (dropdown) {
+                dropdown.style.display = 'block';
+            }
+        }
+
+        function hideMenuDelayed() {
+            menuTimeout = setTimeout(() => {
+                const dropdown = document.getElementById('user-dropdown-home');
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            }, 200);
+        }
+
+        // Initialize page on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update dashboard link based on user type
+            if (typeof updateDashboardLink !== 'undefined') {
+                updateDashboardLink();
+            }
+            
+            // Check user session and update UI
+            updateUIBasedOnSession();
+            
+            // Initialize mobile menu functionality
+            initializeMobileMenu();
+        });
+        
+        // Mobile menu functionality
+        function initializeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (hamburger && navMenu) {
+                function toggleMobileMenu(e) {
+                    e.preventDefault();
+                    console.log('Toggling mobile menu');
+                    
+                    const isActive = hamburger.classList.contains('active');
+                    
+                    if (isActive) {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    } else {
+                        hamburger.classList.add('active');
+                        navMenu.classList.add('active');
+                    }
+                }
+                
+                hamburger.addEventListener('click', toggleMobileMenu);
+                hamburger.addEventListener('touchstart', toggleMobileMenu, { passive: false });
+                
+                // Close mobile menu when clicking on nav links
+                const navLinks = navMenu.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        // Dedicated function to update UI based on session
+        function updateUIBasedOnSession() {
+            console.log('Checking user session...');
+            const userSession = sessionStorage.getItem('userSession') || localStorage.getItem('userSession');
+            const userData = sessionStorage.getItem('userData') || localStorage.getItem('userData');
+            const loginBtn = document.getElementById('login-btn');
+            const profileCircle = document.getElementById('profile-circle');
+            
+            console.log('User session:', userSession);
+            console.log('User data:', userData);
+            console.log('Login button element:', loginBtn);
+            console.log('Profile circle element:', profileCircle);
+            
+            if (userSession && userData) {
+                try {
+                    const session = JSON.parse(userSession);
+                    const user = JSON.parse(userData);
+                    
+                    if (user) {
+                        // Hide login button completely (like main page)
+                        if (loginBtn) {
+                            loginBtn.style.display = 'none';
+                            loginBtn.style.visibility = 'hidden';
+                            loginBtn.style.opacity = '0';
+                            loginBtn.style.position = 'absolute';
+                            loginBtn.style.pointerEvents = 'none';
+                        }
+                        
+                        // Show profile circle (like main page)
+                        if (profileCircle) {
+                            profileCircle.style.display = 'block';
+                            profileCircle.style.visibility = 'visible';
+                            profileCircle.style.opacity = '1';
+                            profileCircle.style.position = 'relative';
+                            profileCircle.style.pointerEvents = 'auto';
+                        }
+                        
+                        // Update user info in dropdown
+                        const userInitials = document.getElementById('user-initials-home');
+                        const userName = document.getElementById('dropdown-user-name-home');
+                        const userCategory = document.getElementById('dropdown-user-category-home');
+                        
+                        if (userInitials) {
+                            userInitials.textContent = user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
+                        }
+                        if (userName) {
+                            userName.textContent = `${user.firstName} ${user.lastName}`;
+                        }
+                        
+                        // Map user category to display name
+                        const categoryMap = {
+                            'agent-broker': 'Real Estate Agent/Broker',
+                            'developer': 'Developer',
+                            'sales-marketing': 'Sales & Marketing',
+                            'mortgage-broker': 'Mortgage Broker',
+                            'individual': 'Individual'
+                        };
+                        if (userCategory) {
+                            userCategory.textContent = categoryMap[user.category] || user.category;
+                        }
+                    } else {
+                        // User not found, show login state
+                        if (loginBtn) {
+                            loginBtn.style.display = 'flex';
+                            loginBtn.style.visibility = 'visible';
+                            loginBtn.style.opacity = '1';
+                            loginBtn.style.position = 'relative';
+                            loginBtn.style.pointerEvents = 'auto';
+                        }
+                        if (profileCircle) {
+                            profileCircle.style.display = 'none';
+                            profileCircle.style.visibility = 'hidden';
+                            profileCircle.style.opacity = '0';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error parsing user session:', error);
+                    // Show login state on error
+                    if (loginBtn) {
+                        loginBtn.style.display = 'flex';
+                        loginBtn.style.visibility = 'visible';
+                        loginBtn.style.opacity = '1';
+                        loginBtn.style.position = 'relative';
+                        loginBtn.style.pointerEvents = 'auto';
+                    }
+                    if (profileCircle) {
+                        profileCircle.style.display = 'none';
+                        profileCircle.style.visibility = 'hidden';
+                        profileCircle.style.opacity = '0';
+                    }
+                }
+            } else {
+                // No session, show login state
+                if (loginBtn) {
+                    loginBtn.style.display = 'flex';
+                    loginBtn.style.visibility = 'visible';
+                    loginBtn.style.opacity = '1';
+                    loginBtn.style.position = 'relative';
+                    loginBtn.style.pointerEvents = 'auto';
+                }
+                if (profileCircle) {
+                    profileCircle.style.display = 'none';
+                    profileCircle.style.visibility = 'hidden';
+                    profileCircle.style.opacity = '0';
+                }
+            }
+        }
+        
+        // Logout function
+        window.logout = function() {
+            sessionStorage.removeItem('userSession');
+            localStorage.removeItem('userSession');
+            
+            // Show logout message
+            alert('You have been successfully logged out!');
+            
+            // Redirect to home page
+            window.location.href = 'index.html';
+        }
+        
+        // Manual function to simulate logged in state (for testing)
+        window.testLoggedInState = function() {
+            const loginBtn = document.getElementById('login-btn');
+            const profileCircle = document.getElementById('profile-circle');
+            
+            console.log('Manually setting logged in state...');
+            if (loginBtn) {
+                loginBtn.style.display = 'none';
+                loginBtn.style.visibility = 'hidden';
+                loginBtn.style.opacity = '0';
+                loginBtn.style.position = 'absolute';
+                loginBtn.style.pointerEvents = 'none';
+                console.log('Login button hidden');
+            }
+            if (profileCircle) {
+                profileCircle.style.display = 'block';
+                profileCircle.style.visibility = 'visible';
+                profileCircle.style.opacity = '1';
+                profileCircle.style.position = 'relative';
+                profileCircle.style.pointerEvents = 'auto';
+                console.log('Profile circle shown');
+            }
+        }
+        
+        // Auto-apply logged in state (since manual functions work)
+        setTimeout(function() {
+            // Check if we should be logged in by checking other pages' state
+            const shouldBeLoggedIn = sessionStorage.getItem('userSession') || localStorage.getItem('userSession');
+            if (shouldBeLoggedIn) {
+                console.log('Auto-applying logged in state...');
+                testLoggedInState();
+            } else {
+                console.log('Auto-applying logged out state...');
+                testLoggedOutState();
+            }
+        }, 1000); // Wait 1 second for page to fully load
+        
+        // Manual function to simulate logged out state (for testing)
+        window.testLoggedOutState = function() {
+            const loginBtn = document.getElementById('login-btn');
+            const profileCircle = document.getElementById('profile-circle');
+            
+            console.log('Manually setting logged out state...');
+            if (loginBtn) {
+                loginBtn.style.display = 'flex';
+                loginBtn.style.visibility = 'visible';
+                loginBtn.style.opacity = '1';
+                loginBtn.style.position = 'relative';
+                loginBtn.style.pointerEvents = 'auto';
+                console.log('Login button shown');
+            }
+            if (profileCircle) {
+                profileCircle.style.display = 'none';
+                profileCircle.style.visibility = 'hidden';
+                profileCircle.style.opacity = '0';
+                console.log('Profile circle hidden');
+            }
+        }
+        
+        // Coming Soon Function for Incomplete Pages
+        function showComingSoon(pageName) {
+            alert(`🚧 ${pageName} page is coming soon!\n\nThis section is currently under development. Please check back later for updates.`);
+        }
+        
+        // Force header styling - target webkit properties specifically
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('#steps-timeline .section-title');
+            const subtitle = document.querySelector('#steps-timeline .section-subtitle');
+            
+            if (header) {
+                // Remove gradient text effects
+                header.style.setProperty('background', 'none', 'important');
+                header.style.setProperty('background-image', 'none', 'important');
+                header.style.setProperty('-webkit-background-clip', 'initial', 'important');
+                header.style.setProperty('-webkit-text-fill-color', 'initial', 'important');
+                header.style.setProperty('background-clip', 'initial', 'important');
+                
+                // Set white color and glow
+                header.style.setProperty('color', '#FFFFFF', 'important');
+                header.style.setProperty('text-shadow', '0 0 20px rgba(255, 255, 255, 0.8)', 'important');
+                header.style.setProperty('font-weight', '700', 'important');
+                header.style.setProperty('font-size', '2.5rem', 'important');
+            }
+            
+            if (subtitle) {
+                subtitle.style.setProperty('color', '#94a3b8', 'important');
+                subtitle.style.setProperty('font-size', '1.2rem', 'important');
+            }
+        });
+    </script>
+
+
+
+    <!-- Security Cards Animation Script -->
+    <script>
+        console.log('🔒 Security Cards Animation Script Loaded');
+        
+        let securityAnimationTriggered = false;
+        
+        function initSecurityAnimation() {
+            console.log('🛡️ Initializing security cards animation...');
+            
+            const cards = document.querySelectorAll('.hiw-security-block');
+            console.log('📍 Found', cards.length, 'security cards');
+            
+            if (cards.length === 0) {
+                console.log('❌ NO SECURITY CARDS FOUND!');
+                return;
+            }
+            
+            // Add animation class to all cards
+            cards.forEach((card, i) => {
+                card.classList.add('security-card-hidden');
+                card.dataset.animationDelay = i * 150; // Slightly faster than guide cards
+                console.log('🔒 Security card', i + 1, 'ready for animation');
+            });
+            
+            // Setup scroll trigger
+            const section = document.querySelector('#hiw-security-transparency');
+            if (!section) {
+                console.log('❌ Security section not found!');
+                return;
+            }
+            
+            console.log('✅ Found security section');
+            
+            // Simple scroll detection
+            function checkSecurityScroll() {
+                if (securityAnimationTriggered) return;
+                
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Debug info - only log when actively scrolling
+                console.log('🔍 Security scroll check - Section top:', rect.top, 'Window height:', windowHeight, 'Trigger when top <', windowHeight * 0.6);
+                
+                // More strict trigger - only when section is actually coming into view
+                // AND make sure we're not at the very top of the page
+                if (rect.top < windowHeight * 0.6 && rect.top > -100 && window.scrollY > 200) {
+                    console.log('🚀 TRIGGERING SECURITY CARDS ANIMATION!');
+                    securityAnimationTriggered = true;
+                    
+                    cards.forEach((card, i) => {
+                        setTimeout(() => {
+                            console.log('✨ Animating security card', i + 1);
+                            card.classList.remove('security-card-hidden');
+                            card.classList.add('security-card-visible');
+                        }, i * 150);
+                    });
+                    
+                    // Remove scroll listener after animation
+                    window.removeEventListener('scroll', checkSecurityScroll);
+                }
+            }
+            
+            // Add scroll listener
+            console.log('📌 Adding security scroll listener...');
+            window.addEventListener('scroll', checkSecurityScroll);
+            
+            // DO NOT run initial check - wait for user to scroll
+            console.log('📌 Waiting for scroll to security section...');
+            
+            // Optional: Much longer fallback timer (only for testing)
+            setTimeout(() => {
+                if (!securityAnimationTriggered) {
+                    console.log('⏰ Long fallback: Animation still not triggered after 15 seconds - check scroll detection');
+                }
+            }, 15000);
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSecurityAnimation);
+        } else {
+            initSecurityAnimation();
+        }
+        
+        // Also on window load as backup
+        window.addEventListener('load', initSecurityAnimation);
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- Company Info -->
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <img src="assets/images/logo.png" alt="DeedDraw Logo">
+                            <p>Turning real estate success into life-changing opportunities through transparent, fair rewards.</p>
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/deeddraw" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="how-it-works.html">How It Works</a></li>
+                            <li><a href="index.html#calculator">Point Calculator</a></li>
+                            <li><a href="leaderboard.html">Participants</a></li>
+                            <li><a href="register.html" id="footer-register-link">Register Now</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Support -->
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="faqs.html">FAQs</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="rules.html">Rules & Regulations</a></li>
+                            <li><a href="leaderboard.html">View Leaderboard</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Legal -->
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="rules.html#terms-of-service">Terms of Service</a></li>
+                            <li><a href="rules.html#privacy-policy">Privacy Policy</a></li>
+                            <li><a href="rules.html#drawing-rules">Drawing Rules</a></li>
+                            <li><a href="rules.html#disclaimer">Disclaimer</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="footer-section">
+                        <h4>Get In Touch</h4>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>support@deeddraw.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>1 - (604) 670-8080</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>808 Marine Drive<br>West Vancouver, BC<br>Canada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 DeedDraw. All rights reserved. | <span class="trust-text">SSL Secured</span> | <span class="trust-text">Bank-Grade Security</span> | <span class="trust-text">Verified Platform</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

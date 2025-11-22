@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Real Estate Rewards Program</title>
+    <link rel="stylesheet" href="styles.css?v=1.1">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.png" alt="DeedDraw Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="prizes.html" class="nav-link">Prizes</a>
+                <a href="register.html" class="nav-link">Register</a>
+                <a href="winners.html" class="nav-link">Winners</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                
+                <!-- Mobile-only nav links (hidden on desktop, shown instead of dropdown on mobile) -->
+                <a href="leaderboard.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-trophy"></i>
+                    Points Leaderboard
+                </a>
+                <a href="rules.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-gavel"></i>
+                    Rules & Regulations
+                </a>
+                <a href="faqs.html" class="nav-link mobile-only-nav-link" style="display: none;">
+                    <i class="fas fa-question-circle"></i>
+                    FAQs
+                </a>
+                
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-chevron-down"></i> More
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="leaderboard.html" class="dropdown-item">
+                            <i class="fas fa-trophy"></i>
+                            Points Leaderboard
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="rules.html" class="dropdown-item">
+                            <i class="fas fa-gavel"></i>
+                            Rules & Regulations
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="faqs.html" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i>
+                            FAQs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-auth">
+                <a href="login.html" class="nav-link login-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </a>
+                <a href="dashboard.html" class="nav-link dashboard-btn" style="display: none;" id="dashboard-btn">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                
+                <!-- User Profile Circle (Hidden by default) -->
+                <div style="position: relative; display: none;" id="profile-circle">
+                    <div class="user-avatar" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        width: 60px; 
+                        height: 60px; 
+                        background: rgba(51, 65, 85, 0.8); 
+                        border-radius: 50%; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        cursor: pointer;
+                        border: 3px solid #F59E0B;
+                        transition: all 0.3s ease;
+                    ">
+                        <span style="color: #F59E0B; font-weight: 800; font-size: 1rem; font-family: 'Josefin Sans', sans-serif;" id="user-initials-home">JD</span>
+                    </div>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown-home" onmouseenter="showMenu()" onmouseleave="hideMenuDelayed()" style="
+                        position: absolute;
+                        top: 100%;
+                        right: 0;
+                        margin-top: 8px;
+                        background: #1E2A38;
+                        border-radius: 8px;
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                        min-width: 180px;
+                        display: none;
+                        z-index: 1001;
+                    ">
+                        <!-- User Info Header -->
+                        <div style="padding: 16px 20px; border-radius: 8px 8px 0 0;">
+                            <div style="font-weight: 600; color: #F59E0B; font-size: 1rem;" id="dropdown-user-name-home">John Doe</div>
+                            <div style="font-size: 0.8rem; color: #b8c5d6; margin-top: 2px;" id="dropdown-user-category-home">Real Estate Agent</div>
+                        </div>
+                        
+                        <!-- Divider -->
+                        <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 0 auto; width: 85%;"></div>
+                        
+                        <!-- Dashboard Link -->
+                        <a href="dashboard.html" class="dropdown-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-tachometer-alt" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Dashboard
+                        </a>
+                        
+                        <!-- Logout -->
+                        <a href="#" onclick="logout(); return false;" class="dropdown-item logout-item" style="display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">
+                            <i class="fas fa-sign-out-alt" style="margin-right: 10px; width: 16px; color: #fff;"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section id="home" class="hero">
+                <div class="hero-content">
+                    <h1>
+                        <span class="hero-main">Turn Real Estate Deals</span>
+                        <span class="hero-highlight">into Big Wins</span>
+                    </h1>
+                    <p class="hero-subtitle">Buy a <span class="highlight-white">$2K</span> ticket for each <span class="highlight-white">$500,000</span> transaction and get your shot at <span class="highlight-white"><span class="highlight-white">$500,000</span></span> in prizes.</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <h3 class="stat-number green-stat">$<span id="prize-pool-counter" data-target="500000">0</span></h3>
+                            <p>Total Prize Pool</p>
+                        </div>
+                        <div class="stat circular-stat">
+                            <div class="circular-progress" data-progress="65">
+                                <svg class="progress-ring" viewBox="0 0 140 140" width="140" height="140">
+                                    <defs>
+                                        <linearGradient id="milkyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+                                            <stop offset="50%" style="stop-color:#f1f5f9;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                    <circle class="progress-ring-bg" cx="70" cy="70" r="60" />
+                                    <circle class="progress-ring-fill" cx="70" cy="70" r="60" id="progress-circle" />
+                                </svg>
+                                <div class="progress-content">
+                                    <span class="progress-number" id="progress-points">0</span>
+                                    <span class="progress-total">/ 400</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <div class="flip-counter">
+                                <span class="flip-number" id="countdown-counter" data-target="140">0</span>
+                            </div>
+                            <p>Points Until Next Draw</p>
+                        </div>
+                    </div>
+                    <div class="cta-buttons">
+                        <button class="btn btn-orange-primary" onclick="scrollToSection('register')">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Register Points</span>
+                        </button>
+                        <button class="btn btn-blue-outline" onclick="scrollToSection('how-it-works')">
+                            <i class="fas fa-play-circle"></i>
+                            <span>How It Works</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section id="how-it-works" class="how-it-works-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">How It Works</h2>
+                        <div class="section-subtitle">A <span class="highlight-grey">transparent</span>, <span class="highlight-grey">trust-based</span> rewards system for <span class="highlight-grey">real estate professionals</span></div>
+                        <div class="golden-line"></div>
+                    <div class="trust-badge" title="Trust & Transparency">
+                            <img src="assets/images/Trusted&Transparent.png" alt="Trusted & Transparent" class="trust-icon"> Trusted & Transparent
+                     </div>
+                    </div>
+                    <div class="steps-container">
+                        <div class="step-card" data-step="1">
+                            <div class="step-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="step-number">01</div>
+                            <h3 class="step-title">Make Your Move</h3>
+                            <p class="step-description">Buy or sell real estate anywhere — every move gets you closer to your chance to win.</p>
+                            <div class="step-highlight">Trust First</div>
+                        </div>
+                        <div class="step-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="step-card" data-step="2">
+                            <div class="step-icon">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                            <div class="step-number">02</div>
+                            <h3 class="step-title">Secure Your Ticket</h3>
+                            <p class="step-description">Each qualified real estate transaction earns you an entry — your ticket to exclusive rewards.</p>
+                            <div class="step-highlight">$2K Per Ticket</div>
+                        </div>
+                        <div class="step-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="step-card" data-step="3">
+                            <div class="step-icon">
+                                <i class="fas fa-random"></i>
+                            </div>
+                            <div class="step-number">03</div>
+                            <h3 class="step-title">Enter the Draw</h3>
+                            <p class="step-description">Every ticket gives you a fair shot at the prize pool. The process is transparent and secure.</p>
+                            <div class="step-highlight">Fair & Transparent</div>
+                        </div>
+                        <div class="step-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="step-card" data-step="4">
+                            <div class="step-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="step-number">04</div>
+                            <h3 class="step-title">Win Big</h3>
+                            <p class="step-description">If your ticket is drawn, you win — turning your real estate journey into something unforgettable.</p>
+                            <div class="step-highlight">Dream Come True</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-bottom-action">
+                        <div class="cta-content">
+                            <h3 class="cta-title">Ready to turn your real estate success into something bigger?</h3>
+                            <p class="cta-description">Discover how our transparent system rewards your hard work and gives you a fair shot at life-changing prizes.</p>
+                        </div>
+                        
+                        <a href="how-it-works.html" class="section-action-btn">
+                            <span>Learn More Details</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div> 
+                </div>
+            </section>
+
+            <!-- Eligible Participants -->
+            <section class="section participants-section">
+                <div class="container">
+                    <h2>Who Can Participate?</h2>
+                    <p class="participants-subtitle">All real estate professionals are welcome. Any qualifying transaction counts anywhere — you don't need to work with us or use our services.</p>
+                    <div class="golden-line"></div>
+                    <div class="participant-groups">
+                        <div class="group">
+                            <i class="fas fa-handshake"></i>
+                            <h3>Real Estate Agents & Brokers</h3>
+                        </div>
+                        <div class="group">
+                            <i class="fas fa-building"></i>
+                            <h3>Developers</h3>
+                        </div>
+                        <div class="group">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Sales & Marketing Teams</h3>
+                        </div>
+                        <div class="group">
+                            <i class="fas fa-home"></i>
+                            <h3>Mortgage Brokers</h3>
+                        </div>
+                        <div class="group">
+                            <i class="fas fa-user"></i>
+                            <h3>Individuals</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Point Calculator -->
+            <section id="calculator" class="section calculator-section">
+                <div class="container">
+                    <h2>Point Calculator</h2>
+                    <p class="calculator-subtitle">Easily calculate your points and see how much you can earn from your real estate transactions.</p>
+                    <div class="golden-line"></div>
+                    <div class="calculator-container">
+                        <!-- Point Rules -->
+                        <div class="point-rules">
+                            <h3><i class="fas fa-info-circle"></i> How Points Work</h3>
+                            <div class="rules-content">
+                                <p class="rules-intro">Our point system is designed to reward real estate professionals for qualifying transactions:</p>
+                                
+                                <ul class="rules-bullet-list">
+                                    <li><strong>Minimum Transaction:</strong> Home transactions must be at least <span class="underline-highlight">$500,000</span></li>
+                                    <li><strong>Point Calculation:</strong> Every $500,000 in transaction value equals <span class="underline-highlight">1 point</span></li>
+                                    <li><strong>Rounding System:</strong> We <span class="underline-highlight">round up</span> to the nearest next point for your benefit</li>
+                                    <li><strong>Example:</strong> A $751,000 transaction can register up to 2 points</li>
+                                </ul>
+                                <p class="rules-note">This generous rounding system ensures you get maximum value from every qualifying transaction.</p>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Calculator Tool -->
+                        <div class="calculator-tool">
+                            <h3><i class="fas fa-calculator"></i> Calculate Your Points</h3>
+                            <div class="calculator-input">
+                                <label for="transaction-amount">Transaction Amount ($)</label>
+                                <input type="text" id="transaction-amount" placeholder="e.g., 500,000" oninput="calculatePointsAutomatically()">
+                            </div>
+                            <div class="calculator-result" id="calculator-result">
+                                <div class="points-display">
+                                    <span class="points-label">You Can Register:</span>
+                                    <span class="points-value" id="points-value">0</span>
+                                    <span class="points-unit">Points</span>
+                                </div>
+                            </div>
+                            <div class="calculator-info" id="calculator-info">
+                                <div class="info-row">
+                                    <span class="info-label">Registration Cost:</span>
+                                    <span class="info-value" id="registration-cost">$0</span>
+                                </div>
+                                <div class="info-note">
+                                    <small>Each point costs $2,000 to register for the drawing</small>
+                                </div>
+                            </div>
+                            <div class="calculator-cta" id="calculator-cta">
+                                <button class="btn-register" onclick="scrollToRegistration()">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    Register Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prizes Section -->
+            <section id="prizes" class="section prizes-section">
+                <div class="container">
+                    <h2>Prize Structure</h2>
+                    <p class="prizes-subtitle"><span class="highlight-number">$500,000</span> total prize pool distributed to <span class="highlight-number">15</span> winners when <span class="highlight-number">400</span> points are reached. Every registered point increases your chances!</p>
+                    <div class="golden-line"></div>
+                    
+                    <!-- Grand Prize Featured -->
+                    <div class="grand-prize-featured">
+                        <div class="prize grand-prize">
+                            <div class="prize-icon">🏆</div>
+                            <h3>Grand Prize</h3>
+                            <div class="prize-amount">$300,000</div>
+                            <p>1 Winner</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Other Prizes Row -->
+                    <div class="prizes prizes-three">
+                        <div class="prize second-prize">
+                            <div class="prize-icon">🥈</div>
+                            <h3>Second Prize</h3>
+                            <div class="prize-amount">$50,000</div>
+                            <p>2 Winners</p>
+                        </div>
+                        <div class="prize third-prize">
+                            <div class="prize-icon">🥉</div>
+                            <h3>Third Prize</h3>
+                            <div class="prize-amount">$25,000</div>
+                            <p>2 Winners</p>
+                        </div>
+                        <div class="prize fourth-prize">
+                            <div class="prize-icon">🎁</div>
+                            <h3>Fourth Prize</h3>
+                            <div class="prize-amount">$5,000</div>
+                            <p>10 Winners</p>
+                        </div>
+                    </div>
+                    
+                    <div class="transparency-notice">
+                        <h3>🔒 Transparent Process</h3>
+                        <p>The drawing process will be covered by <span class="highlight-media">local</span> and <span class="highlight-media">real estate media</span> to ensure complete <span class="highlight-white">transparency</span> and <span class="highlight-white">fairness</span>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Current Status -->
+            <section class="section status-section">
+                <div class="container">
+                    <h2>Current Drawing Status</h2>
+                    <p class="section-subtitle">We hold a drawing every time 400 points are registered. Track our progress below!</p>
+                    <div class="golden-line"></div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="current-points">0</span> / 400 points registered
+                        </div>
+                        <p class="next-drawing">Only <span id="points-remaining">400</span> more points needed to trigger our next drawing!<br><span class="register-link" onclick="scrollToRegistration()">Register</span> now to secure your chance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Registration CTA Section -->
+            <section id="register" class="section interactive-cta-section">
+                <canvas id="bg-canvas"></canvas>
+                <div class="cta-content-container">
+                    <div class="cta-text-center">
+                        <h1 class="cta-main-title">
+                            Turn Your Success Into Rewards
+                        </h1>
+                        <p class="cta-description">
+                            Join 200+ real estate professionals in our transparent, secure rewards program
+                        </p>
+                        <div class="golden-line"></div>
+                        
+                        <!-- Trust Indicators -->
+                        <div class="trust-indicators">
+                            <div class="trust-item grid__cell">
+                                <div class="trust-content">
+                                    <div class="trust-icon">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <span class="trust-text">Bank-Grade Security</span>
+                                </div>
+                                <div class="hover-block"></div>
+                            </div>
+                            <div class="trust-item grid__cell">
+                                <div class="trust-content">
+                                    <div class="trust-icon">
+                                        <i class="fas fa-credit-card"></i>
+                                    </div>
+                                    <span class="trust-text">PayPal & Stripe Payments</span>
+                                </div>
+                                <div class="hover-block"></div>
+                            </div>
+                            <div class="trust-item grid__cell">
+                                <div class="trust-content">
+                                    <div class="trust-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <span class="trust-text">Verified Transactions</span>
+                                </div>
+                                <div class="hover-block"></div>
+                            </div>
+                            <div class="trust-item grid__cell">
+                                <div class="trust-content">
+                                    <div class="trust-icon">
+                                        <i class="fas fa-chart-pie"></i>
+                                    </div>
+                                    <span class="trust-text">100% Transparent Drawing</span>
+                                </div>
+                                <div class="hover-block"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="cta-button-container">
+                            <button class="sketch-button cta-register-button" id="start-registration-btn">
+                                <span>Start Your Registration</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Participants & Leaderboard -->
+            <section id="participants" class="section participants-leaderboard-section">
+                <div class="container">
+                    <h2>Participants & Leaderboard</h2>
+                    <p class="section-subtitle">View all registered participants and track the leaderboard as we approach the next drawing.</p>
+                    <div class="golden-line"></div>
+                    
+                    <div class="participants-content">
+                        <!-- Search Participants -->
+                        <div class="search-participants">
+                            <h3>Search Participants</h3>
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" id="participant-search" placeholder="Search participants by name...">
+                            </div>
+                            <div class="search-results" id="search-results">
+                                <!-- Search results will appear here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Leaderboard -->
+                        <div class="leaderboard">
+                            <h3>Current Leaderboard</h3>
+                            <div class="leaderboard-table">
+                                <div class="leaderboard-header">
+                                    <span>Rank</span>
+                                    <span>Name</span>
+                                    <span>Location</span>
+                                    <span>Tickets</span>
+                                </div>
+                                <div class="leaderboard-body" id="leaderboard-body">
+                                    <!-- Leaderboard will be populated dynamically -->
+                                </div>
+                            </div>
+                            <div class="show-more-action">
+                                <a href="leaderboard.html" class="btn btn-outline">
+                                    View Full Leaderboard
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- Company Info -->
+                    <div class="footer-section">
+                        <div class="footer-logo">
+                            <img src="assets/images/logo.png" alt="DeedDraw Logo">
+                            <p>Turning real estate success into life-changing opportunities through transparent, fair rewards.</p>
+                        </div>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/deeddraw" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="how-it-works.html">How It Works</a></li>
+                            <li><a href="#calculator">Point Calculator</a></li>
+                            <li><a href="leaderboard.html">Participants</a></li>
+                            <li><a href="register.html" id="footer-register-link">Register Now</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Support -->
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="faqs.html">FAQs</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="rules.html">Rules & Regulations</a></li>
+                            <li><a href="leaderboard.html">View Leaderboard</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Legal -->
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="rules.html#terms-of-service">Terms of Service</a></li>
+                            <li><a href="rules.html#privacy-policy">Privacy Policy</a></li>
+                            <li><a href="rules.html#drawing-rules">Drawing Rules</a></li>
+                            <li><a href="rules.html#disclaimer">Disclaimer</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="footer-section">
+                        <h4>Get In Touch</h4>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>support@deeddraw.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>1 - (604) 670-8080</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>828 Harbourside Dr<br>North Vancouver, BC<br>Canada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 DeedDraw. All rights reserved. | <span class="trust-text">SSL Secured</span> | <span class="trust-text">Bank-Grade Security</span> | <span class="trust-text">Verified Platform</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Payment Information</h2>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry">Expiry Date</label>
+                        <input type="text" id="expiry" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cardholder-name">Cardholder Name</label>
+                    <input type="text" id="cardholder-name" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large">Complete Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <!-- Three.js and Interactive CTA Scripts -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        import { Line2 } from 'three/addons/lines/Line2.js';
+        import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+        import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+
+        let scene, camera, renderer, composer, particles, energyLines = [];
+        const mouse = new THREE.Vector2(10000, 10000);
+        let particleData = [];
+
+        function initCTAParticles() {
+            // Only initialize if the canvas exists
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 50);
+
+            renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            composer = new EffectComposer(renderer);
+            composer.addPass(new RenderPass(scene, camera));
+            const bloomPass = new UnrealBloomPass(
+                new THREE.Vector2(window.innerWidth, window.innerHeight),
+                1.2,
+                0.9,
+                0.1
+            );
+            composer.addPass(bloomPass);
+
+            createMainParticles();
+            createEnergyLines();
+            
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('mousemove', onMouseMove);
+            
+            animate();
+        }
+
+        function createMainParticles() {
+            const particleCount = 8000;
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            const baseColor = new THREE.Color(0x1e293b);
+
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                const x = (Math.random() - 0.5) * 120;
+                const y = (Math.random() - 0.5) * 120;
+
+                particleData.push({
+                    originalPos: new THREE.Vector3(x, y, (Math.random() - 0.5) * 20),
+                    currentPos: new THREE.Vector3(x, y, (Math.random() - 0.5) * 20),
+                    velocity: new THREE.Vector3(),
+                });
+
+                positions[i3] = x;
+                positions[i3 + 1] = y;
+                positions[i3 + 2] = particleData[i].originalPos.z;
+
+                baseColor.toArray(colors, i3);
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            
+            const material = new THREE.PointsMaterial({
+                size: 1.8,
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                sizeAttenuation: true
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+        }
+
+        function createEnergyLines() {
+            const lineCount = 25;
+            for (let i = 0; i < lineCount; i++) {
+                const geometry = new LineGeometry();
+                const points = [];
+                const z = (Math.random() - 0.5) * 150 - 75;
+                const startX = (Math.random() - 0.5) * 150;
+                const startY = (Math.random() - 0.5) * 150;
+                const length = Math.random() * 12 + 6;
+
+                points.push(startX, startY, z);
+                points.push(startX, startY - length, z);
+                geometry.setPositions(points);
+
+                const material = new LineMaterial({
+                    color: 0xd4af37,
+                    linewidth: 0.004,
+                    transparent: true,
+                    opacity: 0.6,
+                    dashed: false,
+                });
+
+                const line = new Line2(geometry, material);
+                
+                line.userData.speed = Math.random() * 25 + 12;
+                line.userData.originalZ = z;
+
+                energyLines.push(line);
+                scene.add(line);
+            }
+        }
+        
+        function onWindowResize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(width, height);
+            composer.setSize(width, height);
+
+            energyLines.forEach(line => {
+                line.material.resolution.set(width, height);
+            });
+        }
+        
+        function onMouseMove(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        const clock = new THREE.Clock();
+        function animate() {
+            if (!renderer) return;
+            
+            const delta = clock.getDelta();
+            const elapsedTime = clock.getElapsedTime();
+            requestAnimationFrame(animate);
+
+            const mousePos3D = new THREE.Vector3(mouse.x, mouse.y, 0.5);
+            mousePos3D.unproject(camera);
+            const dir = mousePos3D.sub(camera.position).normalize();
+            const distance = -camera.position.z / dir.z;
+            const finalMousePos = camera.position.clone().add(dir.multiplyScalar(distance));
+
+            const positions = particles.geometry.attributes.position.array;
+            const colors = particles.geometry.attributes.color.array;
+            const highlightColor = new THREE.Color(0xd4af37);
+
+            for (let i = 0; i < particleData.length; i++) {
+                const i3 = i * 3;
+                const data = particleData[i];
+                
+                const diff = new THREE.Vector3().subVectors(data.currentPos, finalMousePos);
+                const dist = diff.length();
+                let force = 0;
+                if(dist < 25) {
+                    force = (1 - (dist / 25)) * 0.08;
+                    diff.normalize();
+                    data.velocity.add(diff.multiplyScalar(force));
+                }
+
+                const springForce = new THREE.Vector3().subVectors(data.originalPos, data.currentPos).multiplyScalar(0.01);
+                data.velocity.add(springForce);
+                data.velocity.multiplyScalar(0.94);
+
+                data.currentPos.add(data.velocity);
+
+                positions[i3] = data.currentPos.x;
+                positions[i3 + 1] = data.currentPos.y;
+                positions[i3 + 2] = data.currentPos.z + Math.sin(data.originalPos.x * 0.1 + elapsedTime) * 3.0;
+
+                let colorMix = dist < 25 ? (1 - dist / 25) : 0;
+                const color = new THREE.Color(0x1e293b).lerp(highlightColor, colorMix);
+                color.toArray(colors, i3);
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            particles.geometry.attributes.color.needsUpdate = true;
+
+            energyLines.forEach(line => {
+                line.position.z = (line.position.z + line.userData.speed * delta);
+                if (line.position.z > 50) {
+                    line.position.z = -150;
+                }
+            });
+
+            composer.render();
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Small delay to ensure everything is loaded
+            setTimeout(initCTAParticles, 100);
+        });
+
+        // Add click handler for the registration button
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerBtn = document.getElementById('start-registration-btn');
+            if (registerBtn) {
+                registerBtn.addEventListener('click', function() {
+                    // Redirect to login page where users can register
+                    window.location.href = 'login.html';
+                });
+            }
+        });
+
+        // Profile dropdown functions - Make them global
+        let hideTimeout;
+
+        window.showMenu = function() {
+            clearTimeout(hideTimeout);
+            const dropdown = document.getElementById('user-dropdown-home');
+            if (dropdown) {
+                dropdown.style.display = 'block';
+            }
+        };
+
+        window.hideMenuDelayed = function() {
+            hideTimeout = setTimeout(function() {
+                const dropdown = document.getElementById('user-dropdown-home');
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            }, 200); // Small delay to prevent flickering when moving between avatar and dropdown
+        };
+
+        window.logout = function() {
+            // Clear user session
+            localStorage.removeItem('userSession');
+            sessionStorage.removeItem('userSession');
+            
+            // Show logout message
+            alert('You have been logged out successfully.');
+            
+            // Redirect to home page (reload current page)
+            window.location.href = 'index.html';
+        };
+
+        // Check user session and update navbar
+        function checkUserSession() {
+            const sessionData = localStorage.getItem('userSession') || sessionStorage.getItem('userSession');
+            const userData = localStorage.getItem('userData') || sessionStorage.getItem('userData');
+            
+            if (sessionData && userData) {
+                try {
+                    const session = JSON.parse(sessionData);
+                    const user = JSON.parse(userData);
+                    
+                    if (user && session.userId && session.email) {
+                        // User is logged in - show profile circle, hide login button
+                        const loginBtn = document.getElementById('login-btn');
+                        const profileCircle = document.getElementById('profile-circle');
+                        
+                        loginBtn.style.display = 'none';
+                        loginBtn.style.visibility = 'hidden';
+                        loginBtn.style.opacity = '0';
+                        loginBtn.style.position = 'absolute';
+                        loginBtn.style.pointerEvents = 'none';
+                        
+                        profileCircle.style.display = 'block';
+                        profileCircle.style.visibility = 'visible';
+                        profileCircle.style.opacity = '1';
+                        profileCircle.style.position = 'relative';
+                        profileCircle.style.pointerEvents = 'auto';
+                        
+                        // Update user info in profile circle
+                        const initials = (user.firstName[0] + user.lastName[0]).toUpperCase();
+                        document.getElementById('user-initials-home').textContent = initials;
+                        document.getElementById('dropdown-user-name-home').textContent = user.firstName + ' ' + user.lastName;
+                        
+                        // Update dashboard link based on user role
+                        const dashboardLink = document.querySelector('.dropdown-item[href="dashboard.html"]');
+                        if (user.isAdmin) {
+                            if (dashboardLink) {
+                                dashboardLink.setAttribute('href', 'admin.html');
+                            }
+                            document.getElementById('dropdown-user-category-home').textContent = 'Administrator';
+                        } else {
+                            // Map category codes to readable names for regular users
+                            const categoryMap = {
+                                'agent-broker': 'Real Estate Agent',
+                                'developer': 'Developer', 
+                                'sales-marketing': 'Sales & Marketing',
+                                'mortgage-broker': 'Mortgage Broker',
+                                'individual': 'Individual'
+                            };
+                            
+                            const categoryDisplay = categoryMap[user.category] || user.category;
+                            document.getElementById('dropdown-user-category-home').textContent = categoryDisplay;
+                        }
+                        
+                        return;
+                    } else {
+                        localStorage.removeItem('userSession');
+                        sessionStorage.removeItem('userSession');
+                        localStorage.removeItem('userData');
+                        sessionStorage.removeItem('userData');
+                    }
+                } catch (error) {
+                    console.error('Error parsing session data:', error);
+                    localStorage.removeItem('userSession');
+                    sessionStorage.removeItem('userSession');
+                    localStorage.removeItem('userData');
+                    sessionStorage.removeItem('userData');
+                }
+            }
+            
+            // User is not logged in - show login button, hide profile circle
+            const loginBtn = document.getElementById('login-btn');
+            const profileCircle = document.getElementById('profile-circle');
+            
+            loginBtn.style.display = 'flex';
+            loginBtn.style.visibility = 'visible';
+            loginBtn.style.opacity = '1';
+            loginBtn.style.position = 'relative';
+            loginBtn.style.pointerEvents = 'auto';
+            
+            profileCircle.style.display = 'none';
+            profileCircle.style.visibility = 'hidden';
+            profileCircle.style.opacity = '0';
+            profileCircle.style.position = 'absolute';
+            profileCircle.style.pointerEvents = 'none';
+        }
+
+        // Check session when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserSession();
+        });
+
+        // Add hover effects to dropdown items
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#2B394A';
+                    this.style.color = '#F59E0B';
+                    
+                    // Also change icon color to gold
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.color = '#F59E0B';
+                    }
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = '#fff';
+                    
+                    // Reset icon color to white
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.color = '#fff';
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <!-- Coming Soon Function for Incomplete Pages -->
+    <script>
+        function showComingSoon(pageName) {
+            alert(`🚧 ${pageName} page is coming soon!\n\nThis section is currently under development. Please check back later for updates.`);
+        }
+    </script>
+    
+    <!-- Footer Register Link Handler -->
+    <script>
+        // Handle the register link based on login status
+        function handleFooterRegisterClick(e) {
+            const token = localStorage.getItem('token');
+            if (token) {
+                // User is logged in - prevent default and go to dashboard register tab
+                e.preventDefault();
+                window.location.href = 'dashboard.html#register';
+            }
+            // If not logged in, let the default href="register.html" work
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerRegisterLink = document.getElementById('footer-register-link');
+            if (footerRegisterLink) {
+                footerRegisterLink.addEventListener('click', handleFooterRegisterClick);
+            }
+        });
+    </script>
+    
+    <script src="auth.js"></script>
+</body>
+</html>
+    

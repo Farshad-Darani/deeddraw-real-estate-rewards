@@ -1,0 +1,1439 @@
+/* How It Works Page - Specific Styles */
+
+/* Page Body Styling */
+body.how-it-works-page .breadcrumb {
+    margin-bottom: 4rem;
+    margin-top: -8rem; /* Move breadcrumb higher up */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+body.how-it-works-page .breadcrumb a {
+    color: #F59E0B;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+body.how-it-works-page .breadcrumb a:hover {
+    opacity: 0.8;
+}
+
+body.how-it-works-page .breadcrumb i {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+}
+
+body.how-it-works-page .breadcrumb span {
+    color: white;
+}
+
+/* Hero Section for How It Works - Override main styles */
+html body.how-it-works-page .hero {
+    /* OPTION 1: Lighter overlay (30% opacity) - More image visible, clean modern look */
+    background: linear-gradient(135deg, rgba(30, 42, 56, 0.3) 0%, rgba(45, 55, 72, 0.3) 100%), 
+                url('assets/images/How-it-works-hero.png') !important;
+    
+    /* Show even more of the bottom part of the image */
+    background-position: center 100% !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    
+    /* Add moving background animation - same as main page */
+    animation: mobilePan 15s ease-in-out infinite !important;
+}
+
+/* Copy mobilePan keyframes to ensure they're available */
+@keyframes mobilePan {
+    0% {
+        background-position: 20% center;
+    }
+    50% {
+        background-position: 60% center;
+    }
+    75% {
+        background-position: 80% center;
+    }
+    100% {
+        background-position: 20% center;
+    }
+}
+
+/* Trust Badge Styling */
+body.how-it-works-page .hero-trust-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: -8rem;
+    margin-top: 9rem; /* Increased from 2rem to move badge lower */
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.how-it-works-page .hero-trust-badge .trust-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+body.how-it-works-page .hero-trust-badge span {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Steps Section - With Proper Background Pattern */
+#how-it-works-steps {
+    /* Base gradient background same as main page */
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%) !important;
+    padding: 5rem 0 !important;
+    min-height: 400px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add the same pattern overlay as main page calculator section */
+#how-it-works-steps::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 41, 59, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#how-it-works-steps::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        linear-gradient(0deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        radial-gradient(circle at 30px 30px, rgba(30, 41, 59, 0.08) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 90px 90px, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
+    background-position: 0 0, 0 0, 0 0, 30px 30px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Test content on top of pattern */
+#how-it-works-steps .test-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 100px 0;
+    color: #1E293B;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Hide everything for now - completely clean section */
+#how-it-works-steps .container {
+    position: relative;
+    z-index: 3;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+#how-it-works-steps .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 4;
+}
+
+#how-it-works-steps .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    position: relative;
+}
+
+/* Remove the default blue line for steps section too */
+#how-it-works-steps .section-title::after {
+    display: none !important;
+}
+
+#how-it-works-steps .section-subtitle {
+    font-size: 1.2rem;
+    color: #64748B;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Modern Glassmorphism Steps Design */
+.steps-glass-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: -2rem; /* Negative gap for overlapping effect */
+    flex-wrap: wrap;
+    margin: 4rem 0;
+    min-height: 500px;
+    position: relative;
+}
+
+.glass-step-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    width: 320px;
+    min-height: 420px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.08),
+        0 8px 16px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    text-align: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.glass-step-card:nth-child(1) {
+    transform: translateX(30px) rotate(-2deg);
+    z-index: 12;
+}
+
+.glass-step-card:nth-child(2) {
+    transform: translateY(-20px) rotate(1deg);
+    background: rgba(245, 158, 11, 0.15); /* Slight gold tint for middle card */
+    z-index: 13;
+}
+
+.glass-step-card:nth-child(3) {
+    transform: translateX(-30px) rotate(-1deg);
+    z-index: 11;
+}
+
+.glass-step-card:hover {
+    transform: translateY(-15px) scale(1.05) rotate(0deg) !important;
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.15),
+        0 12px 24px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(245, 158, 11, 0.4);
+    z-index: 20 !important;
+}
+
+.glass-step-number {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #F59E0B, #FBBF24);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    box-shadow: 
+        0 8px 20px rgba(245, 158, 11, 0.4),
+        0 4px 8px rgba(245, 158, 11, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.glass-step-icon {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, #1E293B, #334155);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 2rem 0 1.5rem 0;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.glass-step-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.glass-step-description {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.glass-step-description strong {
+    color: #F59E0B;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.glass-step-example {
+    background: rgba(248, 250, 252, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 1rem 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    margin-top: auto;
+}
+
+.glass-example-label {
+    font-weight: 600;
+    color: #1E293B;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.glass-example-text {
+    color: #F59E0B;
+    font-weight: 600;
+}
+
+/* Section CTA */
+.section-cta {
+    margin-top: 4rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 5;
+}
+
+.section-cta .btn {
+    width: auto;
+    min-width: 200px;
+    max-width: 280px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
+    margin-top: 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    /* Fix hero content positioning on mobile */
+    body.how-it-works-page .hero-content {
+        padding-bottom: 4rem !important;
+    }
+    
+    body.how-it-works-page .hero-title {
+        margin-top: 0 !important;
+        padding-top: 2rem !important;
+    }
+    
+    body.how-it-works-page .hero-subtitle {
+        margin-top: 1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    body.how-it-works-page .hero-cta {
+        margin: 1.5rem 0 !important;
+    }
+    
+    body.how-it-works-page .hero-trust-badge {
+        margin-top: 9rem !important;
+        margin-bottom: -5rem !important;
+    }
+    
+    .steps-glass-container {
+        flex-direction: column;
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .glass-step-card {
+        width: 100%;
+        max-width: 350px;
+        transform: none !important;
+    }
+    
+    .glass-step-card:nth-child(1),
+    .glass-step-card:nth-child(2),
+    .glass-step-card:nth-child(3) {
+        transform: none;
+    }
+    
+    .glass-step-title {
+        font-size: 1.6rem;
+    }
+    
+    .section-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .section-cta .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* Remove test content */
+.test-content {
+    display: none;
+}
+
+/* What is DeedDraw Section - Light Background */
+#about-deeddraw {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add the same pattern overlay as other light sections */
+#about-deeddraw::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 41, 59, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#about-deeddraw::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        linear-gradient(0deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        radial-gradient(circle at 30px 30px, rgba(30, 41, 59, 0.08) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 90px 90px, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
+    background-position: 0 0, 0 0, 0 0, 30px 30px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#about-deeddraw .container {
+    position: relative;
+    z-index: 3;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+#about-deeddraw .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+#about-deeddraw .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    position: relative; /* Add this to enable ::after positioning */
+}
+
+/* Remove the default blue line for this section */
+#about-deeddraw .section-title::after {
+    display: none !important;
+}
+
+/* Golden line - exact same as main page */
+#about-deeddraw .golden-line {
+    width: 750px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #F59E0B 25%, #FBBF24 50%, #F59E0B 75%, transparent 100%);
+    margin: 2rem auto 3rem auto;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+#about-deeddraw .section-subtitle {
+    font-size: 1.2rem;
+    color: #64748B;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Content Grid */
+.about-content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.about-content-block {
+    text-align: center;
+    padding: 2rem;
+}
+
+.about-icon {
+    font-size: 3rem;
+    color: #1E293B;
+    margin-bottom: 1.5rem;
+}
+
+.about-block-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #F1F5F9;
+    margin-bottom: 1rem;
+}
+
+.about-block-description {
+    color: #CBD5E1;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Key Stats Row - Unified Box Design */
+.key-stats {
+    display: flex;
+    justify-content: center;
+    margin: 4rem 0;
+}
+
+.stats-unified-box {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.1), rgba(51, 65, 85, 0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+     border: 1px solid rgba(30, 41, 59, 0.1);
+    border-radius: 24px;
+    padding: 2rem 2rem;
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1100px; /* Increased from 700px for desktop */
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease !important;
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.15),
+        0 6px 18px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(50px);
+    cursor: pointer;
+}
+
+/* Animation class to be added by JavaScript */
+.stats-unified-box.animate-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-fill-mode: forwards !important;
+}
+
+/* Removed conflicting hover rule - using the ultimate fix at end of file instead */
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+    min-width: 200px; /* Increased for more space */
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Animation classes to be added by JavaScript */
+.stat-item.animate-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stat-item.animate-in:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stat-item.animate-in:nth-child(2) {
+    animation-delay: 0.2s;
+    border-left: 1px solid rgba(30, 41, 59, 0.1);
+    border-right: 1px solid rgba(30, 41, 59, 0.1);
+    padding: 0 2rem;
+}
+
+.stat-item:nth-child(2) {
+    border-left: 1px solid rgba(30, 41, 59, 0.1);
+    border-right: 1px solid rgba(30, 41, 59, 0.1);
+    padding: 0 2rem;
+}
+
+/* Mobile responsive dividers */
+@media (max-width: 768px) {
+    .stats-unified-box {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .stat-item {
+        min-width: 100%;
+        margin: 0;
+    }
+    
+    .stat-item:nth-child(2) {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid rgba(203, 213, 225, 0.3);
+        border-bottom: 1px solid rgba(203, 213, 225, 0.3);
+        padding: 2rem 0;
+        margin: 1rem 0;
+    }
+}
+
+.stat-item.animate-in:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #1E293B;
+    display: block;
+    margin-bottom: 0.5rem;
+    text-shadow: none;
+    position: relative;
+}
+
+.stat-label {
+    color: #64748B;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Prevent animation restart after completion */
+.stats-unified-box.animation-completed {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    animation: none !important;
+}
+
+/* Ensure completed animations allow hover transforms */
+.about-content-block.animation-complete {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-content-block.animation-complete:hover {
+    transform: translateY(-10px) !important;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Content blocks enhanced styling */
+.about-content-block {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(203, 213, 225, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Visible state - triggered by JavaScript on scroll */
+.about-content-block.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Staggered entrance animation delays */
+.about-content-block.visible:nth-child(1) {
+    transition-delay: 0.15s;
+}
+
+.about-content-block.visible:nth-child(2) {
+    transition-delay: 0.3s;
+}
+
+.about-content-block.visible:nth-child(3) {
+    transition-delay: 0.45s;
+}
+
+/* Clean hover animation - no conflicts */
+.about-content-block:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, #334155 0%, #475569 100%);
+    border-color: rgba(203, 213, 225, 0.3);
+    transition: all 0.3s ease;
+}
+
+.about-icon {
+    font-size: 3rem;
+    color: #CBD5E1;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.about-content-block:hover .about-icon {
+    transform: scale(1.1);
+    color: #F1F5F9;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #about-deeddraw {
+        padding: 3rem 0;
+    }
+    
+    #about-deeddraw .section-title {
+        font-size: 2rem;
+    }
+    
+    .about-content-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .key-stats {
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #how-it-works-steps {
+        padding: 3rem 0;
+    }
+    
+    #how-it-works-steps .container {
+        padding: 0 1rem;
+    }
+    
+    #how-it-works-steps .section-title {
+        font-size: 2rem;
+    }
+    
+    #how-it-works-steps .section-subtitle {
+        font-size: 1.1rem;
+    }
+
+    body.how-it-works-page .breadcrumb {
+        margin-top: -4rem;
+        margin-bottom: 2rem;
+    }
+
+    body.how-it-works-page .hero-trust-badge {
+        margin-top: 2rem;
+        padding: 12px 20px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+/* FIX HOMEPAGE STEP NUMBERS - Remove unwanted backgrounds and boxes */
+.how-it-works-section .step-card .step-number {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    border-radius: 50% !important;
+    box-shadow: none !important;
+    width: 60px !important;
+    height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 1rem !important;
+    color: white !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, #F59E0B, #FBBF24) !important;
+}
+
+/* Security & Transparency Section - Light Background */
+#hiw-security-transparency {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add the same pattern overlay as other light sections */
+#hiw-security-transparency::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(30, 41, 59, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#hiw-security-transparency::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        linear-gradient(0deg, transparent 5%, rgba(30, 41, 59, 0.06) 95%, rgba(30, 41, 59, 0.06) 100%),
+        radial-gradient(circle at 30px 30px, rgba(30, 41, 59, 0.08) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 90px 90px, rgba(30, 41, 59, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 120px 120px, 180px 180px;
+    background-position: 0 0, 0 0, 0 0, 30px 30px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#hiw-security-transparency .container {
+    position: relative;
+    z-index: 3;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+#hiw-security-transparency .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+#hiw-security-transparency .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    position: relative;
+}
+
+/* Remove the default blue line for this section */
+#hiw-security-transparency .section-title::after {
+    display: none !important;
+}
+
+/* Golden line - unique for this section */
+.hiw-golden-line {
+    width: 950px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #F59E0B 25%, #FBBF24 50%, #F59E0B 75%, transparent 100%);
+    margin: 2rem auto 3rem auto;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+#hiw-security-transparency .section-subtitle {
+    font-size: 1.2rem;
+    color: #64748B;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Security Grid Layout */
+.hiw-security-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.hiw-security-block {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    border: 1px solid rgba(30, 41, 59, 0.1);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+/* Visible state - triggered by JavaScript on scroll */
+.hiw-security-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered entrance animation delays */
+.hiw-security-block:nth-child(1).visible {
+    transition-delay: 0.1s;
+}
+
+.hiw-security-block:nth-child(2).visible {
+    transition-delay: 0.2s;
+}
+
+.hiw-security-block:nth-child(3).visible {
+    transition-delay: 0.3s;
+}
+
+.hiw-security-block:nth-child(4).visible {
+    transition-delay: 0.4s;
+}
+
+.hiw-security-block:nth-child(5).visible {
+    transition-delay: 0.5s;
+}
+
+.hiw-security-block:nth-child(6).visible {
+    transition-delay: 0.6s;
+}
+
+.hiw-security-block:nth-child(7).visible {
+    transition-delay: 0.7s;
+}
+
+.hiw-security-block:nth-child(8).visible {
+    transition-delay: 0.8s;
+}
+
+/* Clean hover animation - no conflicts */
+.hiw-security-block:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(245, 158, 11, 0.15);
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(245, 158, 11, 0.2);
+    transition: all 0.3s ease;
+}
+
+.hiw-security-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    background: none !important;
+    color: inherit;
+}
+
+/* Apply gradient only to Font Awesome icons, not emojis */
+.hiw-security-icon i {
+    background: linear-gradient(180deg, #B43A30, #BF5541, #D2853A, #F3D477) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.3));
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.hiw-security-block:hover .hiw-security-icon {
+    transform: scale(1.1);
+    background: none !important;
+}
+
+.hiw-security-block:hover .hiw-security-icon i {
+    background: linear-gradient(180deg, #C75725, #bf7841, #D88D37, #FCD34D) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 4px 8px rgba(245, 158, 11, 0.4));
+}
+
+.hiw-security-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.hiw-security-description {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Security Section CTA Button */
+#hiw-security-transparency .section-cta {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Visible state - triggered by JavaScript on scroll */
+#hiw-security-transparency .section-cta.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#hiw-security-transparency .btn-outline-primary {
+    background: transparent;
+    color: #1e293b;
+    border: 2px solid #1e293b;
+    padding: 12px 26px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#hiw-security-transparency .btn-outline-primary:hover {
+    background: #1e293b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(30, 41, 59, 0.4);
+}
+
+/* Mobile Responsiveness for Security Section */
+@media (max-width: 768px) {
+    #hiw-security-transparency {
+        padding: 3rem 0;
+    }
+    
+    #hiw-security-transparency .section-title {
+        font-size: 2rem;
+    }
+    
+    .hiw-security-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .hiw-golden-line {
+        width: 90%;
+        max-width: 400px;
+    }
+}
+
+/* Getting Started Guide Section - Dark Background */
+#hiw-getting-started {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    padding: 6rem 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+#hiw-getting-started .container {
+    position: relative;
+    z-index: 3;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+#hiw-getting-started .section-header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+#hiw-getting-started .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FFFFFF !important;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8) !important;
+    background: none !important;
+    background-image: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    background-clip: initial !important;
+}
+
+/* Remove any default lines */
+#hiw-getting-started .section-title::after {
+    display: none !important;
+}
+
+#hiw-getting-started .section-subtitle {
+    font-size: 1.2rem;
+    color: #94A3B8;
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+}
+
+/* Golden line - unique for this section - positioned after subtitle */
+.hiw-guide-golden-line {
+    width: 750px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #F59E0B 25%, #FBBF24 50%, #F59E0B 75%, transparent 100%);
+    margin: 0 auto 3rem auto;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+/* Guide Grid Layout */
+.hiw-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+/* Desktop-specific rules to ensure horizontal layout */
+@media (min-width: 769px) {
+    .hiw-guide-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+        max-width: 1200px;
+        margin: 4rem auto 0 auto;
+    }
+    
+    /* Ensure hero CTA buttons display horizontally on desktop */
+    body.how-it-works-page .hero-cta {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 20px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        margin: 2rem 0 !important;
+    }
+}
+
+/* Guide step cards - base styles with appearing animations */
+.hiw-guide-step {
+    position: relative;
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Visible state - triggered by JavaScript on scroll */
+.hiw-guide-step.animate-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Staggered entrance animation delays */
+.hiw-guide-step.animate-in:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.hiw-guide-step.animate-in:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.hiw-guide-step.animate-in:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.hiw-guide-step.animate-in:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.hiw-guide-step.animate-in:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.hiw-guide-step.animate-in:nth-child(6) {
+    transition-delay: 0.6s;
+}
+
+/* Clean hover animation - no conflicts */
+.hiw-guide-step:hover {
+    transform: translateY(-15px) scale(1.02);
+    background: rgba(255, 255, 255, 0.20);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* Security Cards Animation States */
+.security-card-hidden {
+    opacity: 0 !important;
+    transform: translateY(40px) scale(0.95) !important;
+    transition: opacity 0.7s ease, transform 0.7s ease !important;
+}
+
+.security-card-visible {
+    opacity: 1 !important;
+    transform: translateY(0px) scale(1) !important;
+    transition: opacity 0.7s ease, transform 0.7s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+/* Security card title hover effect */
+.hiw-security-block:hover .hiw-security-title {
+    color: #F59E0B;
+}
+
+.hiw-guide-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #475569, #64748B);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: 2px solid #28374f;
+    z-index: 5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hiw-guide-content {
+    padding: 2.5rem;
+    text-align: center;
+}
+
+.hiw-guide-step-icon {
+    font-size: 2.5rem;
+    color: #CBD5E1;
+    margin-bottom: 1.5rem;
+    transition: all 0.15s ease;
+}
+
+.hiw-guide-step:hover .hiw-guide-step-icon {
+    color: #F1F5F9;
+    transform: scale(1.1);
+}
+
+.hiw-guide-step-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.hiw-guide-step-description {
+    color: #CBD5E1;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.hiw-guide-requirements {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hiw-guide-requirements li {
+    color: #A4B1C4;
+    font-size: 0.9rem;
+    padding: 0.4rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.hiw-guide-requirements li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #94A3B8;
+    font-weight: bold;
+}
+
+/* Section CTA */
+#hiw-getting-started .section-cta {
+    margin-top: 5rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Visible state - triggered by JavaScript on scroll */
+#hiw-getting-started .section-cta.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#hiw-getting-started .btn-primary {
+    background: linear-gradient(135deg, #F59E0B, #FBBF24);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#hiw-getting-started .btn-primary:hover {
+    background: linear-gradient(135deg, #FBBF24, #F59E0B);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+}
+
+#hiw-getting-started .btn-outline-light {
+    background: transparent;
+    color: #CBD5E1;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 26px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#hiw-getting-started .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Mobile Responsiveness for Getting Started Section */
+@media (max-width: 768px) {
+    #hiw-getting-started {
+        padding: 4rem 0;
+    }
+    
+    #hiw-getting-started .section-title {
+        font-size: 2rem;
+    }
+    
+    .hiw-guide-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .hiw-guide-golden-line {
+        width: 90%;
+        max-width: 400px;
+    }
+    
+    .hiw-guide-content {
+        padding: 2rem 1.5rem;
+    }
+    
+    #hiw-getting-started .section-cta {
+        flex-direction: column;
+        margin-top: 3rem;
+    }
+    
+    #hiw-getting-started .btn-primary,
+    #hiw-getting-started .btn-outline-light {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+}
+
+html body #about-deeddraw .stats-unified-box:hover,
+html body .stats-unified-box.stats-unified-box:hover,
+html body .stats-unified-box:hover {
+    transform: translateY(-15px) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+    border-color: rgba(30, 41, 59, 0.2) !important;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.15), rgba(51, 65, 85, 0.1)) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease !important;
+}
+
+/* Ensure stable state after hover ends */
+html body .stats-unified-box:not(:hover) {
+    opacity: 1 !important;
+}
+
+/* Hero section golden line - reduce spacing between header and CTA buttons */
+body.how-it-works-page .hero .golden-line {
+    margin-top: -1.7rem !important;
+    margin-bottom: 0rem !important;
+}
+
+/* Mobile hero golden line - even tighter spacing */
+@media (max-width: 768px) {
+    body.how-it-works-page .hero .golden-line {
+        margin-top: 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+}
+
+/* Guide Steps Card Animations - JavaScript added to HTML file */

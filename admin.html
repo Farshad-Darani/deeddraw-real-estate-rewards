@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Admin Dashboard - DeedDraw - TEST VERSION 999</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Sidebar -->
+    <div class="admin-sidebar">
+        <div class="admin-logo">
+            <a href="index.html" title="Return to Home Page">
+                <img src="assets/images/logo.png" alt="DeedDraw Logo">
+            </a>
+            <span>Admin Panel</span>
+        </div>
+        <nav class="admin-nav">
+            <a href="#dashboard" class="admin-nav-item active" onclick="showSection('dashboard'); return false;">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+            </a>
+            <a href="#participants" class="admin-nav-item" onclick="showSection('participants'); return false;">
+                <i class="fas fa-users"></i>
+                Participants
+            </a>
+            <a href="#transactions" class="admin-nav-item" onclick="showSection('transactions'); return false;">
+                <i class="fas fa-credit-card"></i>
+                Transactions
+                <span id="transactions-badge" class="nav-badge" style="display: none;"></span>
+            </a>
+            <a href="#withdrawals" class="admin-nav-item" onclick="showSection('withdrawals'); return false;">
+                <i class="fas fa-money-bill-wave"></i>
+                Withdrawals
+                <span id="withdrawals-badge" class="nav-badge" style="display: none;"></span>
+            </a>
+        </nav>
+        <div class="admin-user">
+            <i class="fas fa-user-shield"></i>
+            <span>Admin User</span>
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Admin Content -->
+    <div class="admin-main">
+        <div class="admin-header">
+            <h1 id="page-title">Dashboard</h1>
+            <div class="admin-actions">
+                <button class="btn btn-secondary" onclick="refreshData()">
+                    <i class="fas fa-sync"></i>
+                    Refresh
+                </button>
+                <button class="btn btn-primary" onclick="exportData()">
+                    <i class="fas fa-download"></i>
+                    Export Data
+                </button>
+                <button class="btn btn-tertiary" onclick="goToHomepage()">
+                    <i class="fas fa-home"></i>
+                    Home
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" class="admin-section active">
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-participants">0</h3>
+                        <p>Total Participants</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-points">0</h3>
+                        <p>Points Registered</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-revenue">$0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pending-count">0</h3>
+                        <p>Pending Transactions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-activity">
+                <h3>Recent Activity</h3>
+                <div class="activity-list" id="recent-activity-list">
+                    <!-- Recent activities will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Participants Section -->
+        <div id="participants-section" class="admin-section">
+            <div class="section-header">
+                <h3>Participant Management</h3>
+                <div class="search-filters">
+                    <input type="text" id="participant-search" placeholder="Search participants..." onkeypress="if(event.key === 'Enter') searchParticipants()">
+                    <button class="btn btn-primary btn-inline" onclick="searchParticipants()">Search</button>
+                    <select id="category-filter" onchange="searchParticipants()">
+                        <option value="">All Categories</option>
+                        <option value="agent-broker">Agent/Broker</option>
+                        <option value="developer">Developer</option>
+                        <option value="sales-marketing">Sales & Marketing</option>
+                        <option value="mortgage-broker">Mortgage Broker</option>
+                        <option value="individual">Individual</option>
+                    </select>
+                </div>
+            </div>
+            <div class="data-table">
+                <table id="participants-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Category</th>
+                            <th>Points</th>
+                            <th>Total Paid</th>
+                            <th>Registration Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Participant data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Transactions Section -->
+        <div id="transactions-section" class="admin-section">
+            <div class="section-header">
+                <h3>Transaction Management</h3>
+                <div class="transaction-filters">
+                    <div class="filter-select-wrapper">
+                        <i class="fas fa-filter"></i>
+                        <select id="transaction-status" onchange="filterTransactions()">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="verified">Verified</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="data-table">
+                <table id="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Certificate Number</th>
+                            <th>Participant</th>
+                            <th>Points</th>
+                            <th>Amount</th>
+                            <th>Payment Method</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Transaction data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Withdrawals Section -->
+        <div id="withdrawals-section" class="admin-section">
+            <div class="section-header">
+                <h3>Withdrawal Requests</h3>
+                <div class="transaction-filters">
+                    <div class="filter-select-wrapper">
+                        <i class="fas fa-filter"></i>
+                        <select id="withdrawal-status" onchange="filterWithdrawals()">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="data-table">
+                <table id="withdrawals-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Email for e-Transfer</th>
+                            <th>Status</th>
+                            <th>Requested</th>
+                            <th>Processed</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Withdrawal data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="participant-modal" class="modal" onclick="if(event.target === this) this.style.display='none'">
+        <div class="modal-content large">
+            <span class="close" onclick="document.getElementById('participant-modal').style.display='none'">&times;</span>
+            <h2>Participant Details</h2>
+            <div id="participant-details">
+                <!-- Participant details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="transaction-modal" class="modal" onclick="if(event.target === this) this.style.display='none'">
+        <div class="modal-content large">
+            <span class="close" onclick="document.getElementById('transaction-modal').style.display='none'">&times;</span>
+            <h2>Transaction Details</h2>
+            <div id="transaction-details">
+                <!-- Transaction details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Force load the latest admin JS bypassing cache
+        const timestamp = new Date().getTime();
+        const script = document.createElement('script');
+        script.src = 'admin.js?t=' + timestamp;
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>
