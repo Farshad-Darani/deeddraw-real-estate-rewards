@@ -40,7 +40,7 @@ const User = sequelize.define('User', {
         allowNull: false
     },
     category: {
-        type: DataTypes.ENUM('agent-broker', 'developer', 'sales-marketing', 'mortgage-broker', 'individual'),
+        type: DataTypes.ENUM('agent-broker', 'developer', 'sales-marketing', 'mortgage-broker'),
         allowNull: false
     },
     company: {

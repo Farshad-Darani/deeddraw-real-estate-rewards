@@ -619,8 +619,7 @@ function getCategoryDisplayName(category) {
         'agent-broker': 'Agent/Broker',
         'developer': 'Developer',
         'sales-marketing': 'Sales & Marketing',
-        'mortgage-broker': 'Mortgage Broker',
-        'individual': 'Individual'
+        'mortgage-broker': 'Mortgage Broker'
     };
     return categoryMap[category] || category;
 }

@@ -118,8 +118,7 @@ function generateCertificate(data, certificateType = 'registration') {
                     'agent-broker': 'Real Estate Agent/Broker',
                     'developer': 'Developer',
                     'sales-marketing': 'Sales & Marketing Professional',
-                    'mortgage-broker': 'Mortgage Broker',
-                    'individual': 'Individual'
+                    'mortgage-broker': 'Mortgage Broker'
                 };
                 const category = categoryMap[data.category] || 'Professional';
 

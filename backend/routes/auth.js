@@ -15,8 +15,8 @@ const registerValidation = [
         .withMessage('Password must be at least 8 characters')
         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
         .withMessage('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'),
-    body('category').isIn(['agent-broker', 'developer', 'sales-marketing', 'mortgage-broker', 'individual'])
-        .withMessage('Valid category is required')
+    body('category').isIn(['agent-broker', 'developer', 'sales-marketing', 'mortgage-broker'])
+        .withMessage('Valid professional category is required')
 ];
 
 const loginValidation = [

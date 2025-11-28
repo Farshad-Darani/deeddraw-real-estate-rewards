@@ -73,9 +73,9 @@ body {
 }
 
 .nav-logo img {
-    height: 45px;
+    height: 52px;
     width: auto;
-    max-width: 200px;
+    max-width: 220px;
     object-fit: contain;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -3128,16 +3128,54 @@ a[href^="tel"],
     font-weight: 500;
 }
 
-/* Footer Responsive Design */
-@media (max-width: 1024px) {
+/* Footer Responsive Design - Small Tablets (11 inch and similar) */
+@media (max-width: 900px) and (min-width: 769px) {
     .footer-content {
-        grid-template-columns: 1fr 1fr 1fr;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
         gap: 2rem;
     }
     
-    .footer-section:first-child {
-        grid-column: 1 / -1;
-        text-align: center;
+    /* First row: Logo (takes 2 columns) + Quick Links */
+    .footer-section:nth-child(1) {
+        grid-column: 1 / 3;
+        text-align: left;
+    }
+    
+    /* Align logo content to the left */
+    .footer-section:nth-child(1) .footer-logo p {
+        margin: 1rem 0 2rem 0;
+        text-align: left;
+    }
+    
+    .footer-section:nth-child(1) .footer-social {
+        justify-content: flex-start;
+    }
+    
+    .footer-section:nth-child(2) {
+        grid-column: 3;
+        text-align: left;
+    }
+    
+    /* Second row: Support, Legal, Get in Touch - 3 equal columns */
+    .footer-section:nth-child(3) {
+        grid-column: 1;
+        text-align: left;
+    }
+    
+    .footer-section:nth-child(4) {
+        grid-column: 2;
+        text-align: left;
+    }
+    
+    .footer-section:nth-child(5) {
+        grid-column: 3;
+        text-align: left;
+    }
+    
+    /* Align Get in Touch contact items to the left */
+    .footer-section:nth-child(5) .contact-info {
+        align-items: flex-start;
     }
 }
 
@@ -3246,13 +3284,13 @@ img.trust-icon {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .container {
-        padding: 0 10px;
+        padding: 0 15px;
     }
     
     .nav-container {
-        padding: 0.5rem 10px 1rem 10px !important; /* Top Right Bottom Left - different right padding */
+        padding: 0.5rem 15px 1rem 15px !important; /* Top Right Bottom Left - different right padding */
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
@@ -3308,6 +3346,13 @@ img.trust-icon {
         text-align: left !important;
         margin-top: 4px;
     }
+    
+    /* Tablet-specific spacing - more space between hamburger and logo */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .hamburger {
+            margin-right: 1.5rem !important;
+        }
+    }
 
     .nav-auth {
         order: 3;
@@ -3329,46 +3374,72 @@ img.trust-icon {
         font-size: 1.1rem !important;
     }
 
-    /* Mobile menu implementation removed - using slide-in version below */
-
     .nav-logo img {
-        height: 40px;
-        max-width: 160px;
+        height: 46px;
+        max-width: 180px;
     }
 
     .navbar {
         border-bottom: 5px solid #F59E0B;
     }
+    
+    /* Show hamburger on tablets and mobile */
+    .hamburger {
+        display: flex !important;
+    }
 
+    /* Mobile/Tablet slide-in menu */
     .nav-menu {
         position: fixed !important;
         left: -100% !important;
-        top: 86px !important;
+        top: 0 !important;
         flex-direction: column !important;
         background: #1E2A38 !important;
         width: 100% !important;
-        height: calc(100vh - 95px) !important;
+        height: 100vh !important;
         text-align: center !important;
-        transition: 0.3s !important;
-        padding: 0.5rem 0 !important;
-        z-index: 999 !important;
+        transition: left 0.3s ease !important;
+        padding-top: 80px !important;
+        padding-bottom: 2rem !important;
+        z-index: 998 !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
         justify-content: flex-start !important;
         overflow-y: auto !important;
         display: flex !important;
+        gap: 0 !important;
     }
 
     .nav-menu.active {
         left: 0 !important;
     }
 
-    /* Compact spacing for mobile nav links to fit on one screen */
+    /* Tablet/Mobile nav links - proper spacing */
     .nav-menu .nav-link {
-        padding: 0.2rem 0;
-        margin: 0.2rem 0;
-        font-size: 1.25rem;
-        border-bottom: 1px solid rgba(245, 158, 11, 0.1);
-        transition: all 0.3s ease;
+        width: 100% !important;
+        padding: 1rem 2rem !important;
+        margin: 0 !important;
+        font-size: 1.1rem !important;
+        border-bottom: 1px solid rgba(245, 158, 11, 0.1) !important;
+        transition: all 0.3s ease !important;
+        text-align: center !important;
+        position: relative !important;
+    }
+    
+    /* Centered golden line under each menu item - 50% width */
+    .nav-menu .nav-link::after {
+        content: '' !important;
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 50% !important;
+        height: 1px !important;
+        background: rgba(245, 158, 11, 0.1) !important;
+    }
+    
+    /* Remove the default border-bottom */
+    .nav-menu .nav-link {
+        border-bottom: none !important;
     }
 
     .nav-menu .nav-link:hover,
@@ -4465,8 +4536,26 @@ h2 {
     }
     
     .step-card {
-        width: 100%;
-        max-width: 350px;
+        width: 100% !important;
+        max-width: 450px !important;
+        padding: 2rem 1.5rem !important;
+        min-height: 320px !important;
+        height: auto !important;
+    }
+    
+    .step-card .step-icon {
+        font-size: 2.5rem !important;
+    }
+    
+    .step-card h3,
+    .step-card .step-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .step-card p,
+    .step-card .step-description {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
     }
     
     .prizes-grid {
@@ -6747,22 +6836,22 @@ body.prizes-page .hero,
         margin-bottom: 2rem !important;
     }
     
-    /* Override for tablets only - force 5 columns */
+    /* Override for tablets only - force 4 columns */
     @media (max-width: 1024px) {
         html body .participant-groups,
         body .participant-groups,
         .participants-section .participant-groups {
-            grid-template-columns: repeat(5, 1fr) !important;
-            gap: 0.8rem !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 1rem !important;
         }
         
         .participants-section .group,
         .group {
-            padding: 1.2rem 0.6rem !important;
+            padding: 1.5rem 0.8rem !important;
         }
         
         .participants-section .group i {
-            font-size: 1.8rem !important;
+            font-size: 2rem !important;
         }
         
         .participants-section .group h3 {
@@ -7059,27 +7148,56 @@ body.prizes-page .hero,
     /* Turn Your Success Into Rewards section - fix spacing and layout for mobile */
     .interactive-cta-section {
         min-height: auto !important;
-        padding: 3rem 0 !important;
+        padding: 2rem 0 !important;
+    }
+    
+    .cta-main-title {
+        font-size: 1.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .cta-description {
+        font-size: 1rem !important;
+        margin-bottom: 1rem !important;
     }
     
     .trust-indicators {
         grid-template-columns: 1fr !important;
-        gap: 1rem !important;
-        margin: 2rem auto !important;
+        gap: 0.75rem !important;
+        margin: 1.5rem auto !important;
     }
     
     .trust-item.grid__cell {
         width: 100% !important;
         max-width: 300px !important;
         margin: 0 auto !important;
+        height: 60px !important; /* Reduced from 80px */
+    }
+    
+    .trust-item.grid__cell .trust-icon {
+        font-size: 1.2rem !important;
+    }
+    
+    .trust-item.grid__cell .trust-text {
+        font-size: 0.9rem !important;
+    }
+    
+    .sketch-button.cta-register-button {
+        font-size: 1rem !important;
+    }
+    
+    .sketch-button.cta-register-button span {
+        height: 55px !important;
+        line-height: 55px !important;
+        padding: 0 1.5rem !important;
     }
     
     .cta-button-container {
-        margin: 3rem auto 0rem auto !important;
+        margin: 2rem auto 0rem auto !important;
     }
     
     .interactive-cta-section {
-        padding-bottom: 3rem !important;
+        padding-bottom: 2rem !important;
     }
     
     /* Participants & Leaderboard section - match header and fix end spacing */
@@ -7120,8 +7238,8 @@ body.prizes-page .hero,
     }
 }
 
-/* Desktop navbar consistency - fix flexbox layout differences */
-@media (min-width: 769px) {
+/* Desktop navbar consistency - DESKTOP ONLY (1025px+) */
+@media (min-width: 1025px) {
     /* Force consistent nav-container layout */
     .navbar .nav-container {
         display: flex !important;
@@ -7140,6 +7258,11 @@ body.prizes-page .hero,
         justify-content: center !important;
         align-items: center !important;
         gap: 1.5rem !important;
+    }
+    
+    /* Hide hamburger on desktop */
+    .hamburger {
+        display: none !important;
     }
     
     /* Force nav-auth to always be positioned at the right edge */
@@ -7318,19 +7441,19 @@ body.prizes-page .hero,
         font-size: 0.95rem !important;
     }
     
-    /* How it works - keep 4 in a row for 1366px */
+    /* How it works - keep 4 in a row for 1281px-1366px ONLY */
+}
+
+/* DESKTOP ONLY: 1281px to 1366px - 4 cards in row */
+@media (min-width: 1281px) and (max-width: 1366px) {
     .steps-container {
-        gap: 0.8rem;
+        gap: 1.2rem !important;
+        padding: 0 20px !important;
     }
     
     /* Hide arrows on this size too */
     .step-arrow {
         display: none !important;
-    }
-    
-    .steps-container {
-        gap: 1.2rem !important;
-        padding: 0 20px !important;
     }
     
     .step-card {
@@ -7375,7 +7498,7 @@ body.prizes-page .hero,
     }
     
     .nav-logo img {
-        height: 40px;
+        height: 46px;
     }
     
     /* Hero adjustments for small screens */
@@ -7538,7 +7661,20 @@ body.prizes-page .hero,
         padding: 1.5rem;
     }
     
-    /* How it works steps - FORCE 4 in a row */
+    /* How it works steps - DESKTOP SMALL LAPTOPS ONLY (1025px-1280px) - 4 in a row */
+}
+
+/* DESKTOP ONLY: 1025px to 1280px - 4 cards in row */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    /* Point Calculator - slight spacing increase for small desktop screens */
+    .calculator-info {
+        margin-bottom: 3rem;
+    }
+    
+    .calculator-cta {
+        margin-top: 3rem;
+    }
+    
     .steps-container {
         gap: 1rem !important;
         flex-wrap: nowrap !important; /* Prevent wrapping */
@@ -7590,11 +7726,17 @@ body.prizes-page .hero,
     }
 }
 
-/* Tablets Portrait (768px - 1024px) */
+/* Tablets Portrait (768px - 1024px) - Content adjustments only, navigation uses hamburger from main mobile breakpoint */
 @media (max-width: 1024px) and (min-width: 769px) {
-    /* Tablet-specific adjustments */
-    .container {
-        padding: 0 20px;
+    /* Tablet-specific content adjustments - navigation handled by mobile menu */
+    
+    /* Point Calculator - increase spacing between info and button for tablets */
+    .calculator-info {
+        margin-bottom: 5rem;
+    }
+    
+    .calculator-cta {
+        margin-top: 5rem;
     }
     
     /* Hero for tablets */
@@ -7632,31 +7774,51 @@ body.prizes-page .hero,
         display: none !important;
     }
     
-    /* Who Can Participate - make boxes smaller to fit 5 in one row */
+    /* Who Can Participate - make boxes to fit 4 in one row */
     html body .participant-groups,
     body .participant-groups,
     .participants-section .participant-groups {
         display: grid !important;
-        grid-template-columns: repeat(5, 1fr) !important;
-        gap: 0.8rem !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1rem !important;
     }
     
     .participants-section .group,
     .group {
-        padding: 1.2rem 0.6rem !important;
+        padding: 1.5rem 0.8rem !important;
         min-width: 0 !important;
     }
     
     .participants-section .group i,
     .group i {
-        font-size: 1.8rem !important;
-        margin-bottom: 0.6rem !important;
+        font-size: 2rem !important;
+        margin-bottom: 0.8rem !important;
     }
     
     .participants-section .group h3,
     .group h3 {
-        font-size: 0.85rem !important;
-        line-height: 1.2 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    /* How It Works - 2 cards per row on tablets */
+    .steps-container {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 1.5rem !important;
+    }
+    
+    .step-card {
+        width: calc(48% - 1rem) !important; /* 2 cards per row */
+        max-width: 350px !important;
+        padding: 2rem 1.5rem !important;
+        height: auto !important;
+        min-height: 360px !important;
+    }
+    
+    .step-arrow {
+        display: none !important; /* Hide arrows on tablets */
     }
 }
 

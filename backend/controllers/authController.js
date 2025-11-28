@@ -48,6 +48,14 @@ exports.register = async (req, res) => {
             referredBy
         } = req.body;
 
+        // Explicit validation: Reject 'individual' category for legal compliance
+        if (category === 'individual') {
+            return res.status(400).json({
+                success: false,
+                message: 'This platform is restricted to licensed real estate professionals only. Individual registrations are not accepted.'
+            });
+        }
+
         // Normalize email (remove dots for Gmail addresses)
         const normalizedEmail = normalizeEmail(email);
 

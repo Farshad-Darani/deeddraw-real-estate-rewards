@@ -1238,8 +1238,7 @@ function displayLeaderboard(participants) {
         'agent-broker': 'Real Estate Agent/Broker',
         'developer': 'Developer',
         'sales-marketing': 'Sales & Marketing',
-        'mortgage-broker': 'Mortgage Broker',
-        'individual': 'Individual'
+        'mortgage-broker': 'Mortgage Broker'
     };
     
     const leaderboardHTML = participants.map((participant, index) => {
@@ -1412,8 +1411,7 @@ function displaySearchResults(participants) {
             'agent-broker': 'Real Estate Agent/Broker',
             'developer': 'Developer',
             'sales-marketing': 'Sales & Marketing',
-            'mortgage-broker': 'Mortgage Broker',
-            'individual': 'Individual'
+            'mortgage-broker': 'Mortgage Broker'
         };
         const categoryDisplay = categoryMap[participant.category] || participant.category;
         
