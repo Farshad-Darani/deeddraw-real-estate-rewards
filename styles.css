@@ -80,6 +80,18 @@ body {
     transition: all 0.3s ease;
     cursor: pointer;
     filter: brightness(1);
+    vertical-align: middle;
+    display: block;
+}
+
+/* Larger screens (16-inch MacBook and above) - Make logo bigger */
+@media (min-width: 1440px) {
+    .nav-logo img {
+        height: 58px;
+        max-width: 250px;
+        vertical-align: middle;
+        display: block;
+    }
 }
 
 .nav-logo img:hover {
@@ -89,8 +101,16 @@ body {
 }
 
 .nav-logo a {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     cursor: pointer;
+    line-height: 1;
+}
+
+/* Ensure nav-logo container is vertically centered */
+.nav-logo {
+    display: flex;
+    align-items: center;
 }
 
 .nav-menu {
@@ -792,7 +812,7 @@ body.how-it-works-page .example-text {
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
@@ -811,6 +831,30 @@ body.how-it-works-page .example-text {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+}
+
+/* Hero title class for other pages */
+.hero-title {
+    font-size: 4.5rem !important;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    color: white;
+}
+
+/* Medium Desktop screens (1281px - 1439px) */
+@media (min-width: 1281px) and (max-width: 1439px) {
+    .hero h1 {
+        font-size: 4.2rem !important;
+    }
+    
+    .hero-title {
+        font-size: 4.2rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.28rem !important;
+    }
 }
 
 .hero-subtitle {
@@ -3344,7 +3388,9 @@ img.trust-icon {
         order: 2;
         flex-grow: 1 !important;
         text-align: left !important;
-        margin-top: 4px;
+        margin-top: 0px;
+        display: flex !important;
+        align-items: center !important;
     }
     
     /* Tablet-specific spacing - more space between hamburger and logo */
@@ -3375,8 +3421,10 @@ img.trust-icon {
     }
 
     .nav-logo img {
-        height: 46px;
-        max-width: 180px;
+        height: 50px;
+        max-width: 190px;
+        vertical-align: middle;
+        display: block;
     }
 
     .navbar {
@@ -7498,7 +7546,7 @@ body.prizes-page .hero,
     }
     
     .nav-logo img {
-        height: 46px;
+        height: 42px;
     }
     
     /* Hero adjustments for small screens */
@@ -7666,6 +7714,19 @@ body.prizes-page .hero,
 
 /* DESKTOP ONLY: 1025px to 1280px - 4 cards in row */
 @media (min-width: 1025px) and (max-width: 1280px) {
+    /* Hero section adjustments for small desktop screens */
+    .hero h1 {
+        font-size: 3.8rem !important;
+    }
+    
+    .hero-title {
+        font-size: 3.8rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem !important;
+    }
+    
     /* Point Calculator - slight spacing increase for small desktop screens */
     .calculator-info {
         margin-bottom: 3rem;
@@ -7741,7 +7802,11 @@ body.prizes-page .hero,
     
     /* Hero for tablets */
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 3.2rem;
+    }
+    
+    .hero-title {
+        font-size: 3.2rem !important;
     }
     
     /* 2-column layouts for tablets */
@@ -7833,6 +7898,14 @@ body.prizes-page .hero,
         padding: 0.8rem 15px;
     }
     
+    /* Mobile logo - smaller size */
+    .nav-logo img {
+        height: 40px;
+        max-width: 160px;
+        vertical-align: middle;
+        display: block;
+    }
+    
     /* Hero mobile */
     .hero {
         padding: 100px 0 50px;
@@ -7840,7 +7913,11 @@ body.prizes-page .hero,
     }
     
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 2.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem !important;
     }
     
     .hero-subtitle {
@@ -7879,7 +7956,11 @@ body.prizes-page .hero,
 /* Very Small Mobile (below 480px) */
 @media (max-width: 480px) {
     .hero h1 {
-        font-size: 1.5rem;
+        font-size: 2.2rem;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem !important;
     }
     
     .hero-subtitle {
