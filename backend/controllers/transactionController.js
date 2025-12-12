@@ -57,10 +57,10 @@ exports.createTransaction = async (req, res) => {
             });
         }
 
-        if (!transactionAmount || transactionAmount < 500000) {
+        if (!transactionAmount || transactionAmount <= 0) {
             return res.status(400).json({ 
                 success: false, 
-                message: 'Real estate transaction amount must be at least $500,000' 
+                message: 'Please enter a valid transaction amount' 
             });
         }
 
@@ -68,6 +68,37 @@ exports.createTransaction = async (req, res) => {
             return res.status(400).json({ 
                 success: false, 
                 message: 'E-transfer reference and email are required' 
+            });
+        }
+
+        // Check current total verified points to enforce 400-point limit per drawing
+        const currentDrawingPoints = await Transaction.sum('points', {
+            where: {
+                status: 'verified'
+            }
+        }) || 0;
+
+        const remainingPoints = 400 - currentDrawingPoints;
+
+        if (remainingPoints <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Current drawing has reached the 400-point limit. Your registration will be accepted for the next quarterly drawing.',
+                currentDrawing: {
+                    totalPoints: currentDrawingPoints,
+                    status: 'closed'
+                }
+            });
+        }
+
+        if (points > remainingPoints) {
+            return res.status(400).json({
+                success: false,
+                message: `Only ${remainingPoints} point${remainingPoints !== 1 ? 's' : ''} remaining for the current drawing. Please adjust your registration to ${remainingPoints} point${remainingPoints !== 1 ? 's' : ''} or less.`,
+                currentDrawing: {
+                    totalPoints: currentDrawingPoints,
+                    remainingPoints: remainingPoints
+                }
             });
         }
 

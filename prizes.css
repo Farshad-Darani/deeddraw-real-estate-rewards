@@ -66,7 +66,7 @@ body.prizes-page .hero::before {
 }
 
 .hero-title {
-    font-size: 2.2rem;
+    font-size: 3.5rem;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 0.5rem;
@@ -94,18 +94,21 @@ body.prizes-page .hero::before {
 }
 
 .hero-subtitle-text {
-    display: block;
-    font-size: 1.8rem;
-    margin-top: 0.3rem;
-    font-weight: 600;
+    display: inline;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.5px;
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: 1.5rem;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     line-height: 1.5;
+    white-space: nowrap;
 }
 
 .hero-accent {
@@ -166,6 +169,7 @@ body.prizes-page .hero::before {
     font-weight: 600;
     text-align: center;
     line-height: 1.4;
+    white-space: nowrap;
 }
 
 /* Hero CTA Buttons */
@@ -178,48 +182,7 @@ body.prizes-page .hero::before {
     margin: 1.5rem 0 0 0;
 }
 
-.btn-primary-hero,
-.btn-secondary-hero {
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    transition: all 0.3s ease;
-    border: none;
-    min-width: 180px;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.btn-primary-hero {
-    background: linear-gradient(135deg, #F59E0B, #FBBF24);
-    color: white;
-    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-}
-
-.btn-primary-hero:hover {
-    background: linear-gradient(135deg, #FBBF24, #FCD34D);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
-}
-
-.btn-secondary-hero {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-.btn-secondary-hero:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(245, 158, 11, 0.6);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
-}
+/* Hero button styles moved to main styles.css for consistency across all pages */
 
 /* Trust Badge */
 .hero-trust-badge {
@@ -402,12 +365,6 @@ body.prizes-page .breadcrumb span {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-    body.prizes-page .breadcrumb {
-        margin-top: -6rem;
-        margin-bottom: 2rem;
-        font-size: 0.8rem;
-    }
-
     /* Full screen hero on mobile - Account for navbar - HIGHEST SPECIFICITY */
     html body.prizes-page section.hero,
     html body.prizes-page .hero,
@@ -415,58 +372,85 @@ body.prizes-page .breadcrumb span {
     body.prizes-page .hero,
     .prizes-page section.hero,
     .prizes-page .hero {
-        min-height: calc(100vh - 80px) !important; /* Full viewport minus navbar */
-        height: calc(100vh - 80px) !important; /* Enforce full height */
-        max-height: calc(100vh - 80px) !important; /* Override max-height */
-        padding: 2rem 0 !important; /* Reduced padding since we're accounting for navbar */
+        position: relative !important;
+        min-height: 500px !important;
+        height: auto !important;
+        padding: 3rem 0 2rem !important;
         margin-top: 80px !important; /* Push below fixed navbar */
         background-attachment: scroll !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        overflow: hidden !important; /* Hide overflow */
+        box-sizing: border-box !important;
         /* Add moving background animation for mobile */
         animation: mobilePan 15s ease-in-out infinite !important;
     }
 
     .hero-content {
-        padding: 1rem;
+        padding: 0 2.5% !important;
+        max-width: 100% !important;
     }
 
     /* Hero-stats pseudo-element golden line positioning for mobile */
     body.prizes-page .hero-stats::before {
-        top: -2rem !important; /* Move up from -2.15rem to -3rem */
-        width: 90% !important;
-        max-width: 400px !important;
+        top: -1.5rem !important;
+        width: 95% !important;
+        max-width: 95% !important;
     }
 
+    html body.prizes-page .hero-title,
+    body.prizes-page .hero-title,
+    .prizes-page .hero-title,
     .hero-title {
-        font-size: 2.5rem;
-        letter-spacing: -1px;
+        font-size: 2.5rem !important;
+        letter-spacing: -1px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 0.3rem !important;
     }
 
+    html body.prizes-page .hero-highlight,
+    body.prizes-page .hero-highlight,
+    .prizes-page .hero-highlight,
     .hero-highlight {
-        font-size: 3.5rem;
+        font-size: 4rem !important;
+        display: block !important;
+        margin: 0 !important;
+        text-align: center !important;
     }
 
+    html body.prizes-page .hero-subtitle-text,
+    body.prizes-page .hero-subtitle-text,
+    .prizes-page .hero-subtitle-text,
     .hero-subtitle-text {
-        font-size: 2rem;
+        display: block !important;
+        font-size: 2.5rem !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        letter-spacing: -1px !important;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+        text-align: center !important;
     }
 
     .hero-subtitle {
         font-size: 1.1rem;
         margin-bottom: 2rem;
+        white-space: normal;
     }
 
     .hero-stats {
         flex-direction: row;
         gap: 0.8rem;
-        margin: 1.5rem 0;
+        margin: 0.5rem 0;
         align-items: center;
         justify-content: center;
     }
 
     .hero-stat {
-        padding: 1rem 0.8rem;
+        padding: 1rem 0.5rem;
         min-width: 120px;
         flex: 1;
         max-width: 160px;
@@ -478,8 +462,8 @@ body.prizes-page .breadcrumb span {
     }
     
     .stat-label {
-        font-size: 0.7rem;
-        letter-spacing: 0.2px;
+        font-size: 0.65rem;
+        letter-spacing: 0px;
     }
 
     .hero-cta {
@@ -488,14 +472,10 @@ body.prizes-page .breadcrumb span {
         margin: 2rem 0;
     }
 
-    .btn-primary-hero,
-    .btn-secondary-hero {
-        width: 100%;
-        max-width: 280px;
-    }
+    /* Button sizing controlled by styles.css */
 
     .hero-trust-badge {
-        margin-top: 2rem;
+        margin-top: 0.5rem;
         padding: 12px 20px;
         font-size: 0.85rem;
         max-width: 320px;
@@ -524,10 +504,20 @@ body.prizes-page .breadcrumb span {
         font-size: 2rem;
     }
 
-    .golden-line {
-        width: 90%;
-        max-width: 400px;
-        margin: 3rem auto 4rem auto; /* Increased top and bottom margin for better spacing */
+    body.prizes-page .golden-line,
+    body.prizes-page .hero .golden-line,
+    body.prizes-page section.hero .golden-line,
+    .prizes-page .golden-line,
+    .prizes-page .hero .golden-line,
+    .hero .golden-line {
+        width: 95vw !important;
+        min-width: 95vw !important;
+        max-width: 95vw !important;
+        margin-left: calc((100vw - 95vw) / 2) !important;
+        margin-right: calc((100vw - 95vw) / 2) !important;
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -554,14 +544,42 @@ body.prizes-page .breadcrumb span {
         width: 100% !important;
         max-width: 95% !important;
         margin: 0 auto !important;
-        transform: scale(0.9) !important; /* Scale down content for real mobile */
-        transform-origin: center !important;
     }
     
+    html body.prizes-page .hero-title,
+    body.prizes-page .hero-title,
+    .prizes-page .hero-title,
     .hero-title {
-        font-size: 1.8rem !important; /* Smaller for real mobile */
+        font-size: 1.8rem !important;
         line-height: 1.1 !important;
         margin-bottom: 0.5rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 0.3rem !important;
+    }
+    
+    html body.prizes-page .hero-highlight,
+    body.prizes-page .hero-highlight,
+    .prizes-page .hero-highlight,
+    .hero-highlight {
+        font-size: 3rem !important;
+        display: block !important;
+        margin: 0 !important;
+        text-align: center !important;
+    }
+    
+    html body.prizes-page .hero-subtitle-text,
+    body.prizes-page .hero-subtitle-text,
+    .prizes-page .hero-subtitle-text,
+    .hero-subtitle-text {
+        display: block !important;
+        font-size: 1.8rem !important;
+        font-weight: 700 !important;
+        line-height: 1.1 !important;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+        text-align: center !important;
     }
     
     .hero-subtitle {
@@ -570,11 +588,7 @@ body.prizes-page .breadcrumb span {
         line-height: 1.3 !important;
     }
     
-    .btn-primary-hero,
-    .btn-secondary-hero {
-        width: 100%;
-        max-width: 280px;
-    }
+    /* Button sizing controlled by styles.css */
 }
 
 /* Landscape mode handling for mobile */
@@ -590,6 +604,152 @@ body.prizes-page .breadcrumb span {
         max-height: calc(100vh - 80px) !important;
         padding: 1rem 0 !important; /* Minimal padding in landscape */
         margin-top: 80px !important;
+    }
+}
+
+/* Very Small Laptops (1280px and below) - Match home page sizing */
+@media (max-width: 1280px) {
+    body.prizes-page .hero-title,
+    html body.prizes-page .hero-title,
+    .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.2rem !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem !important;
+        white-space: nowrap !important;
+        word-break: keep-all !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    body.prizes-page .hero-highlight,
+    html body.prizes-page .hero-highlight,
+    .hero-highlight {
+        font-size: 3.5rem !important;
+        margin: 0 !important;
+        display: inline-block !important;
+        white-space: nowrap !important;
+    }
+
+    body.prizes-page .hero-subtitle-text,
+    html body.prizes-page .hero-subtitle-text,
+    .hero-subtitle-text {
+        display: inline-block !important;
+        font-size: 2.5rem !important;
+        line-height: 1.2 !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px !important;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+        white-space: nowrap !important;
+        word-break: keep-all !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.15rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .hero-stats {
+        margin: 0.8rem 0 !important;
+        gap: 1rem !important;
+    }
+    
+    .hero-cta {
+        margin: 0.8rem 0 0 0 !important;
+        gap: 0.8rem !important;
+    }
+    
+    .hero-trust-badge {
+        margin-top: 1.5rem !important;
+    }
+    
+    .hero-content {
+        padding: 1.5rem 2rem !important;
+        max-width: 900px !important;
+    }
+    
+    /* Status CTA Section - Increase spacing for small desktops */
+    .cta-description {
+        margin-bottom: 2.5rem !important;
+    }
+    
+    .status-cta {
+        padding: 3rem 2rem !important;
+    }
+}
+
+/* Tablets (1281px - 1366px) - Vertical layout for this specific range */
+@media (min-width: 1281px) and (max-width: 1366px) {
+    body.prizes-page .hero-title,
+    html body.prizes-page .hero-title,
+    .hero-title {
+        font-size: 2.8rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.3rem !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem !important;
+        white-space: nowrap !important;
+        word-break: keep-all !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    body.prizes-page .hero-highlight,
+    html body.prizes-page .hero-highlight,
+    .hero-highlight {
+        font-size: 4rem !important;
+        margin: 0 !important;
+        display: inline-block !important;
+        white-space: nowrap !important;
+    }
+
+    body.prizes-page .hero-subtitle-text,
+    html body.prizes-page .hero-subtitle-text,
+    .hero-subtitle-text {
+        display: inline-block !important;
+        font-size: 2.8rem !important;
+        line-height: 1.2 !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px !important;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem !important;
+        margin-bottom: 0.9rem !important;
+    }
+    
+    .hero-stats {
+        margin: 0.9rem 0 !important;
+        gap: 1.2rem !important;
+    }
+    
+    .hero-cta {
+        margin: 0.9rem 0 0 0 !important;
+        gap: 0.9rem !important;
+    }
+    
+    /* Status CTA Section - Increase spacing for tablets */
+    .cta-description {
+        margin-bottom: 5.5rem !important;
+    }
+    
+    .status-cta {
+        padding: 3rem 2.5rem !important;
+    }
+    
+    .hero-trust-badge {
+        margin-top: 1.8rem !important;
+    }
+    
+    .hero-content {
+        padding: 1.8rem 2rem !important;
+        max-width: 900px !important;
     }
 }
 
@@ -681,7 +841,7 @@ body.prizes-page .breadcrumb span {
 
 .prizes-section-title {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #1e293b;
     margin: 0 0 1rem 0;
@@ -836,9 +996,13 @@ body.prizes-page .breadcrumb span {
 /* Prize Statistics */
 .prizes-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2rem;
 }
 
 .prizes-stat-item {
@@ -988,7 +1152,7 @@ body.prizes-page .breadcrumb span {
 
 .status-section-title {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #ffffff;
     margin: 0 0 1rem 0;
@@ -1223,50 +1387,7 @@ body.prizes-page .breadcrumb span {
     flex-wrap: wrap;
 }
 
-.btn-primary-dark,
-.btn-secondary-dark {
-    padding: 16px 32px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border: 2px solid transparent;
-    min-width: 200px;
-    justify-content: center;
-    cursor: pointer;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.btn-primary-dark {
-    background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
-    color: #FFFFFF;
-    border-color: #F59E0B;
-}
-
-.btn-primary-dark:hover {
-    background: linear-gradient(135deg, #FBBF24 0%, #FCD34D 100%);
-    border-color: #FBBF24;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
-}
-
-.btn-secondary-dark {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-.btn-secondary-dark:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
+/* CTA button styles moved to styles.css for centralized control */
 
 /* Mobile Responsiveness for Current Status */
 @media (max-width: 768px) {
@@ -1324,11 +1445,7 @@ body.prizes-page .breadcrumb span {
         align-items: center;
     }
     
-    .btn-primary-dark,
-    .btn-secondary-dark {
-        width: 100%;
-        max-width: 300px;
-    }
+    /* Button sizing controlled by styles.css */
 }
 
 /* How Prizes Are Awarded Section */
@@ -1386,7 +1503,7 @@ body.prizes-page .breadcrumb span {
 
 .awarded-section-title {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #1e293b;
     margin: 0 0 1rem 0;
@@ -1615,6 +1732,53 @@ body.prizes-page .breadcrumb span {
     border-color: #1e293b;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(30, 41, 59, 0.2);
+}
+
+/* Dark Button Variants for Status CTA Section */
+.btn-primary-dark,
+.btn-secondary-dark {
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 2px solid transparent;
+    min-width: 200px;
+    justify-content: center;
+    cursor: pointer;
+    text-shadow: none;
+}
+
+.btn-primary-dark {
+    background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+    color: #ffffff;
+    border-color: #F59E0B;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.btn-primary-dark:hover {
+    background: linear-gradient(135deg, #FBBF24 0%, #FCD34D 100%);
+    border-color: #FBBF24;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+.btn-secondary-dark {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary-dark:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
 }
 
 /* Mobile Responsiveness for Awards Section */

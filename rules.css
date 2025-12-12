@@ -417,6 +417,17 @@ body.rules-page .accordion-content li,
     font-size: 0.95rem !important;
 }
 
+/* Links inside accordion content */
+.accordion-content a {
+    color: #CBD5E1 !important;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+.accordion-content a:hover {
+    opacity: 0.8;
+}
+
 /* Ensure first elements have top spacing */
 .content-inner > *:first-child,
 .content-inner > ul:first-child,

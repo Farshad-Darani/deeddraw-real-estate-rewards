@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Real Estate Rewards Program</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    
+    <meta name="theme-color" content="#1E2A38">
+    <meta name="description" content="Sign in to your DeedDraw account to manage your real estate transactions and track your rewards.">
+    
+    <title>Login - DeedDraw Real Estate Rewards</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -14,9 +24,10 @@
     <div class="auth-container">
         <div class="auth-card">
             <div class="auth-header">
-                <h1><a href="index.html" class="brand-link" title="Return to Home Page">DeedDraw</a></h1>
+                <a href="index.html" title="Return to Home Page" style="display: inline-block; margin-bottom: 1rem;">
+                    <img src="assets/images/Logo-Navy.png" alt="DeedDraw Logo" style="height: 60px; width: auto;">
+                </a>
                 <p>Sign in to your account</p>
-                <a href="index.html" class="home-link">← Back to Home</a>
             </div>
             
             <div class="auth-tabs">
@@ -47,6 +58,7 @@
                     <div class="g-recaptcha" data-sitekey="6Ldcz_MrAAAAAIRuYGlewae6PB1T9rWPco2hqN3n" id="login-recaptcha"></div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-large">Sign In</button>
+                <button type="button" class="btn btn-primary btn-large" style="background: white; color: #1e293b; border: 2px solid #1e293b; margin-top: 0.75rem;" onclick="window.location.href='index.html'">Back to Home</button>
             </form>
 
             <!-- Register Form -->
@@ -64,6 +76,11 @@
                 <div class="form-group">
                     <label for="reg-email">Email Address</label>
                     <input type="email" id="reg-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone">Phone Number (Optional)</label>
+                    <input type="tel" id="reg-phone" placeholder="e.g., +1 (555) 123-4567">
+                    <small>We'll only contact you for important account matters or if you win</small>
                 </div>
                 <div class="form-group">
                     <label for="reg-category">Professional Category</label>
@@ -99,6 +116,7 @@
                     <div class="g-recaptcha" data-sitekey="6Ldcz_MrAAAAAIRuYGlewae6PB1T9rWPco2hqN3n" id="register-recaptcha"></div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-large">Create Account</button>
+                <button type="button" class="btn btn-primary btn-large" style="background: white; color: #1e293b; border: 2px solid #1e293b; margin-top: 0.75rem;" onclick="window.location.href='index.html'">Back to Home</button>
             </form>
 
             <!-- Forgot Password Form -->

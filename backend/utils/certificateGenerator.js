@@ -29,54 +29,64 @@ function generateCertificate(data, certificateType = 'registration') {
             doc.lineWidth(3);
             doc.rect(35, 35, 722, 522).stroke('#F59E0B');
 
-            // Header - DeedDraw Logo/Title
-            doc.fontSize(48)
-               .font('Helvetica-Bold')
-               .fillColor('#1e293b')
-               .text('DeedDraw', 0, 80, { align: 'center' });
+            // Header - DeedDraw Logo (using full logo with text included)
+            try {
+                const logoPath = '/var/www/deeddraw/backend/assets/images/Deeddraw-logo.png';
+                if (fs.existsSync(logoPath)) {
+                    doc.image(logoPath, 246, 70, { width: 300 }); // Centered, larger size
+                } else {
+                    // Fallback to text if logo not found
+                    doc.fontSize(48)
+                       .font('Helvetica-Bold')
+                       .fillColor('#1e293b')
+                       .text('DeedDraw', 0, 80, { align: 'center' });
+                }
+            } catch (err) {
+                // Fallback to text on error
+                console.error('Error loading main logo:', err);
+                doc.fontSize(48)
+                   .font('Helvetica-Bold')
+                   .fillColor('#1e293b')
+                   .text('DeedDraw', 0, 80, { align: 'center' });
+            }
 
-            // Subtitle
-            doc.fontSize(16)
-               .font('Helvetica')
-               .fillColor('#64748b')
-               .text('Real Estate Rewards Program', 0, 140, { align: 'center' });
-
+            // Remove subtitle since it's in the logo now
             // Certificate Title based on type
             const title = certificateType === 'entry' ? 'Entry Certificate' : 'Certificate of Registration';
             doc.fontSize(32)
                .font('Helvetica-Bold')
                .fillColor('#F59E0B')
-               .text(title, 0, 200, { align: 'center' });
+               .text(title, 50, 150, { align: 'center', width: 692 });
 
             // Divider line
-            doc.moveTo(200, 250).lineTo(592, 250).stroke('#e2e8f0');
+            doc.moveTo(200, 200).lineTo(592, 200).stroke('#e2e8f0');
 
             if (certificateType === 'entry') {
                 // Entry Certificate Content
                 doc.fontSize(16)
                    .font('Helvetica')
                    .fillColor('#475569')
-                   .text('This certifies that', 0, 280, { align: 'center' });
+                   .text('This certifies that', 50, 230, { align: 'center', width: 692 });
 
                 // User Name
                 const fullName = `${data.firstName} ${data.lastName}`;
                 doc.fontSize(36)
                    .font('Helvetica-Bold')
                    .fillColor('#1e293b')
-                   .text(fullName, 0, 315, { align: 'center' });
+                   .text(fullName, 50, 265, { align: 'center', width: 692 });
 
                 // Entry details
                 doc.fontSize(14)
                    .font('Helvetica')
                    .fillColor('#64748b')
-                   .text(`has successfully registered an entry with`, 0, 370, { align: 'center' })
-                   .text(`${data.points} Point${data.points > 1 ? 's' : ''} • $${parseFloat(data.transactionAmount).toLocaleString()} Transaction`, 0, 390, { align: 'center' });
+                   .text(`has successfully registered an entry with`, 50, 320, { align: 'center', width: 692 })
+                   .text(`${data.points} Point${data.points > 1 ? 's' : ''} • $${parseFloat(data.transactionAmount).toLocaleString()} Transaction`, 50, 340, { align: 'center', width: 692 });
 
                 // Certificate Number
                 doc.fontSize(14)
                    .font('Helvetica-Bold')
                    .fillColor('#F59E0B')
-                   .text(`Certificate #${data.certificateNumber}`, 0, 430, { align: 'center' });
+                   .text(`Certificate #${data.certificateNumber}`, 50, 380, { align: 'center', width: 692 });
 
                 // Verified date
                 const verifiedDate = new Date(data.verifiedAt).toLocaleDateString('en-US', {
@@ -87,21 +97,21 @@ function generateCertificate(data, certificateType = 'registration') {
                 doc.fontSize(12)
                    .font('Helvetica')
                    .fillColor('#64748b')
-                   .text(`Verified on ${verifiedDate}`, 0, 460, { align: 'center' });
+                   .text(`Verified on ${verifiedDate}`, 50, 410, { align: 'center', width: 692 });
 
             } else {
                 // Registration Certificate Content
                 doc.fontSize(16)
                    .font('Helvetica')
                    .fillColor('#475569')
-                   .text('This certifies that', 0, 280, { align: 'center' });
+                   .text('This certifies that', 50, 230, { align: 'center', width: 692 });
 
                 // User Name
                 const fullName = `${data.firstName} ${data.lastName}`;
                 doc.fontSize(36)
                    .font('Helvetica-Bold')
                    .fillColor('#1e293b')
-                   .text(fullName, 0, 315, { align: 'center' });
+                   .text(fullName, 50, 265, { align: 'center', width: 692 });
 
                 // Registration details
                 const regDate = data.createdAt ? new Date(data.createdAt).toLocaleDateString('en-US', {
@@ -125,47 +135,86 @@ function generateCertificate(data, certificateType = 'registration') {
                 doc.fontSize(14)
                    .font('Helvetica')
                    .fillColor('#64748b')
-                   .text(`has officially registered as a ${category}`, 0, 375, { align: 'center' })
-                   .text(`in the DeedDraw Real Estate Rewards Program`, 0, 395, { align: 'center' })
-                   .text(`on ${regDate}`, 0, 415, { align: 'center' });
+                   .text(`has officially registered as a ${category}`, 50, 325, { align: 'center', width: 692 })
+                   .text(`in the DeedDraw Real Estate Rewards Program`, 50, 345, { align: 'center', width: 692 })
+                   .text(`on ${regDate}`, 50, 365, { align: 'center', width: 692 });
 
                 // Referral Code
                 doc.fontSize(12)
                    .font('Helvetica-Bold')
                    .fillColor('#475569')
-                   .text(`Member Referral Code: ${data.referralCode}`, 0, 455, { align: 'center' });
+                   .text(`Member Referral Code: ${data.referralCode}`, 50, 405, { align: 'center', width: 692 });
             }
 
             // Footer - Certificate Details
             doc.fontSize(10)
                .font('Helvetica')
                .fillColor('#94a3b8')
-               .text(`Issued: ${new Date().toLocaleDateString('en-US')}`, 0, 510, { align: 'center' });
+               .text(`Issued: ${new Date().toLocaleDateString('en-US')}`, 50, 510, { align: 'center', width: 692 });
 
-            // Decorative elements - corner ornaments
-            doc.save();
-            doc.translate(80, 80);
-            doc.rotate(45);
-            doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
-            doc.restore();
+            // Decorative elements - corner logos (navy version)
+            try {
+                const decorLogoPath = '/var/www/deeddraw/backend/assets/images/Logo-Navy.png';
+                if (fs.existsSync(decorLogoPath)) {
+                    doc.opacity(0.3);
+                    
+                    // Top-left corner - rotate -45 degrees
+                    doc.save();
+                    doc.translate(80, 80);
+                    doc.rotate(-45);
+                    doc.image(decorLogoPath, -30, -30, { width: 60 });
+                    doc.restore();
+                    
+                    // Top-right corner - rotate +45 degrees
+                    doc.save();
+                    doc.translate(712, 80);
+                    doc.rotate(45);
+                    doc.image(decorLogoPath, -30, -30, { width: 60 });
+                    doc.restore();
+                    
+                    // Bottom-left corner - rotate +45 degrees
+                    doc.save();
+                    doc.translate(80, 512);
+                    doc.rotate(45);
+                    doc.image(decorLogoPath, -30, -30, { width: 60 });
+                    doc.restore();
+                    
+                    // Bottom-right corner - rotate -45 degrees
+                    doc.save();
+                    doc.translate(712, 512);
+                    doc.rotate(-45);
+                    doc.image(decorLogoPath, -30, -30, { width: 60 });
+                    doc.restore();
+                    
+                    doc.opacity(1);
+                }
+            } catch (err) {
+                console.error('Error loading corner logos:', err);
+                // Fallback to stars if logo not available
+                doc.save();
+                doc.translate(80, 80);
+                doc.rotate(45);
+                doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
+                doc.restore();
 
-            doc.save();
-            doc.translate(712, 80);
-            doc.rotate(45);
-            doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
-            doc.restore();
+                doc.save();
+                doc.translate(712, 80);
+                doc.rotate(45);
+                doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
+                doc.restore();
 
-            doc.save();
-            doc.translate(80, 512);
-            doc.rotate(45);
-            doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
-            doc.restore();
+                doc.save();
+                doc.translate(80, 512);
+                doc.rotate(45);
+                doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
+                doc.restore();
 
-            doc.save();
-            doc.translate(712, 512);
-            doc.rotate(45);
-            doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
-            doc.restore();
+                doc.save();
+                doc.translate(712, 512);
+                doc.rotate(45);
+                doc.fontSize(20).fillColor('#F59E0B').text('★', 0, 0);
+                doc.restore();
+            }
 
             // Finalize the PDF
             doc.end();

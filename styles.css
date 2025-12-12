@@ -812,7 +812,7 @@ body.how-it-works-page .example-text {
 }
 
 .hero h1 {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
@@ -835,7 +835,7 @@ body.how-it-works-page .example-text {
 
 /* Hero title class for other pages */
 .hero-title {
-    font-size: 4.5rem !important;
+    font-size: 3.5rem !important;
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
@@ -845,20 +845,20 @@ body.how-it-works-page .example-text {
 /* Medium Desktop screens (1281px - 1439px) */
 @media (min-width: 1281px) and (max-width: 1439px) {
     .hero h1 {
-        font-size: 4.2rem !important;
+        font-size: 3.2rem !important;
     }
     
     .hero-title {
-        font-size: 4.2rem !important;
+        font-size: 3.2rem !important;
     }
     
     .hero-subtitle {
-        font-size: 1.28rem !important;
+        font-size: 1.35rem !important;
     }
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     margin-bottom: 3rem;
     color: #f1f5f9;
     opacity: 0.95;
@@ -1004,24 +1004,9 @@ body.how-it-works-page .example-text {
     opacity: 1;
 }
 
-/* Add a subtle overlay effect to make it more milky */
+/* Add a subtle overlay effect to make it more milky - disabled to prevent double circle */
 .circular-progress::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: radial-gradient(circle, 
-        transparent 45px, 
-        rgba(241, 245, 249, 0.1) 46px, 
-        rgba(241, 245, 249, 0.15) 52px, 
-        transparent 53px
-    );
-    pointer-events: none;
-    z-index: 1;
+    display: none !important;
 }
 
 .progress-content {
@@ -1106,19 +1091,21 @@ body.how-it-works-page .example-text {
 .stat p {
     font-size: 1rem;
     opacity: 0.9;
+    white-space: nowrap;
 }
 
 .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
 }
 
 
 /* Hero Section Orange Primary Button */
 .btn-orange-primary {
-    background: linear-gradient(135deg, #F59E0B, #D97706);
+    background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -1158,11 +1145,13 @@ body.how-it-works-page .example-text {
     cursor: pointer;
     min-width: 180px;
     justify-content: center;
+    backdrop-filter: blur(10px);
 }
 
 .btn-blue-outline:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(245, 158, 11, 0.6);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #F59E0B;
+    color: #F59E0B;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
 }
@@ -3318,7 +3307,7 @@ img.trust-icon {
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
+@media (min-width: 1281px) and (max-width: 1366px) {
     .container {
         padding: 0 30px;
     }
@@ -3328,13 +3317,13 @@ img.trust-icon {
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
     .container {
         padding: 0 15px;
     }
     
     .nav-container {
-        padding: 0.5rem 15px 1rem 15px !important; /* Top Right Bottom Left - different right padding */
+        padding: 1rem 15px !important;
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
@@ -3379,6 +3368,10 @@ img.trust-icon {
     }
 
     .hamburger {
+        display: flex !important;
+        visibility: visible !important;
+        position: relative !important;
+        z-index: 1002 !important;
         order: 1;
         margin-right: 0.5rem !important;
         flex-shrink: 0 !important;
@@ -3394,9 +3387,31 @@ img.trust-icon {
     }
     
     /* Tablet-specific spacing - more space between hamburger and logo */
-    @media (min-width: 769px) and (max-width: 1024px) {
+    @media (min-width: 769px) and (max-width: 1100px) {
         .hamburger {
             margin-right: 1.5rem !important;
+        }
+        
+        /* Larger logo for tablets */
+        .nav-logo img {
+            height: 60px !important;
+            max-width: 220px !important;
+        }
+        
+        /* Larger navigation menu items for tablets */
+        .nav-menu .nav-link {
+            font-size: 1.4rem !important;
+            padding: 1.3rem 2rem !important;
+        }
+        
+        .mobile-only-nav-link {
+            font-size: 1.4rem !important;
+            padding: 1.1rem 0 !important;
+        }
+        
+        .dropdown-item {
+            font-size: 1.4rem !important;
+            padding: 1.4rem 1rem !important;
         }
     }
 
@@ -3430,35 +3445,39 @@ img.trust-icon {
     .navbar {
         border-bottom: 5px solid #F59E0B;
     }
-    
-    /* Show hamburger on tablets and mobile */
-    .hamburger {
-        display: flex !important;
-    }
 
     /* Mobile/Tablet slide-in menu */
     .nav-menu {
         position: fixed !important;
-        left: -100% !important;
+        left: 0 !important;
         top: 0 !important;
         flex-direction: column !important;
         background: #1E2A38 !important;
         width: 100% !important;
+        max-width: 100% !important;
         height: 100vh !important;
         text-align: center !important;
-        transition: left 0.3s ease !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s !important;
         padding-top: 80px !important;
         padding-bottom: 2rem !important;
         z-index: 998 !important;
         box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
         justify-content: flex-start !important;
         overflow-y: auto !important;
+        overflow-x: hidden !important;
         display: flex !important;
         gap: 0 !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
     }
 
     .nav-menu.active {
-        left: 0 !important;
+        transform: translateX(0) !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
     }
 
     /* Tablet/Mobile nav links - proper spacing */
@@ -3773,9 +3792,23 @@ img.trust-icon {
     }
 
     .hero-stats {
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0 10px; /* Add padding to prevent overflow */
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center; /* Vertically center all stats */
+        margin-bottom: 3rem !important; /* Increase gap before buttons */
+    }
+    
+    .hero-stats .stat {
+        flex: 1;
+        min-width: 0;
+        max-width: 33%;
+        display: flex;
         flex-direction: column;
-        gap: 1.5rem;
-        padding: 0 20px; /* Add padding to prevent overflow */
+        align-items: center;
+        justify-content: center;
     }
 
     .hero-stats::before {
@@ -3786,7 +3819,7 @@ img.trust-icon {
     }
 
     .stat-number {
-        font-size: 2rem;
+        font-size: 2.4rem;
     }
 
     .green-stat {
@@ -3802,13 +3835,17 @@ img.trust-icon {
     }
 
     .stat h3 {
-        font-size: 2rem;
+        font-size: 2.4rem;
+    }
+    
+    .stat p {
+        font-size: 1rem;
     }
 
     .cta-buttons {
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
     }
 
     .btn-primary,
@@ -3819,20 +3856,20 @@ img.trust-icon {
         max-width: 280px;
     }
 
-    /* Mobile circular progress - ensure it fits properly */
+    /* Mobile circular progress - increase size for larger phones */
     .circular-stat {
-        min-width: 110px;
+        min-width: 130px;
     }
 
     .circular-progress {
-        width: 110px;
-        height: 110px;
+        width: 130px;
+        height: 130px;
         margin: 0 auto 0.5rem auto;
     }
 
     .progress-ring {
-        max-width: 110px;
-        max-height: 110px;
+        max-width: 130px;
+        max-height: 130px;
     }
 
     .progress-ring-bg,
@@ -3983,6 +4020,33 @@ img.trust-icon {
 
     .highlight-white {
         text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    }
+    
+    /* Reduce stats size on very small screens */
+    .stat-number {
+        font-size: 1.6rem !important;
+    }
+    
+    .stat h3 {
+        font-size: 1.6rem !important;
+    }
+    
+    .stat p {
+        font-size: 0.8rem !important;
+    }
+    
+    .circular-stat {
+        min-width: 90px !important;
+    }
+
+    .circular-progress {
+        width: 90px !important;
+        height: 90px !important;
+    }
+
+    .progress-ring {
+        max-width: 90px !important;
+        max-height: 90px !important;
     }
 
     .participant-groups {
@@ -5160,6 +5224,8 @@ h2 {
     justify-content: center;
     border-radius: 12px;
     white-space: nowrap;
+    font-size: 1.30rem;
+    font-weight: 800;
     box-shadow: 
         0 10px 30px rgba(212, 175, 55, 0.3),
         0 0 30px rgba(212, 175, 55, 0.2),
@@ -5416,6 +5482,14 @@ h2 {
     text-align: center;
     margin-top: -1rem;
     margin-bottom: 1rem;
+}
+
+.auth-header a img {
+    transition: transform 0.3s ease;
+}
+
+.auth-header a:hover img {
+    transform: scale(1.1);
 }
 
 .auth-header h1 {
@@ -6675,7 +6749,7 @@ form#login-form .form-group .checkbox-container input[type="checkbox"]:checked +
 /* Mobile styles for unified How It Works hero */
 @media (max-width: 768px) {
     body.how-it-works-page .hero {
-        padding: 2rem 0 !important;
+        padding: 5rem 0 2rem !important;
         min-height: calc(100vh - 80px) !important; /* Full screen minus navbar */
         height: calc(100vh - 80px) !important;
         max-height: calc(100vh - 80px) !important;
@@ -6684,7 +6758,7 @@ form#login-form .form-group .checkbox-container input[type="checkbox"]:checked +
         background-size: cover !important;
         background-position: center !important;
         display: flex !important;
-        align-items: center !important;
+        align-items: flex-start !important;
         justify-content: center !important;
     }
 
@@ -6756,9 +6830,15 @@ body.prizes-page .hero,
     body.prizes-page .hero,
     .prizes-page section.hero,
     .prizes-page .hero {
-        min-height: 70vh !important;
-        height: 70vh !important;
-        padding: 4rem 0 !important;
+        min-height: calc(100vh - 80px) !important;
+        height: calc(100vh - 80px) !important;
+        max-height: calc(100vh - 80px) !important;
+        padding: 5rem 0 2rem !important;
+        margin-top: 80px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
     }
 }
 
@@ -6839,6 +6919,16 @@ body.prizes-page .hero,
         justify-content: center !important;
         align-items: center !important;
         flex-wrap: wrap !important;
+    }
+    
+    /* Force buttons inside to not be full width */
+    html body .cta-buttons .btn,
+    body .cta-buttons .btn,
+    .cta-buttons .btn,
+    .cta-buttons .btn-orange-primary,
+    .cta-buttons .btn-blue-outline {
+        width: auto !important;
+        max-width: none !important;
     }
     
     /* Also keep the how-it-works page hero-cta fix */
@@ -7122,7 +7212,7 @@ body.prizes-page .hero,
         padding-top: 3rem !important;
     }
     
-    /* How It Works section - match font sizes with how-it-works.html page */
+    /* How It Works section title - ensure 2rem */
     .how-it-works-section .section-title {
         font-size: 2rem !important;
     }
@@ -7153,7 +7243,7 @@ body.prizes-page .hero,
         50% { transform: translateY(5px); opacity: 1; }
     }
     
-    /* Who Can Participate section - match font sizes with How It Works section */
+    /* Who Can Participate section - match font sizes with other sections */
     .participants-section h2 {
         font-size: 2rem !important;
     }
@@ -7200,7 +7290,6 @@ body.prizes-page .hero,
     }
     
     .cta-main-title {
-        font-size: 1.8rem !important;
         margin-bottom: 1rem !important;
     }
     
@@ -7287,7 +7376,7 @@ body.prizes-page .hero,
 }
 
 /* Desktop navbar consistency - DESKTOP ONLY (1025px+) */
-@media (min-width: 1025px) {
+@media (min-width: 1101px) {
     /* Force consistent nav-container layout */
     .navbar .nav-container {
         display: flex !important;
@@ -7344,7 +7433,7 @@ body.prizes-page .hero,
    =================================================================== */
 
 /* Small Laptops (1280px - 1366px) */
-@media (max-width: 1366px) {
+@media (min-width: 1101px) and (max-width: 1366px) {
     /* Reduce container padding to maximize space */
     .container {
         padding: 0 30px;
@@ -7364,27 +7453,56 @@ body.prizes-page .hero,
     }
     
     /* Hero section adjustments */
-    .hero {
+    .hero,
+    .hero-section,
+    html body.contact-page .hero-section,
+    html body.register-page .hero,
+    html body.winners-page .hero-section,
+    html body.leaderboard-page .hero-section {
         padding: 90px 0 40px !important;
         min-height: 500px !important;
     }
     
+    /* Move how-it-works hero content higher */
+    body.how-it-works-page .hero,
+    .how-it-works-page .hero {
+        padding-top: 0px !important;
+    }
+    
+    /* Adjust trust badge margin to stay in same position */
+    body.how-it-works-page .hero-trust-badge,
+    .how-it-works-page .hero-trust-badge {
+        margin-top: 2rem !important;
+    }
+    
     .hero h1 {
-        font-size: 2.2rem !important;
+        font-size: 2.8rem !important;
         margin-bottom: 0.6rem !important;
         line-height: 1.2 !important;
     }
     
     .hero-main {
-        font-size: 2.2rem !important;
+        font-size: 2.8rem !important;
     }
     
     .hero-highlight {
-        font-size: 2.2rem !important;
+        font-size: 2.8rem !important;
+    }
+    
+    /* How-it-works page hero title - match home page size */
+    body.how-it-works-page .hero-title,
+    .how-it-works-page .hero-title {
+        font-size: 2.8rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    body.how-it-works-page .hero-highlight,
+    .how-it-works-page .hero-highlight {
+        font-size: 2.8rem !important;
     }
     
     .hero-subtitle {
-        font-size: 0.95rem !important;
+        font-size: 1.2rem !important;
         margin: 0.6rem auto !important;
         padding-bottom: 0.5rem !important;
         max-width: 90% !important;
@@ -7452,12 +7570,12 @@ body.prizes-page .hero,
     
     /* Make both circles same size and aligned */
     .progress-ring-bg {
-        stroke-width: 9 !important;
+        stroke-width: 12 !important;
         stroke: rgba(255, 255, 255, 0.15) !important;
     }
     
     .progress-ring-fill {
-        stroke-width: 9 !important;
+        stroke-width: 12 !important;
     }
     
     /* Hide the overlay effect that creates extra rings */
@@ -7480,13 +7598,13 @@ body.prizes-page .hero,
     
     /* CTA buttons */
     .cta-buttons {
-        gap: 0.6rem !important;
-        margin-top: -2rem !important;
+        gap: 0.8rem !important;
+        margin-top: -3.5rem !important;
     }
     
     .btn {
-        padding: 0.8rem 1.5rem !important;
-        font-size: 0.95rem !important;
+        padding: 1rem 2rem !important;
+        font-size: 1.1rem !important;
     }
     
     /* How it works - keep 4 in a row for 1281px-1366px ONLY */
@@ -7525,11 +7643,31 @@ body.prizes-page .hero,
     }
 }
 
-/* Very Small Laptops (1280px and below) - CRITICAL FOR 1280×720 */
-@media (max-width: 1280px) {
+/* Very Small Laptops (1281px to 1366px) - CRITICAL FOR small desktops */
+@media (min-width: 1281px) and (max-width: 1366px) {
     /* Further reduce padding */
     .container {
         padding: 0 25px;
+    }
+    
+    /* Fix white space between navbar and hero for Home, How It Works, and Prizes pages */
+    .main-container {
+        margin-top: 0 !important;
+    }
+    
+    .hero,
+    .hero-section,
+    body.prizes-page .hero,
+    body.how-it-works-page .hero,
+    .prizes-page .hero,
+    .how-it-works-page .hero,
+    html body.contact-page .hero-section,
+    html body.register-page .hero,
+    html body.winners-page .hero-section,
+    html body.leaderboard-page .hero-section {
+        margin-top: 0 !important;
+        padding-bottom: 40px !important;
+        min-height: 500px !important;
     }
     
     .nav-container {
@@ -7544,36 +7682,60 @@ body.prizes-page .hero,
     .nav-menu {
         gap: 1rem;
     }
-    
-    .nav-logo img {
-        height: 42px;
-    }
-    
+}
+
+/* Additional styles for all screens 1280px and below (including mobile/tablet with hamburger) */
+@media (max-width: 1280px) {
     /* Hero adjustments for small screens */
     .hero {
-        padding: 80px 0 30px !important;
+        padding: 120px 0 30px !important;
         min-height: 450px !important;
+        margin-top: 0 !important;
+    }
+    
+    /* Move how-it-works hero content higher */
+    body.how-it-works-page .hero,
+    .how-it-works-page .hero {
+        padding-top: 40px !important;
+    }
+    
+    /* Adjust trust badge margin to stay in same position */
+    body.how-it-works-page .hero-trust-badge,
+    .how-it-works-page .hero-trust-badge {
+        margin-top: 1rem !important;
     }
     
     .hero h1 {
-        font-size: 1.8rem !important;
+        font-size: 2.5rem !important;
         line-height: 1.15 !important;
         margin-bottom: 0.5rem !important;
     }
     
     .hero-main {
-        font-size: 1.8rem !important;
+        font-size: 2.5rem !important;
     }
     
     .hero-highlight {
-        font-size: 1.8rem !important;
+        font-size: 2.5rem !important;
+    }
+    
+    /* How-it-works page hero title - match home page size */
+    body.how-it-works-page .hero-title,
+    .how-it-works-page .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.15 !important;
+    }
+    
+    body.how-it-works-page .hero-highlight,
+    .how-it-works-page .hero-highlight {
+        font-size: 2.5rem !important;
     }
     
     .hero-subtitle {
-        font-size: 0.9rem !important;
+        font-size: 1.15rem !important;
         margin: 0.5rem auto !important;
         padding-bottom: 0.4rem !important;
-        max-width: 90% !important;
+        max-width: 100% !important;
         line-height: 1.35 !important;
     }
     
@@ -7629,12 +7791,12 @@ body.prizes-page .hero,
     
     /* Make both circles same size and aligned */
     .progress-ring-bg {
-        stroke-width: 9 !important;
+        stroke-width: 12 !important;
         stroke: rgba(255, 255, 255, 0.15) !important;
     }
     
     .progress-ring-fill {
-        stroke-width: 9 !important;
+        stroke-width: 12 !important;
     }
     
     /* Hide the overlay effect that creates extra rings */
@@ -7657,17 +7819,18 @@ body.prizes-page .hero,
     
     /* CTA buttons */
     .cta-buttons {
-        gap: 0.5rem !important;
-        margin-top: -1.5rem !important;
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 0.6rem !important;
+        margin-top: -3rem !important;
         flex-wrap: wrap !important;
+        justify-content: center !important;
     }
-    
+
     .btn {
-        padding: 0.7rem 1.3rem !important;
-        font-size: 0.9rem !important;
-    }
-    
-    .stat-item {
+        padding: 0.95rem 1.8rem !important;
+        font-size: 1.05rem !important;
+    }    .stat-item {
         padding: 1rem;
     }
     
@@ -7802,11 +7965,72 @@ body.prizes-page .hero,
     
     /* Hero for tablets */
     .hero h1 {
-        font-size: 3.2rem;
+        font-size: 3.8rem;
+    }
+    
+    /* Increase space between hero stats and buttons on tablets */
+    .hero .hero-stats {
+        margin-bottom: 6rem !important;
     }
     
     .hero-title {
-        font-size: 3.2rem !important;
+        font-size: 3.8rem !important;
+    }
+    
+    .hero-main {
+        font-size: 3.8rem !important;
+    }
+    
+    .hero-highlight {
+        font-size: 3.8rem !important;
+    }
+    
+    /* Ensure all parts of hero-title are same size on tablets */
+    body.how-it-works-page .hero-title,
+    .how-it-works-page .hero-title {
+        font-size: 3.8rem !important;
+    }
+    
+    /* Increase gap between buttons and trust badge on tablets */
+    body.how-it-works-page .hero-trust-badge,
+    .how-it-works-page .hero-trust-badge {
+        margin-top: 4.5rem !important;
+    }
+    
+    /* Fix prizes page hero title size on tablets */
+    body.prizes-page .hero-title,
+    .prizes-page .hero-title {
+        font-size: 3.8rem !important;
+    }
+    
+    body.prizes-page .hero-subtitle-text,
+    .prizes-page .hero-subtitle-text {
+        font-size: 3.8rem !important;
+    }
+    
+    body.register-page .hero-title,
+    .register-page .hero-title {
+        font-size: 3.8rem !important;
+    }
+    
+    body.register-page .hero-highlight,
+    .register-page .hero-highlight {
+        font-size: 3.8rem !important;
+    }
+    
+    .hero-subtitle {
+        display: block !important; /* Show subtitle on tablets */
+        font-size: 1.5rem !important;
+    }
+    
+    /* Hero buttons for tablets */
+    .btn,
+    .btn-primary-hero,
+    .btn-secondary-hero,
+    .btn-orange-primary,
+    .btn-blue-outline {
+        padding: 1.1rem 2.2rem !important;
+        font-size: 1.2rem !important;
     }
     
     /* 2-column layouts for tablets */
@@ -7906,10 +8130,26 @@ body.prizes-page .hero,
         display: block;
     }
     
-    /* Hero mobile */
-    .hero {
-        padding: 100px 0 50px;
-        min-height: 500px;
+    /* Hero mobile - Full screen for modern mobile experience */
+    .hero,
+    #home.hero,
+    section#home.hero {
+        position: relative !important;
+        min-height: calc(100vh - 80px) !important;
+        height: calc(100vh - 80px) !important;
+        max-height: calc(100vh - 80px) !important;
+        padding: 5rem 0 5rem !important;
+        margin-top: 80px !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Reduce margins on hero stats for mobile to fit content */
+    .hero .hero-stats {
+        margin: 0.5rem 0 !important;
     }
     
     .hero h1 {
@@ -7920,8 +8160,82 @@ body.prizes-page .hero,
         font-size: 2.5rem !important;
     }
     
+    body.prizes-page .hero-subtitle-text,
+    .prizes-page .hero-subtitle-text {
+        font-size: 2.5rem !important;
+    }
+    
+    body.register-page .hero-highlight,
+    .register-page .hero-highlight {
+        font-size: 2.5rem !important;
+    }
+    
     .hero-subtitle {
         font-size: 0.95rem;
+    }
+    
+    /* Hero golden line and stats - constrain width on mobile */
+    .hero-content {
+        padding: 0 2.5% !important;
+        max-width: 100% !important;
+        margin-top: 0 !important;
+    }
+    
+    /* Reduce spacing on title and subtitle */
+    .hero .hero-title,
+    .hero h1 {
+        margin-top: 0 !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* Home page specific subtitle spacing */
+    section#home .hero-subtitle,
+    #home.hero .hero-subtitle,
+    body:not(.register-page):not(.contact-page):not(.prizes-page):not(.winners-page):not(.leaderboard-page):not(.how-it-works-page) .hero .hero-subtitle {
+        margin-bottom: 20.5rem !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    /* Home page specific golden line spacing */
+    section#home .golden-line,
+    #home.hero .golden-line {
+        width: 195vw !important;
+        min-width: 195vw !important;
+        max-width: 195vw !important;
+        margin-left: calc((100vw - 95vw) / 2) !important;
+        margin-right: calc((100vw - 95vw) / 2) !important;
+        margin-top: 11.5rem !important;
+        margin-bottom: 11rem !important;
+    }
+    
+    .hero .hero-stats {
+        width: 95% !important;
+        max-width: 95% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 1rem !important;
+        padding: 0 !important;
+    }
+    
+    /* Home page specific hero-stats margin */
+    section#home .hero-stats,
+    #home.hero .hero-stats {
+        margin-top: 1.5rem !important;
+    }
+    
+    .hero .hero-stats::before,
+    .hero-stats::before {
+        width: 110vw !important;
+        min-width: 110vw !important;
+        max-width: 110vw !important;
+        top: -13.5rem !important;
+    }
+    
+    /* Move hero buttons down on mobile - Home page only */
+    section#home .hero-cta,
+    section#home .cta-buttons,
+    #home.hero .cta-buttons {
+        margin-top: 3rem !important;
     }
     
     /* Single column layouts */
@@ -7940,9 +8254,24 @@ body.prizes-page .hero,
         text-align: center;
     }
     
-    /* Section titles */
+    /* CTA buttons spacing on mobile - override all previous rules */
+    .cta-buttons {
+        gap: 1.1rem !important;
+    }
+    
+    /* Section titles - standardized to 2rem */
     .section-title {
-        font-size: 1.6rem;
+        font-size: 2rem;
+    }
+    
+    /* Prize Structure section title - override specific h2 styling */
+    .prizes-section h2 {
+        font-size: 2rem !important;
+    }
+    
+    /* Turn Your Success Into Rewards section - larger at 2rem */
+    .cta-main-title {
+        font-size: 2rem !important;
     }
     
     /* Cards */
@@ -7960,6 +8289,16 @@ body.prizes-page .hero,
     }
     
     .hero-title {
+        font-size: 2.2rem !important;
+    }
+    
+    body.prizes-page .hero-subtitle-text,
+    .prizes-page .hero-subtitle-text {
+        font-size: 2.2rem !important;
+    }
+    
+    body.register-page .hero-highlight,
+    .register-page .hero-highlight {
         font-size: 2.2rem !important;
     }
     

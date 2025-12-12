@@ -328,7 +328,7 @@ exports.getMe = async (req, res) => {
 // @access  Private
 exports.updateProfile = async (req, res) => {
     try {
-        const allowedFields = ['firstName', 'lastName', 'phone', 'company', 'address', 'city', 'province', 'postalCode'];
+        const allowedFields = ['firstName', 'lastName', 'phone', 'company', 'address', 'city', 'province', 'postalCode', 'showPublicly'];
         const updates = {};
 
         allowedFields.forEach(field => {

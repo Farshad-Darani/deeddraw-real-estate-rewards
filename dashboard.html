@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    
+    <meta name="theme-color" content="#1E2A38">
+    <meta name="robots" content="noindex, nofollow">
+    
     <title>Dashboard - DeedDraw</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -199,7 +209,7 @@
 <body>
     <!-- STEP 1: Clean Header Only -->
     <nav class="navbar">
-        <div class="nav-container">
+        <div class="nav-container" style="position: relative;">
             <!-- Logo -->
             <div class="nav-logo">
                 <a href="index.html" style="display: block; cursor: pointer;">
@@ -209,8 +219,9 @@
             
             <!-- Dashboard Title (Desktop Only) -->
             <div class="dashboard-title" style="
-                flex: 1;
-                text-align: center;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
                 color: #f8fafc;
                 font-size: 1.5rem;
                 font-weight: 800;
@@ -1004,7 +1015,7 @@
             <!-- Referral Section Header -->
             <div style="margin-bottom: 3rem; text-align: center;">
                 <h2 style="color: #1e293b; margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Refer & Earn</h2>
-                <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto;">Share DeedDraw with colleagues and earn $100 per point for each successful referral</p>
+                <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto;">Share DeedDraw with others and earn $100 per point for each successful referral</p>
             </div>
 
             <!-- Main Referral Card -->
@@ -1362,6 +1373,36 @@
                     </div>
                 </div>
 
+                <!-- Privacy Settings -->
+                <div style="
+                    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+                    backdrop-filter: blur(15px);
+                    padding: 2rem;
+                    border-radius: 20px;
+                    border: 2px solid rgba(51, 65, 85, 0.4);
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                ">
+                    <h3 style="color: #f8fafc; font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
+                        <i class="fas fa-eye-slash" style="margin-right: 0.5rem; color: #cbd5e1;"></i>
+                        Privacy Settings
+                    </h3>
+                    
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 10px; border: 1px solid rgba(226, 232, 240, 0.2);">
+                        <input type="checkbox" id="show-publicly" checked style="
+                            width: 20px;
+                            height: 20px;
+                            cursor: pointer;
+                            accent-color: #334155;
+                        ">
+                        <label for="show-publicly" style="color: #cbd5e1; font-size: 0.95rem; cursor: pointer; flex: 1;">
+                            <strong style="color: #f8fafc;">Display my name on public leaderboards</strong>
+                            <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.25rem;">
+                                When unchecked, your name will appear as "Anonymous" on leaderboards and you won't appear in search results. Your rank and points will still be visible.
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
                 <!-- Security -->
                 <div style="
                     background: linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
@@ -1653,6 +1694,7 @@
                 const province = document.getElementById('profile-province').value.trim();
                 const city = document.getElementById('profile-city').value.trim();
                 const category = document.getElementById('profile-category').value;
+                const showPublicly = document.getElementById('show-publicly').checked;
                 
                 // Split full name into first and last name
                 const nameParts = fullName.split(' ');
@@ -1687,7 +1729,8 @@
                         phoneNumber: phoneNumber || null,
                         province: province || null,
                         city: city || null,
-                        category
+                        category,
+                        showPublicly
                     })
                 });
                 
@@ -2251,6 +2294,7 @@
                         const profilePhoneField = document.getElementById('profile-phone');
                         const profileProvinceField = document.getElementById('profile-province');
                         const profileCityField = document.getElementById('profile-city');
+                        const showPubliclyField = document.getElementById('show-publicly');
                         
                         if (profileNameField) profileNameField.value = user.firstName + ' ' + user.lastName;
                         if (profileEmailField) profileEmailField.value = user.email;
@@ -2258,6 +2302,7 @@
                         if (profilePhoneField) profilePhoneField.value = user.phone || user.phoneNumber || '';
                         if (profileProvinceField) profileProvinceField.value = user.province || '';
                         if (profileCityField) profileCityField.value = user.city || '';
+                        if (showPubliclyField) showPubliclyField.checked = user.showPublicly !== false; // default to true if not set
                         
                         // Update referral code display
                         const referralCodeElement = document.getElementById('userReferralCode');
@@ -2385,15 +2430,13 @@
                 amountInput.value = '';
             }
             
-            // Calculate points using the correct logic
+            // Calculate points using the new logic
+            // Any transaction amount earns at least 1 point
+            // $1 - $500,000 = 1 point
+            // Above $500,000: ceiling rounding (e.g., $800,000 = 2 points, $1,500,000 = 3 points)
             let points = 0;
-            if (!isNaN(amount) && amount >= 500000) {
-                // Calculate points based on 500k ranges: 500-749=1, 750-1249=2, 1250-1749=3, etc.
-                if (amount < 750000) {
-                    points = 1;
-                } else {
-                    points = Math.floor((amount - 250000) / 500000) + 1;
-                }
+            if (!isNaN(amount) && amount > 0) {
+                points = Math.ceil(amount / 500000);
             }
             
             // Update the points display
@@ -2607,13 +2650,8 @@
         }
 
         function openRulesPage() {
-            // For now, show a placeholder - you can replace this with actual page navigation
-            alert('This will redirect to the Rules and Regulations page.\n\nIn production, this would open a separate page with complete terms, conditions, and legal requirements.');
-            
-            // Example of how to navigate to rules page:
-            // window.open('rules-and-regulations.html', '_blank'); // Opens in new tab
-            // OR
-            // window.location.href = 'rules-and-regulations.html'; // Same tab
+            // Navigate to Rules & Regulations page and scroll to Legal Terms & Conditions section
+            window.open('rules.html#terms-of-service', '_blank');
         }
 
         async function processPayment() {
@@ -2772,7 +2810,30 @@
                         loadRecentActivity();
                         
                     } else {
-                        throw new Error(data.message || 'Failed to register entry');
+                        // Check if it's a 400-point limit error
+                        if (data.currentDrawing) {
+                            const remainingPoints = data.currentDrawing.remainingPoints;
+                            const totalPoints = data.currentDrawing.totalPoints;
+                            
+                            if (remainingPoints === undefined) {
+                                // Drawing is closed
+                                alert(`🔒 Current Drawing Closed\n\n` +
+                                      `The current drawing has reached the 400-point limit.\n` +
+                                      `Your registration will be accepted for the next quarterly drawing.\n\n` +
+                                      `Current Total: ${totalPoints} points\n\n` +
+                                      `Please try again when the next drawing period opens.`);
+                            } else {
+                                // Show remaining points
+                                alert(`⚠️ Registration Limit Reached\n\n` +
+                                      `${data.message}\n\n` +
+                                      `Current Drawing Status:\n` +
+                                      `• Total Points: ${totalPoints}/400\n` +
+                                      `• Remaining: ${remainingPoints} point${remainingPoints !== 1 ? 's' : ''}\n\n` +
+                                      `Please adjust your registration to ${remainingPoints} point${remainingPoints !== 1 ? 's' : ''} or less.`);
+                            }
+                        } else {
+                            throw new Error(data.message || 'Failed to register entry');
+                        }
                     }
                     
                 } catch (error) {

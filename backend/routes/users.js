@@ -38,7 +38,7 @@ router.get('/profile', protect, async (req, res) => {
 // Update user profile
 router.put('/profile', protect, async (req, res) => {
     try {
-        const { firstName, lastName, phoneNumber, company, licenseNumber, province, city, category } = req.body;
+        const { firstName, lastName, phoneNumber, company, licenseNumber, province, city, category, showPublicly } = req.body;
         
         const user = await User.findByPk(req.user.id);
         
@@ -58,6 +58,7 @@ router.put('/profile', protect, async (req, res) => {
         if (province !== undefined) user.province = province;
         if (city !== undefined) user.city = city;
         if (category) user.category = category;
+        if (showPublicly !== undefined) user.showPublicly = showPublicly;
         
         await user.save();
         

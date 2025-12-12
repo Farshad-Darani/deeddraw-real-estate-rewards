@@ -137,6 +137,12 @@ const User = sequelize.define('User', {
         type: DataTypes.DATE,
         allowNull: true,
         field: 'reset_password_expires'
+    },
+    showPublicly: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        field: 'show_publicly',
+        comment: 'Whether user name is displayed on public leaderboards'
     }
 }, {
     tableName: 'users',
@@ -202,6 +208,8 @@ User.prototype.toPublicJSON = function() {
         phone: this.phone,
         category: this.category,
         company: this.company,
+        city: this.city,
+        province: this.province,
         referralCode: this.referralCode,
         totalPoints: this.totalPoints,
         totalPaid: this.totalPaid,
@@ -209,6 +217,7 @@ User.prototype.toPublicJSON = function() {
         referralCredits: this.referralCredits,
         isVerified: this.isVerified,
         isAdmin: this.isAdmin,
+        showPublicly: this.showPublicly,
         createdAt: this.created_at
     };
 };

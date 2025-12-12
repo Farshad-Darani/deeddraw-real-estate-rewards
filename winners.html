@@ -136,8 +136,10 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="winners-hero" class="hero-section">
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section id="winners-hero" class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">Celebrate Our Winners</h1>
             <p class="hero-subtitle">Success stories from our DeedDraw community</p>
@@ -793,23 +795,15 @@
                         progressCircle.setAttribute('data-progress', progress);
                         circleFill.setAttribute('data-percentage', progress);
                         
-                        // Animate the circular progress
+                        // Set up the circle - don't animate yet, let IntersectionObserver handle it
                         const radius = 50;
                         const circumference = 2 * Math.PI * radius;
                         
-                        // Set up the circle
                         circleElement.style.strokeDasharray = `${circumference} ${circumference}`;
                         circleElement.style.strokeDashoffset = circumference;
-                        circleElement.style.transition = 'stroke-dashoffset 1.5s ease-out';
-                        circleElement.style.transform = 'rotate(-90deg)';
-                        circleElement.style.transformOrigin = '50% 50%';
                         
-                        setTimeout(() => {
-                            // progress is already a percentage (e.g., 0.75 means 0.75%)
-                            const offset = circumference - (progress / 100) * circumference;
-                            circleElement.style.strokeDashoffset = offset;
-                            percentageElement.textContent = progress.toFixed(2) + '%';
-                        }, 100);
+                        // Initialize percentage text to 0% - animation will update it
+                        percentageElement.textContent = '0%';
                     }
                     
                     // Animate points registered
@@ -921,5 +915,8 @@
             }
         });
     </script>
+
+    </div>
+    <!-- End Main Container -->
 </body>
 </html>

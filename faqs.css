@@ -45,11 +45,10 @@
 }
 
 .faqs-hero p {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     color: #b8c5d6;
-    margin: 0;
-    max-width: 600px;
     margin: 0 auto;
+    white-space: nowrap;
 }
 
 /* Search Section */
@@ -493,7 +492,8 @@
     }
     
     .faqs-hero p {
-        font-size: 1rem;
+       font-size: 1.15rem;
+       white-space: normal;
     }
     
     .faqs-search-section {

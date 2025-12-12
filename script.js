@@ -120,23 +120,17 @@ function calculatePointsAutomatically() {
     }
     
     // If input is empty or invalid, show 0 points
-    if (isNaN(amount) || amount < 0 || rawValue.trim() === '') {
+    if (isNaN(amount) || amount <= 0 || rawValue.trim() === '') {
         pointsValueElement.textContent = '0';
         registrationCostElement.textContent = '$0';
         ctaButton.style.display = 'none';
         return;
     }
     
-    let points = 0;
-    
-    if (amount >= 500000) {
-        // Calculate points based on 500k ranges: 500-749=1, 750-1249=2, 1250-1749=3, etc.
-        if (amount < 750000) {
-            points = 1;
-        } else {
-            points = Math.floor((amount - 250000) / 500000) + 1;
-        }
-    }
+    // New logic: Any transaction amount earns at least 1 point
+    // $1 - $500,000 = 1 point
+    // Above $500,000: ceiling rounding (e.g., $800,000 = 2 points, $1,500,000 = 3 points)
+    let points = Math.ceil(amount / 500000);
     
     const registrationCost = points * 2000;
     
@@ -186,23 +180,15 @@ function calculatePoints() {
     const amount = parseFloat(amountInput.value);
     const resultDiv = document.getElementById('calculator-result');
     
-    if (isNaN(amount) || amount < 0) {
+    if (isNaN(amount) || amount <= 0) {
         resultDiv.innerHTML = '<span style="color: #e74c3c;">Please enter a valid transaction amount</span>';
         return;
     }
     
-    let points = 0;
-    
-    if (amount >= 500000) {
-        if (amount < 750000) {
-            points = 1;
-        } else if (amount < 1000000) {
-            points = 2;
-        } else {
-            // For amounts over $1M, add 1 point for every additional $250k
-            points = 2 + Math.floor((amount - 1000000) / 250000);
-        }
-    }
+    // New logic: Any transaction amount earns at least 1 point
+    // $1 - $500,000 = 1 point
+    // Above $500,000: ceiling rounding (e.g., $800,000 = 2 points, $1,500,000 = 3 points)
+    let points = Math.ceil(amount / 500000);
     
     const registrationCost = points * 2000;
     

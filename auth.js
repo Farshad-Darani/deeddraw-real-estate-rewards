@@ -348,6 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const firstName = document.getElementById('reg-first-name').value.trim();
         const lastName = document.getElementById('reg-last-name').value.trim();
         const email = document.getElementById('reg-email').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
         const category = document.getElementById('reg-category').value;
         const password = document.getElementById('reg-password').value;
         const confirmPassword = document.getElementById('reg-confirm-password').value;
@@ -414,7 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     lastName,
                     email,
                     password,
-                    phone: '+1-000-000-0000', // Default phone, can be updated later
+                    phone: phone || null, // Send phone if provided, otherwise null
                     category: category, // Use selected category from form
                     recaptchaToken: recaptchaResponse
                 })

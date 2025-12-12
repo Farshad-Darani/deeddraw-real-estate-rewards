@@ -62,10 +62,11 @@ exports.searchParticipants = async (req, res) => {
             });
         }
 
-        // Search for users with verified transactions
+        // Search for users with verified transactions - exclude private users
         const users = await User.findAll({
             where: {
                 isAdmin: false,
+                showPublicly: true,  // Only show users who opted to be public
                 [Op.or]: [
                     {
                         firstName: {
@@ -131,14 +132,14 @@ exports.getLeaderboard = async (req, res) => {
                     [Op.gt]: 0
                 }
             },
-            attributes: ['id', 'firstName', 'lastName', 'category', 'city', 'province', 'totalPoints', [Sequelize.col('created_at'), 'createdAt']],
+            attributes: ['id', 'firstName', 'lastName', 'category', 'city', 'province', 'totalPoints', 'showPublicly', [Sequelize.col('created_at'), 'createdAt']],
             order: [['totalPoints', 'DESC'], [Sequelize.col('created_at'), 'ASC']],
             limit: 10
         });
 
-        // Build leaderboard
+        // Build leaderboard - hide name if showPublicly is false
         const leaderboard = users.map(user => ({
-            name: `${user.firstName} ${user.lastName}`,
+            name: user.showPublicly !== false ? `${user.firstName} ${user.lastName}` : 'Anonymous',
             category: user.category,
             location: user.city && user.province ? `${user.city}, ${user.province}` : 'N/A',
             points: user.totalPoints || 0,

@@ -344,11 +344,12 @@ body.how-it-works-page .hero-trust-badge span {
     /* Fix hero content positioning on mobile */
     body.how-it-works-page .hero-content {
         padding-bottom: 4rem !important;
+        padding-top: 8rem !important;
     }
     
     body.how-it-works-page .hero-title {
         margin-top: 0 !important;
-        padding-top: 2rem !important;
+        padding-top: 0rem !important;
     }
     
     body.how-it-works-page .hero-subtitle {
@@ -361,7 +362,7 @@ body.how-it-works-page .hero-trust-badge span {
     }
     
     body.how-it-works-page .hero-trust-badge {
-        margin-top: 9rem !important;
+        margin-top: 7rem !important;
         margin-bottom: -5rem !important;
     }
     
@@ -727,6 +728,26 @@ body.how-it-works-page .hero-trust-badge span {
 .about-content-block:hover .about-icon {
     transform: scale(1.1);
     color: #F1F5F9;
+}
+
+/* Tablet - force 3 columns in one row (iPad 11" is around 834px) */
+@media (min-width: 769px) and (max-width: 1194px) {
+    .about-content-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1.2rem !important;
+    }
+    
+    .about-content-block {
+        padding: 1.5rem 0.8rem;
+    }
+    
+    .about-block-title {
+        font-size: 1.4rem;
+    }
+    
+    .about-block-description {
+        font-size: 1rem;
+    }
 }
 
 /* Mobile Responsiveness */
@@ -1428,11 +1449,24 @@ body.how-it-works-page .hero .golden-line {
     margin-bottom: 0rem !important;
 }
 
+/* Tablet and smaller desktop screens - move golden line below subtitle */
+@media (max-width: 1366px) {
+    body.how-it-works-page .hero .golden-line {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+}
+
 /* Mobile hero golden line - even tighter spacing */
 @media (max-width: 768px) {
     body.how-it-works-page .hero .golden-line {
         margin-top: 0.75rem !important;
         margin-bottom: 0.75rem !important;
+        width: 110vw !important;
+        min-width: 110vw !important;
+        max-width: 110vw !important;
+        margin-left: calc((100vw - 110vw) / 2) !important;
+        margin-right: calc((100vw - 110vw) / 2) !important;
     }
 }
 
