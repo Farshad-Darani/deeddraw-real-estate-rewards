@@ -8,13 +8,22 @@ backend/config/database.js
 
 # Environment variables
 .env
-.env.local
-.env.production
+.env.*
+backend/.env
+backend/.env.*
 
 # SSH and deployment scripts (contain passwords/IPs)
 ssh_*.sh
 *_ssh.sh
+upload_*.sh
 vps_setup.sh
+*_restart*.sh
+check_and_restart.sh
+start_permanent_server.sh
+
+# Personal files
+*.pdf
+CV_*.pdf
 
 # Node modules
 node_modules/
